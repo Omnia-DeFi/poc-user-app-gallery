@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
@@ -7,7 +8,7 @@ import ProductBid from "@components/product-bid";
 import { ImageType } from "@utils/types";
 import PlaceBidModal from "@components/modals/placebid-modal";
 
-const Product = ({ overlay, title, slug, price, image, placeBid }) => {
+const Product = ({ overlay, title, slug, price, image, placeBid, swipe }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
         setShowBidModal((prev) => !prev);
@@ -22,16 +23,25 @@ const Product = ({ overlay, title, slug, price, image, placeBid }) => {
                 )}
             >
                 <div className="card-thumbnail mb--30">
-                    {image?.src && (
-                        <Anchor path={`/product/${slug}`}>
+                    {swipe
+                        ? image?.src && (
                             <Image
                                 src={image.src}
                                 alt={image?.alt || "NFT_portfolio"}
                                 width={533}
                                 height={533}
                             />
-                        </Anchor>
-                    )}
+                        )
+                        : image?.src && (
+                            <Anchor path={`/product/${slug}`}>
+                                <Image
+                                    src={image.src}
+                                    alt={image?.alt || "NFT_portfolio"}
+                                    width={533}
+                                    height={533}
+                                />
+                            </Anchor>
+                        )}
                 </div>
                 <Anchor path={`/product/${slug}`}>
                     <span className="product-name">{title}</span>
@@ -53,6 +63,7 @@ Product.propTypes = {
     }).isRequired,
     image: ImageType.isRequired,
     placeBid: PropTypes.bool,
+    swipe: PropTypes.bool,
 };
 
 Product.defaultProps = {
