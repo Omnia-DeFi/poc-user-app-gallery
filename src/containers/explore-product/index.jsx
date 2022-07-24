@@ -147,7 +147,7 @@ const ExploreProductArea = ({ className, space, data }) => {
                 />
                 {swipe ? (
                     <div className="swipe-main-content">
-                        <SwipeProduct data={data} />
+                        <SwipeProduct data={data} swipe />
                     </div>
                 ) : (
                     <div className="row g-5">
@@ -170,6 +170,7 @@ const ExploreProductArea = ({ className, space, data }) => {
                                             image={prod.images?.[0]}
                                             authors={prod.authors}
                                             bitCount={prod.bitCount}
+                                            swipe
                                         />
                                     </div>
                                 ))}

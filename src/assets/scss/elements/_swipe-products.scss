@@ -15,10 +15,24 @@
 }
 
 .swipe-main-content {
-  margin: 80px 0px;
+  margin: 60px 0px;
   display: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.swipe-right-arrow {
+  position: absolute;
+  font-size: 50px;
+  bottom: 120px;
+  right: -120px;
+}
+
+.swipe-left-arrow {
+  position: absolute;
+  font-size: 50px;
+  bottom: 120px;
+  left: -120px
 }
