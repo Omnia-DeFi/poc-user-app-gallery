@@ -1,4 +1,4 @@
-import { useReducer, useRef, useEffect, useCallback } from "react";
+import { useReducer, useRef, useEffect, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import SectionTitle from "@components/section-title";
@@ -7,6 +7,7 @@ import ProductFilter from "@components/product-filter";
 import FilterButton from "@ui/filter-button";
 import { slideToggle } from "@utils/methods";
 import { SectionTitleType, ProductType } from "@utils/types";
+import SwipeProduct from "@containers/swipe-product";
 
 function reducer(state, action) {
     switch (action.type) {
@@ -22,6 +23,7 @@ function reducer(state, action) {
 }
 
 const ExploreProductArea = ({ className, space, data }) => {
+    const [swipe, setSwipe] = useState(false);
     const itemsToFilter = [...data.products];
     const [state, dispatch] = useReducer(reducer, {
         filterToggle: false,
@@ -116,7 +118,6 @@ const ExploreProductArea = ({ className, space, data }) => {
                         />
                     </div>
                 </div>
-
                 <ProductFilter
                     ref={filterRef}
                     slectHandler={slectHandler}
@@ -124,34 +125,40 @@ const ExploreProductArea = ({ className, space, data }) => {
                     priceHandler={priceHandler}
                     inputs={state.inputs}
                 />
-                <div className="row g-5">
-                    {state.products.length > 0 ? (
-                        <>
-                            {state.products.slice(0, 10).map((prod) => (
-                                <div
-                                    key={prod.id}
-                                    className="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
-                                >
-                                    <Product
-                                        overlay
-                                        placeBid={!!data.placeBid}
-                                        title={prod.title}
-                                        slug={prod.slug}
-                                        latestBid={prod.latestBid}
-                                        price={prod.price}
-                                        likeCount={prod.likeCount}
-                                        auction_date={prod.auction_date}
-                                        image={prod.images?.[0]}
-                                        authors={prod.authors}
-                                        bitCount={prod.bitCount}
-                                    />
-                                </div>
-                            ))}
-                        </>
-                    ) : (
-                        <p>No item to show</p>
-                    )}
-                </div>
+                {swipe ? (
+                    <div className="swipe-main-content">
+                        <SwipeProduct data={data} />
+                    </div>
+                ) : (
+                    <div className="row g-5">
+                        {state.products.length > 0 ? (
+                            <>
+                                {state.products.slice(0, 10).map((prod) => (
+                                    <div
+                                        key={prod.id}
+                                        className="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
+                                    >
+                                        <Product
+                                            overlay
+                                            placeBid={!!data.placeBid}
+                                            title={prod.title}
+                                            slug={prod.slug}
+                                            latestBid={prod.latestBid}
+                                            price={prod.price}
+                                            likeCount={prod.likeCount}
+                                            auction_date={prod.auction_date}
+                                            image={prod.images?.[0]}
+                                            authors={prod.authors}
+                                            bitCount={prod.bitCount}
+                                        />
+                                    </div>
+                                ))}
+                            </>
+                        ) : (
+                            <p>No item to show</p>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );

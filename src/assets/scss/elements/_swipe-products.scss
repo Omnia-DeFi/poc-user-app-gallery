@@ -1,0 +1,24 @@
+.swipe-card {
+  position: relative;
+  max-width: 300px;
+}
+
+.swipe-card-container {
+  width: 90vw;
+  max-width: 260px;
+  height: 300px;
+}
+
+.swipe {
+  position: absolute;
+  z-index: 100;
+}
+
+.swipe-main-content {
+  margin: 80px 0px;
+  display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
