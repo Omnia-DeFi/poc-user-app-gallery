@@ -8,6 +8,7 @@ import FilterButton from "@ui/filter-button";
 import { slideToggle } from "@utils/methods";
 import { SectionTitleType, ProductType } from "@utils/types";
 import SwipeProduct from "@containers/swipe-product";
+import Button from "@ui/button";
 
 function reducer(state, action) {
     switch (action.type) {
@@ -112,10 +113,29 @@ const ExploreProductArea = ({ className, space, data }) => {
                         )}
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
-                        <FilterButton
-                            open={state.filterToggle}
-                            onClick={filterHandler}
-                        />
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                            }}
+                        >
+                            <Button
+                                onClick={() =>
+                                    setSwipe((prevSwipe) => !prevSwipe)
+                                }
+                                className="mx-4"
+                                data-sal-delay="150"
+                                data-sal="slide-up"
+                                data-sal-duration="800"
+                                size="medium"
+                            >
+                                Swipe
+                            </Button>
+                            <FilterButton
+                                open={state.filterToggle}
+                                onClick={filterHandler}
+                            />
+                        </div>
                     </div>
                 </div>
                 <ProductFilter

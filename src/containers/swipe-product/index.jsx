@@ -7,7 +7,7 @@ const SwipeProduct = ({ data }) => (
     <div className="swipe-card-container">
         {data.products.slice(0, 10).map((prod) => (
             <div className="swipe" key={prod.id}>
-                <TinderCard>
+                <TinderCard preventSwipe={["up", "down"]}>
                     <div className="swipe-card">
                         <Product
                             overlay
