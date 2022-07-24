@@ -1,5 +1,5 @@
 .swipe-card {
-  position: relative;
+  // position: relative;
   max-width: 300px;
 }
 
@@ -11,7 +11,7 @@
 
 .swipe {
   position: absolute;
-  z-index: 100;
+  z-index: 10;
 }
 
 .swipe-main-content {
