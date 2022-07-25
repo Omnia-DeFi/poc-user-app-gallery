@@ -38,7 +38,7 @@ const ContactTopArea = ({ space, className }) => (
                     <AddressBox
                         icon="feather-headphones"
                         title="Contact Phone Number"
-                        phoneNumbers={["+444 555 666 777", "+222 222 222 333"]}
+                        phoneNumbers={["+444 555 666 777"]}
                     />
                 </div>
                 <div
@@ -50,7 +50,7 @@ const ContactTopArea = ({ space, className }) => (
                     <AddressBox
                         icon="feather-mail"
                         title="Our Email Address"
-                        emails={["admin@gmail.com", "example@gmail.com"]}
+                        emails={["info@omniadefi.com"]}
                     />
                 </div>
                 <div
@@ -62,7 +62,7 @@ const ContactTopArea = ({ space, className }) => (
                     <AddressBox
                         icon="feather-map-pin"
                         title="Our Location"
-                        address="5678 Bangla Main Road, cities 580 <br> GBnagla, example 54786"
+                        address="Home Grown Club <br> 44 Great Cumberland Place <br> London W1H 7BS, England"
                     />
                 </div>
             </div>
