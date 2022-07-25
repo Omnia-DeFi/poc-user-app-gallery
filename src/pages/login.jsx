@@ -14,7 +14,10 @@ const Login = () => (
         <SEO pageTitle="Log In" />
         <Header />
         <main id="main-content">
-            <Breadcrumb pageTitle="Nuron Login" currentPage="Nuron Login" />
+            <Breadcrumb
+                pageTitle="Omnia DeFi Login"
+                currentPage="Omnia DeFi Login"
+            />
             <LoginArea />
         </main>
         <Footer />
