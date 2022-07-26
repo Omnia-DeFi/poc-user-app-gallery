@@ -252,6 +252,7 @@
         }
         h4 {
             &.title {
+                color: var(--color-primary);
                 font-size: 30px;
                 margin-bottom: 0;
                 @media #{$small-mobile} {
