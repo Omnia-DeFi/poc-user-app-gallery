@@ -339,12 +339,12 @@
 
 .rn-bid-details {
     margin-top: 40px;
-    .buy-btn{
-        &:hover .bid-amount{
+    .buy-btn {
+        &:hover .bid-amount {
             color: var(--color-black) !important;
         }
         .bid-amount {
-            margin-right:12px;
+            margin-right: 12px;
             font-weight: 500;
             color: var(--color-primary);
         }
@@ -479,8 +479,6 @@
             .heighest-bid {
                 font-size: 16px;
             }
-
-            
         }
     }
 

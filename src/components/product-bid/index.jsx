@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 const ProductBid = ({ price }) => (
     <div className="bid-react-area">
         <div className="last-bid">
-            {price.amount}{" "}
-            {price.currency}
+            {price.amount} {price.currency}
         </div>
     </div>
 );
