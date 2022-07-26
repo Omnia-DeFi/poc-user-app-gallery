@@ -6,8 +6,8 @@
         "published_at": "20-JUN-2021 08:03:00",
         "latestBid": "6/30",
         "price": {
-            "amount": 0.244,
-            "currency": "wETH"
+            "amount": "244,000",
+            "currency": "USDC"
         },
         "likeCount": 322,
         "categories": ["music", "video"],
@@ -23,191 +23,51 @@
             }
         ],
         "auction_date": "2024-10-08",
-        "authors": [
-            {
-                "name": "Mark Jordan",
-                "slug": "/author",
-                "image": {
-                    "src": "/images/client/client-2.png"
-                }
-            },
-            {
-                "name": "Farik Shaikh",
-                "slug": "/author",
-                "image": {
-                    "src": "/images/client/client-3.png"
-                }
-            },
-            {
-                "name": "John Doe",
-                "slug": "/author",
-                "image": {
-                    "src": "/images/client/client-5.png"
-                }
-            }
-        ],
         "bitCount": 15,
         "owner": {
-            "name": "Brodband",
+            "name": "Texas Estate News",
             "slug": "/author",
             "image": {
-                "src": "/images/client/client-1.png"
+                "src": "/images/client/client-1.jpg"
             }
         },
-        "collection": {
-            "name": "Art Decco",
-            "slug": "/collection",
-            "image": {
-                "src": "/images/client/client-2.png"
-            },
-            "total_sale": "2500,000"
-        },
-        "bids": [
-            {
-                "id": 1,
-                "user": {
-                    "name": "Allen Waltker",
-                    "slug": "/author",
-                    "image": {
-                        "src": "/images/client/client-3.png"
-                    }
-                },
-                "amount": "0.234wETH",
-                "bidAt": "1 hours ago"
-            },
-            {
-                "id": 2,
-                "user": {
-                    "name": "Joe Biden",
-                    "slug": "/author",
-                    "image": {
-                        "src": "/images/client/client-4.png"
-                    }
-                },
-                "amount": "0.09wETH",
-                "bidAt": "1.30 hours ago"
-            },
-            {
-                "id": 3,
-                "user": {
-                    "name": "Sonial Mridha",
-                    "slug": "/author",
-                    "image": {
-                        "src": "/images/client/client-5.png"
-                    }
-                },
-                "amount": "0.07wETH",
-                "bidAt": "1.35 hours ago"
-            },
-            {
-                "id": 4,
-                "user": {
-                    "name": "Tribute Dhusra",
-                    "slug": "/author",
-                    "image": {
-                        "src": "/images/client/client-6.png"
-                    }
-                },
-                "amount": "0.07wETH",
-                "bidAt": "1.55 hours ago"
-            },
-            {
-                "id": 5,
-                "user": {
-                    "name": "Sonia Sobnom",
-                    "slug": "/author",
-                    "image": {
-                        "src": "/images/client/client-7.png"
-                    }
-                },
-                "amount": "0.07wETH",
-                "bidAt": "2 hours ago"
-            },
-            {
-                "id": 6,
-                "user": {
-                    "name": "Sadia Rummon",
-                    "slug": "/author",
-                    "image": {
-                        "src": "/images/client/client-8.png"
-                    }
-                },
-                "amount": "0.07wETH",
-                "bidAt": "2.5 hours ago"
-            }
-        ],
         "properties": [
             {
                 "id": 1,
-                "type": "HYPE TYPE",
-                "value": "CALM AF (STILL)"
+                "type": "COUNTRY",
+                "value": "USA"
+            },
+            {
+                "id": 1,
+                "type": "REGION",
+                "value": "Texas"
             },
             {
                 "id": 2,
-                "type": "BASTARDNESS",
-                "value": "C00LIO BASTARD"
+                "type": "HOUSING TYPE",
+                "value": "Private"
             },
             {
                 "id": 3,
-                "type": "TYPE",
-                "value": "APE"
-            },
-            {
-                "id": 4,
-                "type": "ASTARDNESS",
-                "value": "BASTARD"
-            },
-            {
-                "id": 5,
-                "type": "BAD HABIT(S)",
-                "value": "PIPE"
-            },
-            {
-                "id": 6,
-                "type": "BID",
-                "value": "BPEYti"
-            },
-            {
-                "id": 7,
-                "type": "ASTRAGENAKAR",
-                "value": "BASTARD"
-            },
-            {
-                "id": 8,
-                "type": "CITY",
-                "value": "TOKYO"
+                "type": "AGE",
+                "value": "19th Century"
             }
         ],
         "tags": [
             {
                 "id": 1,
-                "type": "ZARY",
-                "value": "APP"
+                "type": "CONSTRUCTION MATERIAL",
+                "value": "Bricks"
             },
             {
                 "id": 2,
-                "type": "SOMALIAN",
-                "value": "TRIBUTE"
+                "type": "AGE STATUS",
+                "value": "Renovated"
             },
             {
-                "id": 3,
-                "type": "TUNA",
-                "value": "PIPE"
-            },
-            {
-                "id": 4,
-                "type": "BID",
-                "value": "BPEYti"
-            },
-            {
-                "id": 5,
-                "type": "ASTRAGENAKAR",
-                "value": "BASTARD"
-            },
-            {
-                "id": 8,
-                "type": "CITY",
-                "value": "TOKYO"
+                "id": 2,
+                "type": "BRACKET RANGE",
+                "value": "< $1M"
             }
         ],
         "history": [
@@ -272,16 +132,6 @@
                 "bidAt": "2 hours ago"
             }
         ],
-        "highest_bid": {
-            "amount": "0.234wETH",
-            "bidder": {
-                "name": "Brodband",
-                "slug": "/author",
-                "image": {
-                    "src": "/images/client/client-1.png"
-                }
-            }
-        },
         "sale_type": "fixed-price",
         "level": "Intermediate",
         "language": "English",

@@ -62,7 +62,7 @@ export const ProductType = PropTypes.shape({
     slug: PropTypes.string.isRequired,
     latestBid: PropTypes.string.isRequired,
     price: PropTypes.shape({
-        amount: PropTypes.number.isRequired,
+        amount: PropTypes.string.isRequired,
         currency: PropTypes.string.isRequired,
     }).isRequired,
     likeCount: PropTypes.number,
