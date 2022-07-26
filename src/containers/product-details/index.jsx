@@ -51,7 +51,8 @@ const ProductDetailsArea = ({ space, className, product }) => {
                                         onClick={handleBidModal}
                                     >
                                         <span className="bid-amount">
-                                            {product.highest_bid.amount}
+                                            {product.price.amount}{" "}
+                                            {product.price.currency}
                                         </span>
                                         Buy{" "}
                                     </Button>
