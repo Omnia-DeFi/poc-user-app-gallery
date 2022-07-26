@@ -48,7 +48,7 @@ Product.propTypes = {
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     price: PropTypes.shape({
-        amount: PropTypes.number.isRequired,
+        amount: PropTypes.string.isRequired,
         currency: PropTypes.string.isRequired,
     }).isRequired,
     image: ImageType.isRequired,
