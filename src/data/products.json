@@ -151,7 +151,7 @@
         "categories": ["art", "video"],
         "images": [
             {
-                "src": "/images/portfolio/lg/1.jpg"
+                "src": "/images/portfolio/lg/2.jpg"
             },
             {
                 "src": "/images/portfolio/lg/2.jpg"
@@ -289,7 +289,7 @@
         "categories": ["music", "lowest"],
         "images": [
             {
-                "src": "/images/portfolio/lg/2.jpg"
+                "src": "/images/portfolio/lg/3.jpg"
             },
             {
                 "src": "/images/portfolio/lg/5.jpg"
@@ -462,7 +462,7 @@
         "categories": ["video", "highest"],
         "images": [
             {
-                "src": "/images/portfolio/lg/7.jpg"
+                "src": "/images/portfolio/lg/4.jpg"
             },
             {
                 "src": "/images/portfolio/lg/8.jpg"
@@ -635,7 +635,7 @@
         "categories": ["collectionable", "art"],
         "images": [
             {
-                "src": "/images/portfolio/lg/11.jpg"
+                "src": "/images/portfolio/lg/5.jpg"
             },
             {
                 "src": "/images/portfolio/lg/10.jpg"
@@ -808,7 +808,7 @@
         "categories": ["highest", "music"],
         "images": [
             {
-                "src": "/images/portfolio/lg/portfolio-02.jpg"
+                "src": "/images/portfolio/lg/6.jpg"
             },
             {
                 "src": "/images/portfolio/lg/2.jpg"
@@ -981,7 +981,7 @@
         "categories": ["lowest", "art"],
         "images": [
             {
-                "src": "/images/portfolio/lg/4.jpg"
+                "src": "/images/portfolio/lg/7.jpg"
             },
             {
                 "src": "/images/portfolio/lg/5.jpg"
@@ -1153,7 +1153,7 @@
         "categories": ["collectionable", "video"],
         "images": [
             {
-                "src": "/images/portfolio/lg/7.jpg"
+                "src": "/images/portfolio/lg/8.jpg"
             },
             {
                 "src": "/images/portfolio/lg/portfolio-02.jpg"
@@ -1497,7 +1497,7 @@
         "categories": ["highest", "collectionable"],
         "images": [
             {
-                "src": "/images/portfolio/lg/5.jpg"
+                "src": "/images/portfolio/lg/10.jpg"
             },
             {
                 "src": "/images/portfolio/lg/1.jpg"
