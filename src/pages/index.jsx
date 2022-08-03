@@ -6,6 +6,9 @@ import HeroArea from "@containers/hero";
 import ServiceArea from "@containers/services";
 import ExploreProductArea from "@containers/explore-product";
 import { normalizedData } from "@utils/methods";
+import { useEffect } from "react";
+import { useLocalStorage } from "src/hooks/uselocalStorage";
+import { magic } from "../utils/magic";
 
 // Demo Data
 import homepageData from "../data/homepages/home.json";
@@ -17,6 +20,20 @@ export async function getStaticProps() {
 
 const Home = () => {
     const content = normalizedData(homepageData?.content || []);
+    const [userMetadata, setUserMetadata] = useLocalStorage("userMetadata", {});
+    const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
+    useEffect(() => {
+        magic.user.isLoggedIn().then((magicIsLoggedIn) => {
+            if (magicIsLoggedIn) {
+                magic.user.getMetadata().then((user) => {
+                    setIsLoggedIn(magicIsLoggedIn);
+                    setUserMetadata(user);
+                });
+            }
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Wrapper>
             <SEO pageTitle="Home" />

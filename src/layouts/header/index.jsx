@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { useMoralis } from "react-moralis";
 import Logo from "@components/logo";
 import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
@@ -13,6 +12,7 @@ import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useRouter } from "next/router";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
+import { useLocalStorage } from "src/hooks/uselocalStorage";
 import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
 
@@ -20,7 +20,7 @@ const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
-    const { authenticate, isAuthenticated } = useMoralis();
+    const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
     const router = useRouter();
 
     return (
@@ -61,7 +61,7 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div>
-                            {!isAuthenticated && (
+                            {!isLoggedIn && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
                                         <Button
@@ -77,7 +77,7 @@ const Header = ({ className }) => {
                                     </div>
                                 </div>
                             )}
-                            {isAuthenticated && (
+                            {isLoggedIn && (
                                 <div className="setting-option rn-icon-list user-account">
                                     <UserDropdown />
                                 </div>

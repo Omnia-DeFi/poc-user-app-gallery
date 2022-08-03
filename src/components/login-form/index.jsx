@@ -1,11 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Button from "@ui/button";
 import ErrorText from "@ui/error-text";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { useState, useCallback } from "react";
+import { useLocalStorage } from "src/hooks/uselocalStorage";
+import { magic } from "../../utils/magic";
 
 const LoginForm = ({ className }) => {
+    const [_, setIsLoggingIn] = useState(false);
+    const [isLoggedIn, setIsloggedIn] = useLocalStorage("isLoggedIn", "");
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const router = useRouter();
     const {
         register,
@@ -14,13 +21,25 @@ const LoginForm = ({ className }) => {
     } = useForm({
         mode: "onChange",
     });
+    const login = useCallback(
+        async (email) => {
+            setIsLoggingIn(true);
+            try {
+                await magic.auth.loginWithMagicLink({ email });
+                setIsLoggingIn(true);
+                setIsloggedIn(true);
+                router.push("/");
+            } catch {
+                setIsLoggingIn(false);
+            }
+        },
+        [formSubmitted]
+    );
+
     const onSubmit = (data, e) => {
+        setFormSubmitted(true);
         e.preventDefault();
-        // eslint-disable-next-line no-console
-        console.log(data);
-        router.push({
-            pathname: "/",
-        });
+        login(data.email);
     };
 
     return (
@@ -28,13 +47,13 @@ const LoginForm = ({ className }) => {
             <h4>Login</h4>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-5">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="email" className="form-label">
                         Email address
                     </label>
                     <input
                         type="email"
-                        id="exampleInputEmail1"
-                        {...register("exampleInputEmail1", {
+                        id="email"
+                        {...register("email", {
                             required: "Email is required",
                             pattern: {
                                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -42,10 +61,8 @@ const LoginForm = ({ className }) => {
                             },
                         })}
                     />
-                    {errors.exampleInputEmail1 && (
-                        <ErrorText>
-                            {errors.exampleInputEmail1?.message}
-                        </ErrorText>
+                    {errors.email && (
+                        <ErrorText>{errors.email?.message}</ErrorText>
                     )}
                 </div>
                 <div className="d-flex flex-column align-items-center ">

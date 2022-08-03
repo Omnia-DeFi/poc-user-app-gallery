@@ -1,9 +1,19 @@
 import Image from "next/image";
 import Anchor from "@ui/anchor";
-import { useMoralis } from "react-moralis";
+import { useCallback } from "react";
+import { useRouter } from "next/router";
+import { useLocalStorage } from "src/hooks/uselocalStorage";
+import { magic } from "../../utils/magic";
 
 const UserDropdown = () => {
-    const { logout } = useMoralis();
+    const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
+
+    const router = useRouter();
+    const logout = useCallback(() => {
+        magic.user.logout().then(() => {
+            setIsLoggedIn(false);
+        });
+    }, [router]);
     return (
         <div className="icon-box">
             <Anchor path="/author">
