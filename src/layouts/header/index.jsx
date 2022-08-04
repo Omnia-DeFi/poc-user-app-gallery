@@ -3,9 +3,6 @@ import clsx from "clsx";
 import Logo from "@components/logo";
 import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
-import SearchForm from "@components/search-form/layout-01";
-import FlyoutSearchForm from "@components/search-form/layout-02";
-import UserDropdown from "@components/user-dropdown";
 import ColorSwitcher from "@components/color-switcher";
 import BurgerButton from "@ui/burger-button";
 import Anchor from "@ui/anchor";
@@ -13,9 +10,10 @@ import Button from "@ui/button";
 import { useRouter } from "next/router";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import { useLocalStorage } from "src/hooks/uselocalStorage";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
+import { magic } from "../../utils/magic";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
@@ -23,11 +21,19 @@ const Header = ({ className }) => {
     const { search, searchHandler } = useFlyoutSearch();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
+    const [userMetadata, setUserMetadata] = useLocalStorage("userMetadata", "");
     const router = useRouter();
 
     useEffect(() => {
         setIsAuthenticated(isLoggedIn);
     }, [isLoggedIn]);
+
+    const logout = useCallback(() => {
+        magic.user.logout().then(() => {
+            setIsLoggedIn(false);
+        });
+        router.push("/login");
+    }, [setIsLoggedIn]);
 
     return (
         <>
@@ -52,7 +58,7 @@ const Header = ({ className }) => {
                             </div>
                         </div>
                         <div className="header-right">
-                            <div className="setting-option d-none d-lg-block">
+                            {/* <div className="setting-option d-none d-lg-block">
                                 <SearchForm />
                             </div>
                             <div className="setting-option rn-icon-list d-block d-lg-none">
@@ -66,7 +72,7 @@ const Header = ({ className }) => {
                                     </button>
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
-                            </div>
+                            </div> */}
                             {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
@@ -84,9 +90,36 @@ const Header = ({ className }) => {
                                 </div>
                             )}
                             {isAuthenticated && (
-                                <div className="setting-option rn-icon-list user-account">
-                                    <UserDropdown />
-                                </div>
+                                <>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                                onClick={logout}
+                                            >
+                                                Log Out
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                            >
+                                                {userMetadata.issuer.slice(
+                                                    9,
+                                                    15
+                                                )}
+                                                ....
+                                                {userMetadata.issuer.slice(-4)}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </>
                             )}
                             <div className="setting-option rn-icon-list notification-badge">
                                 <div className="icon-box">
