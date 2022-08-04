@@ -22,6 +22,7 @@ const Home = () => {
     const content = normalizedData(homepageData?.content || []);
     const [userMetadata, setUserMetadata] = useLocalStorage("userMetadata", {});
     const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
+
     useEffect(() => {
         magic.user.isLoggedIn().then((magicIsLoggedIn) => {
             if (magicIsLoggedIn) {

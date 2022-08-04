@@ -7,13 +7,14 @@ import { magic } from "../../utils/magic";
 
 const UserDropdown = () => {
     const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
-
     const router = useRouter();
+
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
             setIsLoggedIn(false);
         });
-    }, [router]);
+        router.push("/login");
+    }, [setIsLoggedIn]);
     return (
         <div className="icon-box">
             <Anchor path="/author">

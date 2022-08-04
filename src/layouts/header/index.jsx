@@ -13,6 +13,7 @@ import Button from "@ui/button";
 import { useRouter } from "next/router";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import { useLocalStorage } from "src/hooks/uselocalStorage";
+import { useEffect, useState } from "react";
 import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
 
@@ -20,8 +21,13 @@ const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
     const router = useRouter();
+
+    useEffect(() => {
+        setIsAuthenticated(isLoggedIn);
+    }, [isLoggedIn]);
 
     return (
         <>
@@ -61,7 +67,7 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div>
-                            {!isLoggedIn && (
+                            {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
                                         <Button
@@ -77,7 +83,7 @@ const Header = ({ className }) => {
                                     </div>
                                 </div>
                             )}
-                            {isLoggedIn && (
+                            {isAuthenticated && (
                                 <div className="setting-option rn-icon-list user-account">
                                     <UserDropdown />
                                 </div>
