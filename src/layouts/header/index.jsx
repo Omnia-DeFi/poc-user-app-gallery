@@ -117,6 +117,17 @@ const Header = ({ className }) => {
                                             </Button>
                                         </div>
                                     </div>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                            >
+                                                {state.email}
+                                            </Button>
+                                        </div>
+                                    </div>
                                 </>
                             )}
                             <div className="setting-option rn-icon-list notification-badge">
