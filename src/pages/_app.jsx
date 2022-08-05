@@ -8,6 +8,7 @@ import "../assets/css/feather.css";
 import "../assets/css/modal-video.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/scss/style.scss";
+import { ContextProvider } from "src/context/context";
 
 const MyApp = ({ Component, pageProps }) => {
     const router = useRouter();
@@ -22,9 +23,11 @@ const MyApp = ({ Component, pageProps }) => {
         document.body.className = `${pageProps.className}`;
     });
     return (
-        <ThemeProvider defaultTheme="dark">
-            <Component {...pageProps} />
-        </ThemeProvider>
+        <ContextProvider>
+            <ThemeProvider defaultTheme="dark">
+                <Component {...pageProps} />
+            </ThemeProvider>
+        </ContextProvider>
     );
 };
 

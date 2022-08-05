@@ -9,8 +9,9 @@ import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useRouter } from "next/router";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
-import { useLocalStorage } from "src/hooks/uselocalStorage";
 import { useEffect, useState, useCallback } from "react";
+import { useUserContext } from "src/context/context";
+import { logoutUser } from "src/context/actions";
 import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
 import { magic } from "../../utils/magic";
@@ -20,20 +21,20 @@ const Header = ({ className }) => {
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
-    const [userMetadata, setUserMetadata] = useLocalStorage("userMetadata", "");
     const router = useRouter();
 
+    const { state, dispatch } = useUserContext();
+
     useEffect(() => {
-        setIsAuthenticated(isLoggedIn);
-    }, [isLoggedIn]);
+        setIsAuthenticated(state.login);
+    }, [state]);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
-            setIsLoggedIn(false);
+            dispatch(logoutUser());
         });
         router.push("/login");
-    }, [setIsLoggedIn]);
+    }, [state]);
 
     return (
         <>
@@ -110,12 +111,9 @@ const Header = ({ className }) => {
                                                 className="connectBtn"
                                                 size="small"
                                             >
-                                                {userMetadata.issuer.slice(
-                                                    9,
-                                                    15
-                                                )}
+                                                {state.issuer.slice(9, 15)}
                                                 ....
-                                                {userMetadata.issuer.slice(-4)}
+                                                {state.issuer.slice(-4)}
                                             </Button>
                                         </div>
                                     </div>

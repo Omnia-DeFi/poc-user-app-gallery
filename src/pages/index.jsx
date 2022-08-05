@@ -8,6 +8,8 @@ import ExploreProductArea from "@containers/explore-product";
 import { normalizedData } from "@utils/methods";
 import { useEffect } from "react";
 import { useLocalStorage } from "src/hooks/uselocalStorage";
+import { useUserContext } from "src/context/context";
+import { loginUser } from "src/context/actions";
 import { magic } from "../utils/magic";
 import { createUserInBackOffice } from "../utils/createUser";
 
@@ -21,16 +23,14 @@ export async function getStaticProps() {
 
 const Home = () => {
     const content = normalizedData(homepageData?.content || []);
-    const [userMetadata, setUserMetadata] = useLocalStorage("userMetadata", {});
-    const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
+    const { state, dispatch } = useUserContext();
 
     useEffect(() => {
         magic.user.isLoggedIn().then((magicIsLoggedIn) => {
             if (magicIsLoggedIn) {
                 magic.user.getMetadata().then((user) => {
-                    setIsLoggedIn(magicIsLoggedIn);
-                    setUserMetadata(user);
                     createUserInBackOffice(user);
+                    dispatch(loginUser(user));
                 });
             }
         });
