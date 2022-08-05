@@ -9,6 +9,7 @@ import { normalizedData } from "@utils/methods";
 import { useEffect } from "react";
 import { useLocalStorage } from "src/hooks/uselocalStorage";
 import { magic } from "../utils/magic";
+import { createUserInBackOffice } from "../utils/createUser";
 
 // Demo Data
 import homepageData from "../data/homepages/home.json";
@@ -29,6 +30,7 @@ const Home = () => {
                 magic.user.getMetadata().then((user) => {
                     setIsLoggedIn(magicIsLoggedIn);
                     setUserMetadata(user);
+                    createUserInBackOffice(user);
                 });
             }
         });
