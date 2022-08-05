@@ -7,7 +7,6 @@ import ServiceArea from "@containers/services";
 import ExploreProductArea from "@containers/explore-product";
 import { normalizedData } from "@utils/methods";
 import { useEffect } from "react";
-import { useLocalStorage } from "src/hooks/uselocalStorage";
 import { useUserContext } from "src/context/context";
 import { loginUser } from "src/context/actions";
 import { magic } from "../utils/magic";

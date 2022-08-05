@@ -5,23 +5,24 @@ import Footer from "@layout/footer";
 import ActivityArea from "@containers/activity";
 
 // Demo Data
-import { useLocalStorage } from "react-use";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
 import activityData from "../data/activity.json";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
 }
 const Home = () => {
-    const [isLoggedIn] = useLocalStorage("isLoggedIn");
     const router = useRouter();
 
+    const { state } = useUserContext();
+
     useEffect(() => {
-        if (!isLoggedIn) {
+        if (!state.login) {
             router.push("/login");
         }
-    }, [isLoggedIn, router]);
+    }, [state, router]);
 
     return (
         <Wrapper>

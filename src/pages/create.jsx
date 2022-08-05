@@ -4,9 +4,9 @@ import Header from "@layout/header";
 import Footer from "@layout/footer";
 import Breadcrumb from "@components/breadcrumb";
 import CreateNewArea from "@containers/create-new";
-import { useLocalStorage } from "src/hooks/uselocalStorage";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
@@ -14,10 +14,11 @@ export async function getStaticProps() {
 
 const Home = () => {
     const router = useRouter();
-    const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", "");
+
+    const { state } = useUserContext();
 
     useEffect(() => {
-        if (!isLoggedIn) {
+        if (!state.login) {
             router.push("/login");
         }
     }, []);

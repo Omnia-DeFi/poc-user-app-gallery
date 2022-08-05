@@ -6,12 +6,10 @@ import ErrorText from "@ui/error-text";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useCallback } from "react";
-import { useLocalStorage } from "src/hooks/uselocalStorage";
 import { magic } from "../../utils/magic";
 
 const LoginForm = ({ className }) => {
     const [_, setIsLoggingIn] = useState(false);
-    const [isLoggedIn, setIsloggedIn] = useLocalStorage("isLoggedIn", "");
     const [formSubmitted, setFormSubmitted] = useState(false);
     const router = useRouter();
     const {
@@ -27,7 +25,6 @@ const LoginForm = ({ className }) => {
             try {
                 await magic.auth.loginWithMagicLink({ email });
                 setIsLoggingIn(true);
-                setIsloggedIn(true);
                 router.push("/");
             } catch {
                 setIsLoggingIn(false);

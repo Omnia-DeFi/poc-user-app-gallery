@@ -8,15 +8,15 @@ import ProductTitle from "@components/product-details/title";
 import BidTab from "@components/product-details/bid-tab";
 import { ImageType } from "@utils/types";
 import PlaceBidModal from "@components/modals/placebid-modal";
-import { useLocalStorage } from "react-use";
 import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
 
 const ProductDetailsArea = ({ space, className, product }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const router = useRouter();
-    const [isLoggedIn] = useLocalStorage("isLoggedIn", "");
+    const { state, dispatch } = useUserContext();
     const handleBidModal = () => {
-        if (isLoggedIn) {
+        if (state.login) {
             setShowBidModal((prev) => !prev);
         } else {
             router.push("/login");

@@ -1,4 +1,5 @@
-import { removeCookie, setCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
+import { removeCookie } from "@utils/cookie";
 import { actionTypes } from "./actionTypes";
 
 export const reducer = (state, { type, payload }) => {
