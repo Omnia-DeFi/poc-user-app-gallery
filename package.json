@@ -12,12 +12,17 @@
         "clean": "rimraf node_modules .next"
     },
     "dependencies": {
+        "@magic-ext/near": "^3.1.1",
+        "@magic-ext/oauth": "^2.1.1",
         "axios": "^0.26.0",
         "bootstrap": "5.1.3",
         "clsx": "^1.1.1",
+        "cookies-next": "^2.1.1",
         "gray-matter": "^4.0.3",
+        "js-cookie": "^3.0.1",
+        "magic-sdk": "^8.1.1",
         "marked": "^4.0.12",
-        "moralis": "^1.5.9",
+        "near-api-js": "^0.45.1",
         "next": "12.0.7",
         "next-themes": "^0.1.1",
         "prop-types": "^15.7.2",

@@ -6,6 +6,11 @@ import HeroArea from "@containers/hero";
 import ServiceArea from "@containers/services";
 import ExploreProductArea from "@containers/explore-product";
 import { normalizedData } from "@utils/methods";
+import { useEffect } from "react";
+import { useUserContext } from "src/context/context";
+import { loginUser } from "src/context/actions";
+import { magic } from "../utils/magic";
+import { createUserInBackOffice } from "../utils/createUser";
 
 // Demo Data
 import homepageData from "../data/homepages/home.json";
@@ -17,6 +22,20 @@ export async function getStaticProps() {
 
 const Home = () => {
     const content = normalizedData(homepageData?.content || []);
+    const { state, dispatch } = useUserContext();
+
+    useEffect(() => {
+        magic.user.isLoggedIn().then((magicIsLoggedIn) => {
+            if (magicIsLoggedIn) {
+                magic.user.getMetadata().then((user) => {
+                    createUserInBackOffice(user);
+                    dispatch(loginUser(user));
+                });
+            }
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Wrapper>
             <SEO pageTitle="Home" />
