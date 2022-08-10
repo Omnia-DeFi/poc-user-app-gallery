@@ -4,13 +4,25 @@ import clsx from "clsx";
 import Activity from "@components/activity";
 import { IDType, ImageType } from "@utils/types";
 import { useUserContext } from "src/context/context";
+import axios from "axios";
 
 const ActivityArea = ({ space, className, data }) => {
     const [activities] = useState(data?.activities || []);
     const { state, dispatch } = useUserContext();
+    const [notifications, setNotifications] = useState([]);
+
+    const retrieveNotifications = async (userId) => {
+        // eslint-disable-next-line no-shadow
+        const { data } = await axios.post(
+            `/api/notification/getNotifications/${userId}`
+        );
+        // eslint-disable-next-line react/prop-types
+        setNotifications(data.notifications);
+    };
 
     useEffect(() => {
-        console.log("Boom");
+        retrieveNotifications("62ece9fcf2c19b83f730d059");
+        // todo: replace with user ID
     }, []);
 
     return (
@@ -23,22 +35,23 @@ const ActivityArea = ({ space, className, data }) => {
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title">All following Acivity</h3>
+                    <h3 className="title">All Notifications</h3>
                 </div>
                 <div className="row g-6 activity-direction">
-                    {activities?.map((item) => (
-                        <Activity
-                            key={item.id}
-                            image={item.image}
-                            title={item.title}
-                            path={item.slug}
-                            desc={item.description}
-                            time={item.time}
-                            date={item.date}
-                            author={item.author}
-                            status={item.status}
-                        />
-                    ))}
+                    {notifications &&
+                        notifications?.map((item) => (
+                            <Activity
+                                key={item.id}
+                                image={item.image}
+                                title={item.title}
+                                path={item.slug}
+                                desc={item.description}
+                                time={item.time}
+                                date={item.date}
+                                author={item.author}
+                                status={item.status}
+                            />
+                        ))}
                 </div>
             </div>
         </div>
