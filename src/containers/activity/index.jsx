@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Activity from "@components/activity";
 import { IDType, ImageType } from "@utils/types";
+import { useUserContext } from "src/context/context";
 
 const ActivityArea = ({ space, className, data }) => {
     const [activities] = useState(data?.activities || []);
+    const { state, dispatch } = useUserContext();
+
+    useEffect(() => {
+        console.log("Boom");
+    }, []);
 
     return (
         <div
