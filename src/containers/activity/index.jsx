@@ -5,28 +5,28 @@ import Activity from "@components/activity";
 import { IDType, ImageType } from "@utils/types";
 import { useUserContext } from "src/context/context";
 import axios from "axios";
+import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const ActivityArea = ({ space, className, data }) => {
-    const [activities] = useState(data?.activities || []);
+    // const [activities] = useState(data?.activities || []);
     const { state, dispatch } = useUserContext();
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const retrieveNotifications = async (userId) => {
+    const retrieveNotifications = async () => {
+        const userId = await getUserIdByEmail(state.email);
         setLoading(true);
         // eslint-disable-next-line no-shadow
         const { data } = await axios.post(
             `/api/notification/getNotifications/${userId}`
         );
         setLoading(false);
-        console.log(data);
         // eslint-disable-next-line react/prop-types
         setNotifications(data.notifications || []);
     };
 
     useEffect(() => {
-        retrieveNotifications("62f41c0ab757c368c0160e7e");
-        // todo: replace with user ID
+        retrieveNotifications();
     }, []);
 
     return (
