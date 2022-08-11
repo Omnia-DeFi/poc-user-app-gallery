@@ -31,4 +31,6 @@ model Notifications {
   type               String
   title              String
   content            String
+  createdAt          DateTime
+  read               Boolean
 }

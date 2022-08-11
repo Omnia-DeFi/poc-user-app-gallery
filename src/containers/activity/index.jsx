@@ -10,18 +10,22 @@ const ActivityArea = ({ space, className, data }) => {
     const [activities] = useState(data?.activities || []);
     const { state, dispatch } = useUserContext();
     const [notifications, setNotifications] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const retrieveNotifications = async (userId) => {
+        setLoading(true);
         // eslint-disable-next-line no-shadow
         const { data } = await axios.post(
             `/api/notification/getNotifications/${userId}`
         );
+        setLoading(false);
+        console.log(data);
         // eslint-disable-next-line react/prop-types
-        setNotifications(data.notifications);
+        setNotifications(data.notifications || []);
     };
 
     useEffect(() => {
-        retrieveNotifications("62ece9fcf2c19b83f730d059");
+        retrieveNotifications("62f41c0ab757c368c0160e7e");
         // todo: replace with user ID
     }, []);
 
@@ -38,16 +42,17 @@ const ActivityArea = ({ space, className, data }) => {
                     <h3 className="title">All Notifications</h3>
                 </div>
                 <div className="row g-6 activity-direction">
+                    {loading && <p className="">Loading</p>}
                     {notifications &&
                         notifications?.map((item) => (
                             <Activity
                                 key={item.id}
                                 image={item.image}
                                 title={item.title}
-                                path={item.slug}
-                                desc={item.description}
-                                time={item.time}
-                                date={item.date}
+                                path="#"
+                                desc={item.content}
+                                time={item.createdAt}
+                                date={item.createdAt}
                                 author={item.author}
                                 status={item.status}
                             />
