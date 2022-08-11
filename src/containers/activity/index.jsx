@@ -1,11 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Activity from "@components/activity";
 import { IDType, ImageType } from "@utils/types";
+import { useUserContext } from "src/context/context";
+import axios from "axios";
+import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const ActivityArea = ({ space, className, data }) => {
-    const [activities] = useState(data?.activities || []);
+    // const [activities] = useState(data?.activities || []);
+    const { state, dispatch } = useUserContext();
+    const [notifications, setNotifications] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const retrieveNotifications = async () => {
+        const userId = await getUserIdByEmail(state.email);
+        setLoading(true);
+        // eslint-disable-next-line no-shadow
+        const { data } = await axios.post(
+            `/api/notification/getNotifications/${userId}`
+        );
+        setLoading(false);
+        // eslint-disable-next-line react/prop-types
+        setNotifications(data.notifications || []);
+    };
+
+    useEffect(() => {
+        retrieveNotifications();
+    }, []);
 
     return (
         <div
@@ -17,22 +39,24 @@ const ActivityArea = ({ space, className, data }) => {
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title">All following Acivity</h3>
+                    <h3 className="title">All Notifications</h3>
                 </div>
                 <div className="row g-6 activity-direction">
-                    {activities?.map((item) => (
-                        <Activity
-                            key={item.id}
-                            image={item.image}
-                            title={item.title}
-                            path={item.slug}
-                            desc={item.description}
-                            time={item.time}
-                            date={item.date}
-                            author={item.author}
-                            status={item.status}
-                        />
-                    ))}
+                    {loading && <p className="">Loading</p>}
+                    {notifications &&
+                        notifications?.map((item) => (
+                            <Activity
+                                key={item.id}
+                                image={item.image}
+                                title={item.title}
+                                path="#"
+                                desc={item.content}
+                                time={item.createdAt}
+                                date={item.createdAt}
+                                author={item.author}
+                                status={item.status}
+                            />
+                        ))}
                 </div>
             </div>
         </div>
