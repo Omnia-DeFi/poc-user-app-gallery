@@ -10,9 +10,9 @@ import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const ActivityArea = ({ space, className }) => {
     // const [activities] = useState(data?.activities || []);
-    const { state, dispatch } = useUserContext();
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
+    const { state, dispatch } = useUserContext();
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
@@ -24,7 +24,7 @@ const ActivityArea = ({ space, className }) => {
                 `/api/notification/getNotifications/${userId}`
             );
             // eslint-disable-next-line react/prop-types
-            setNotifications(data?.notifications || []);
+            setNotifications(data.notifications.reverse() || []);
         } catch (error) {
             setNotifications([]);
         }
@@ -32,10 +32,8 @@ const ActivityArea = ({ space, className }) => {
     };
 
     useEffect(() => {
-        if (state.login) {
-            retrieveNotifications();
-        }
-    }, [state.login]);
+        retrieveNotifications();
+    }, [state]);
 
     return (
         <div

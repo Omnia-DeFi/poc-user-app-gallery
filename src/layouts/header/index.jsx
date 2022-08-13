@@ -29,6 +29,7 @@ const Header = ({ className }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
     const [open, setOpen] = useState(false);
+    const [notificationsCount, setNotificationsCount] = useState(0);
 
     const { state, dispatch } = useUserContext();
 
@@ -36,20 +37,17 @@ const Header = ({ className }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
         setShowBidModal((prev) => !prev);
-    };  
-    const [notificationsCount, setNotificationsCount] = useState(0);
+    };
 
     const updateNotifications = async () => {
-        const { notifications } = await getNotifications(state.email);
+        const notifications = await getNotifications(state.email);
         setNotificationsCount(notifications.length);
     };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
-        if (isAuthenticated) {
-            updateNotifications();
-        }
-    }, [state.email]);
+        updateNotifications();
+    }, [state]);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
@@ -94,9 +92,11 @@ const Header = ({ className }) => {
                                                 path={headerData.activity_link}
                                             >
                                                 <i className="feather-bell" />
-                                                <span className="badge">
-                                                    {notificationsCount}
-                                                </span>
+                                                {notificationsCount > 0 && (
+                                                    <span className="badge">
+                                                        {notificationsCount}
+                                                    </span>
+                                                )}
                                             </Anchor>
                                         </div>
                                     </div>
