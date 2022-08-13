@@ -1,7 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import clsx from "clsx";
 import Image from "next/image";
 import Anchor from "@ui/anchor";
+
+const unreadActivityStyle = {
+    backgroundColor: "#FFCB74",
+};
 
 const Activity = ({
     className,
@@ -12,8 +16,13 @@ const Activity = ({
     date,
     image,
     status,
+    read,
 }) => (
-    <div className={clsx("single-activity-wrapper", className)}>
+    <div
+        className={clsx("single-activity-wrapper", className)}
+        style={read ? {} : unreadActivityStyle}
+    >
+        {JSON.stringify(read)}
         <div className="inner">
             <div className="read-content">
                 {image?.src && (
@@ -60,6 +69,7 @@ Activity.propTypes = {
     desc: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
+    read: Boolean,
     author: PropTypes.shape({
         name: PropTypes.string.isRequired,
         slug: PropTypes.string.isRequired,

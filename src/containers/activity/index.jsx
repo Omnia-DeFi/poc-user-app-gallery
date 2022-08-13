@@ -55,6 +55,7 @@ const ActivityArea = ({ space, className, data }) => {
                                 date={item.createdAt}
                                 author={item.author}
                                 status={item.status}
+                                read={item.read}
                             />
                         ))}
                 </div>
