@@ -9,7 +9,11 @@ export default async function handler(req, res) {
                 bearerId: id,
             },
             select: {
-                notifications: true,
+                notifications: {
+                    where: {
+                        read: false,
+                    },
+                },
             },
         });
         if (notificationData == null) {

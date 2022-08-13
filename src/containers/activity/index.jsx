@@ -46,10 +46,10 @@ const ActivityArea = ({ space, className, data }) => {
                     {notifications &&
                         notifications?.map((item) => (
                             <Activity
+                                id={item.id}
                                 key={item.id}
                                 image={item.image}
                                 title={item.title}
-                                path="#"
                                 desc={item.content}
                                 time={item.createdAt}
                                 date={item.createdAt}

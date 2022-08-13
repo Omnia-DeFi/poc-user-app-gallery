@@ -2,6 +2,7 @@ import PropTypes, { string } from "prop-types";
 import clsx from "clsx";
 import Image from "next/image";
 import Anchor from "@ui/anchor";
+import { markAsRead } from "@utils/markAsRead";
 
 const unreadActivityStyle = {
     backgroundColor: "#FFCB74",
@@ -11,6 +12,13 @@ const getPath = (type) => {
     if (type === "kyc" || type === "kyb") return "/profile";
     if (type === "assets") return "/assets";
     return "#";
+};
+
+const handleClick = async (id, read, type) => {
+    console.log("clicked");
+    if (!read) await markAsRead(id);
+    // push locations
+    window.location.href = getPath(type);
 };
 
 const Activity = ({
@@ -23,6 +31,7 @@ const Activity = ({
     status,
     read,
     type,
+    id,
 }) => (
     <div
         className={clsx("single-activity-wrapper", className)}
@@ -43,9 +52,12 @@ const Activity = ({
                     </div>
                 )}
                 <div className="content">
-                    <Anchor path={getPath(type)}>
+                    {/* <Anchor path="#" onClick={() => handleClick(id, read)}>
                         <h6 className="title">{title}</h6>
-                    </Anchor>
+                    </Anchor> */}
+                    <h6 onClick={() => handleClick(id, read, type)}>
+                        <a href="">{title}</a>{" "}
+                    </h6>
                     <p dangerouslySetInnerHTML={{ __html: desc }} />
                     <div className="time-maintane">
                         <div className="time data">
@@ -70,12 +82,12 @@ const Activity = ({
 Activity.propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     read: Boolean,
     type: string,
+    id: string,
     author: PropTypes.shape({
         name: PropTypes.string.isRequired,
         slug: PropTypes.string.isRequired,
