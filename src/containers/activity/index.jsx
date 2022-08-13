@@ -56,6 +56,7 @@ const ActivityArea = ({ space, className, data }) => {
                                 author={item.author}
                                 status={item.status}
                                 read={item.read}
+                                type={item.type.toLowerCase()}
                             />
                         ))}
                 </div>

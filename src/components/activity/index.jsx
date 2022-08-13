@@ -7,27 +7,32 @@ const unreadActivityStyle = {
     backgroundColor: "#FFCB74",
 };
 
+const getPath = (type) => {
+    if (type === "kyc" || type === "kyb") return "/profile";
+    if (type === "assets") return "/assets";
+    return "#";
+};
+
 const Activity = ({
     className,
     title,
-    path,
     desc,
     time,
     date,
     image,
     status,
     read,
+    type,
 }) => (
     <div
         className={clsx("single-activity-wrapper", className)}
         style={read ? {} : unreadActivityStyle}
     >
-        {JSON.stringify(read)}
         <div className="inner">
             <div className="read-content">
                 {image?.src && (
                     <div className="thumbnail">
-                        <Anchor path={path}>
+                        <Anchor path="#">
                             <Image
                                 src={image.src}
                                 alt={image?.alt || "Nft_Profile"}
@@ -38,7 +43,7 @@ const Activity = ({
                     </div>
                 )}
                 <div className="content">
-                    <Anchor path={path}>
+                    <Anchor path={getPath(type)}>
                         <h6 className="title">{title}</h6>
                     </Anchor>
                     <p dangerouslySetInnerHTML={{ __html: desc }} />
@@ -70,6 +75,7 @@ Activity.propTypes = {
     time: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     read: Boolean,
+    type: string,
     author: PropTypes.shape({
         name: PropTypes.string.isRequired,
         slug: PropTypes.string.isRequired,
