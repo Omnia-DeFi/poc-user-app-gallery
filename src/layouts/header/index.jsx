@@ -12,6 +12,7 @@ import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import { useEffect, useState, useCallback } from "react";
 import { useUserContext } from "src/context/context";
 import { logoutUser } from "src/context/actions";
+import { getNotifications } from "@utils/getNotifications";
 import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
 import { magic } from "../../utils/magic";
@@ -22,11 +23,17 @@ const Header = ({ className }) => {
     const { search, searchHandler } = useFlyoutSearch();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
-
+    const [notificationsCount, setNotificationsCount] = useState(0);
     const { state, dispatch } = useUserContext();
+
+    const updateNotifications = async () => {
+        const notifications = await getNotifications(state.email);
+        setNotificationsCount(notifications.length);
+    };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
+        updateNotifications();
     }, [state]);
 
     const logout = useCallback(() => {
@@ -128,16 +135,20 @@ const Header = ({ className }) => {
                                             </Button>
                                         </div>
                                     </div>
+                                    <div className="setting-option rn-icon-list notification-badge">
+                                        <div className="icon-box">
+                                            <Anchor
+                                                path={headerData.activity_link}
+                                            >
+                                                <i className="feather-bell" />
+                                                <span className="badge">
+                                                    {notificationsCount}
+                                                </span>
+                                            </Anchor>
+                                        </div>
+                                    </div>
                                 </>
                             )}
-                            <div className="setting-option rn-icon-list notification-badge">
-                                <div className="icon-box">
-                                    <Anchor path={headerData.activity_link}>
-                                        <i className="feather-bell" />
-                                        <span className="badge">6</span>
-                                    </Anchor>
-                                </div>
-                            </div>
                             <div className="setting-option mobile-menu-bar d-block d-xl-none">
                                 <div className="hamberger">
                                     <BurgerButton onClick={offcanvasHandler} />
