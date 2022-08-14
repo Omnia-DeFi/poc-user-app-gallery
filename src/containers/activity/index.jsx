@@ -7,7 +7,7 @@ import { useUserContext } from "src/context/context";
 import axios from "axios";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
-const ActivityArea = ({ space, className, data }) => {
+const ActivityArea = ({ space, className }) => {
     // const [activities] = useState(data?.activities || []);
     const { state, dispatch } = useUserContext();
     const [notifications, setNotifications] = useState([]);
@@ -23,7 +23,7 @@ const ActivityArea = ({ space, className, data }) => {
                 `/api/notification/getNotifications/${userId}`
             );
             // eslint-disable-next-line react/prop-types
-            setNotifications(data?.notifications || []);
+            setNotifications(data.notifications || []);
         } catch (error) {
             setNotifications([]);
         }
@@ -34,7 +34,7 @@ const ActivityArea = ({ space, className, data }) => {
         if (state.login) {
             retrieveNotifications();
         }
-    }, [state.login]);
+    }, []);
 
     return (
         <div
