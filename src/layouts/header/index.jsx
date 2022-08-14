@@ -40,14 +40,16 @@ const Header = ({ className }) => {
     const [notificationsCount, setNotificationsCount] = useState(0);
 
     const updateNotifications = async () => {
-        const notifications = await getNotifications(state.email);
+        const { notifications } = await getNotifications(state.email);
         setNotificationsCount(notifications.length);
     };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
-        updateNotifications();
-    }, [state]);
+        if (isAuthenticated) {
+            updateNotifications();
+        }
+    }, [state.email]);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
@@ -80,30 +82,33 @@ const Header = ({ className }) => {
                         </div>
                         <div className="header-right">
                             {isAuthenticated && (
-                               <>
-                                 <IndexKYC
-                                    show={showBidModal}
-                                    handleModal={handleBidModal}
-                                />
-                             
-                                <div className="setting-option rn-icon-list notification-badge">
-                                    <div className="icon-box">
-                                        <Anchor path={headerData.activity_link}>
-                                            <i className="feather-bell" />
-                                            <span className="badge">6</span>
-                                        </Anchor>
+                                <>
+                                    <IndexKYC
+                                        show={showBidModal}
+                                        handleModal={handleBidModal}
+                                    />
+
+                                    <div className="setting-option rn-icon-list notification-badge">
+                                        <div className="icon-box">
+                                            <Anchor
+                                                path={headerData.activity_link}
+                                            >
+                                                <i className="feather-bell" />
+                                                <span className="badge">
+                                                    {notificationsCount}
+                                                </span>
+                                            </Anchor>
+                                        </div>
                                     </div>
-                                </div>
-                               </>
+                                </>
                             )}
                             <div
                                 id="my_switcher"
                                 className="setting-option my_switcher"
                             >
                                 <ColorSwitcher />
-
                             </div>
-                            
+
                             <div
                                 onClick={offcanvasHandler}
                                 className="setting-option my_switcher mobile-menu-bar hamberger-menu-icon d-flex d-xl-none"
@@ -154,7 +159,7 @@ const Header = ({ className }) => {
                                     handleBidModal={handleBidModal}
                                 />
                             )}
-                              {!isAuthenticated && (
+                            {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
                                         <Button
