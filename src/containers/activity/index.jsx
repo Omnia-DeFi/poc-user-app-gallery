@@ -8,7 +8,7 @@ import axios from "axios";
 import moment from "moment";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
-const ActivityArea = ({ space, className, data }) => {
+const ActivityArea = ({ space, className }) => {
     // const [activities] = useState(data?.activities || []);
     const { state, dispatch } = useUserContext();
     const [notifications, setNotifications] = useState([]);
@@ -27,7 +27,9 @@ const ActivityArea = ({ space, className, data }) => {
     };
 
     useEffect(() => {
-        retrieveNotifications();
+        if (state.login) {
+            retrieveNotifications();
+        }
     }, [state]);
 
     return (

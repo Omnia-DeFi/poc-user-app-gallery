@@ -54,7 +54,7 @@ const Header = ({ className }) => {
             dispatch(logoutUser());
         });
         router.push("/login");
-    }, [state]);
+    }, [state.email]);
 
     return (
         <>
