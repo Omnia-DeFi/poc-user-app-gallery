@@ -27,14 +27,16 @@ const Header = ({ className }) => {
     const { state, dispatch } = useUserContext();
 
     const updateNotifications = async () => {
-        const notifications = await getNotifications(state.email);
+        const { notifications } = await getNotifications(state.email);
         setNotificationsCount(notifications.length);
     };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
-        updateNotifications();
-    }, [state]);
+        if (isAuthenticated) {
+            updateNotifications();
+        }
+    }, [state.email]);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {

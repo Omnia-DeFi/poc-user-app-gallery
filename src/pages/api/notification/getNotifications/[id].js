@@ -13,7 +13,7 @@ export default async function handler(req, res) {
             },
         });
         if (notificationData == null) {
-            notificationData = { notifications: [] };
+            notificationData = { notifications: [{}] };
         }
         const { notifications } = notificationData;
         res.status(200).json({ notifications });

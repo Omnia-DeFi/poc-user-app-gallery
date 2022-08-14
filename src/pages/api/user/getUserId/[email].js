@@ -13,7 +13,7 @@ export default async function handler(req, res) {
             },
         });
         if (userId == null) {
-            userId = "";
+            userId = "0";
         } else {
             userId = userId.id;
         }

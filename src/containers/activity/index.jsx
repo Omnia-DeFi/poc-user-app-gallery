@@ -17,17 +17,24 @@ const ActivityArea = ({ space, className, data }) => {
         const userId = await getUserIdByEmail(state.email);
         setLoading(true);
         // eslint-disable-next-line no-shadow
-        const { data } = await axios.post(
-            `/api/notification/getNotifications/${userId}`
-        );
+
+        try {
+            const { data } = await axios.get(
+                `/api/notification/getNotifications/${userId}`
+            );
+            // eslint-disable-next-line react/prop-types
+            setNotifications(data?.notifications || []);
+        } catch (error) {
+            setNotifications([]);
+        }
         setLoading(false);
-        // eslint-disable-next-line react/prop-types
-        setNotifications(data.notifications || []);
     };
 
     useEffect(() => {
-        retrieveNotifications();
-    }, []);
+        if (state.login) {
+            retrieveNotifications();
+        }
+    }, [state.login]);
 
     return (
         <div
