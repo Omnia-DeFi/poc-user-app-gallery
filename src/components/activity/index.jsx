@@ -15,9 +15,7 @@ const getPath = (type) => {
 };
 
 const handleClick = async (id, read, type) => {
-    console.log("clicked");
     if (!read) await markAsRead(id);
-    // push locations
     window.location.href = getPath(type);
 };
 

@@ -33,17 +33,15 @@ const Header = ({ className }) => {
 
     useEffect(() => {
         setIsAuthenticated(state.login);
-        if (isAuthenticated) {
-            updateNotifications();
-        }
-    }, [state.email]);
+        // updateNotifications();
+    }, []);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
             dispatch(logoutUser());
         });
         router.push("/login");
-    }, [state.email]);
+    }, []);
 
     return (
         <>

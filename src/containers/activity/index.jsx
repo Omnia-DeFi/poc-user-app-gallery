@@ -9,7 +9,6 @@ import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const ActivityArea = ({ space, className }) => {
     // const [activities] = useState(data?.activities || []);
-    const { state, dispatch } = useUserContext();
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -31,10 +30,8 @@ const ActivityArea = ({ space, className }) => {
     };
 
     useEffect(() => {
-        if (state.login) {
-            retrieveNotifications();
-        }
-    }, []);
+        retrieveNotifications();
+    }, [notifications]);
 
     return (
         <div
