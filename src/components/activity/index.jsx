@@ -3,21 +3,8 @@ import clsx from "clsx";
 import Image from "next/image";
 import Anchor from "@ui/anchor";
 import { markAsRead } from "@utils/markAsRead";
-
-const unreadActivityStyle = {
-    backgroundColor: "#FFCB74",
-};
-
-const getPath = (type) => {
-    if (type === "kyc" || type === "kyb") return "/profile";
-    if (type === "assets") return "/assets";
-    return "#";
-};
-
-const handleClick = async (id, read, type) => {
-    if (!read) await markAsRead(id);
-    window.location.href = getPath(type);
-};
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Activity = ({
     className,
@@ -30,52 +17,74 @@ const Activity = ({
     read,
     type,
     id,
-}) => (
-    <div
-        className={clsx("single-activity-wrapper", className)}
-        style={read ? {} : unreadActivityStyle}
-    >
-        <div className="inner">
-            <div className="read-content">
-                {image?.src && (
-                    <div className="thumbnail">
-                        <Anchor path="#">
-                            <Image
-                                src={image.src}
-                                alt={image?.alt || "Nft_Profile"}
-                                width={image?.width || 500}
-                                height={image?.height || 500}
-                            />
+}) => {
+    const unreadActivityStyle = {
+        backgroundColor: "#FFCB74",
+    };
+    const router = useRouter();
+
+    const getPath = (type) => {
+        if (type === "kyc" || type === "kyb") return "/profile";
+        if (type === "assets") return "/assets";
+        return "#";
+    };
+
+    const handleClick = async (id, read, type) => {
+        console.log("click");
+        if (!read) await markAsRead(id);
+        router.push(getPath(type));
+    };
+
+    return (
+        <div
+            className={clsx("single-activity-wrapper", className)}
+            style={read ? {} : unreadActivityStyle}
+        >
+            <div className="inner">
+                <div className="read-content">
+                    {image?.src && (
+                        <div className="thumbnail">
+                            <Anchor path="#">
+                                <Image
+                                    src={image.src}
+                                    alt={image?.alt || "Nft_Profile"}
+                                    width={image?.width || 500}
+                                    height={image?.height || 500}
+                                />
+                            </Anchor>
+                        </div>
+                    )}
+                    <div className="content">
+                        <Anchor
+                            path="#"
+                            onClick={() => handleClick(id, read, type)}
+                        >
+                            <h6 className="title">{title}</h6>
                         </Anchor>
-                    </div>
-                )}
-                <div className="content">
-                    {/* <Anchor path="#" onClick={() => handleClick(id, read)}>
-                        <h6 className="title">{title}</h6>
-                    </Anchor> */}
-                    <h6 onClick={() => handleClick(id, read, type)}>
-                        <a href="">{title}</a>{" "}
-                    </h6>
-                    <p dangerouslySetInnerHTML={{ __html: desc }} />
-                    <div className="time-maintane">
-                        <div className="time data">
-                            <i className="feather-clock" />
-                            <span>
-                                {time} on {date}
-                            </span>
+                        <p dangerouslySetInnerHTML={{ __html: desc }} />
+                        <div className="time-maintane">
+                            <div className="time data">
+                                <i className="feather-clock" />
+                                <span>
+                                    {/* {JSON.stringify(time, date)} */}
+                                    {time} on {date}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="icone-area">
-                {status === "follow" && <i className="feather-thumbs-up" />}
-                {status === "sale" && <i className="feather-shopping-cart" />}
-                {status === "like" && <i className="feather-heart" />}
-                {status === "offer" && <i className="feather-user-plus" />}
+                <div className="icone-area">
+                    {status === "follow" && <i className="feather-thumbs-up" />}
+                    {status === "sale" && (
+                        <i className="feather-shopping-cart" />
+                    )}
+                    {status === "like" && <i className="feather-heart" />}
+                    {status === "offer" && <i className="feather-user-plus" />}
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 Activity.propTypes = {
     className: PropTypes.string,

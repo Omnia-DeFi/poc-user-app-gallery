@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         });
         if (notificationData == null) {
             notificationData = {
-                notifications: [{}],
+                notifications: [],
             };
         }
         const { notifications } = notificationData;

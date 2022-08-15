@@ -27,21 +27,21 @@ const Header = ({ className }) => {
     const { state, dispatch } = useUserContext();
 
     const updateNotifications = async () => {
-        const { notifications } = await getNotifications(state.email);
+        const notifications = await getNotifications(state.email);
         setNotificationsCount(notifications.length);
     };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
-        // updateNotifications();
-    }, []);
+        updateNotifications();
+    }, [state]);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
             dispatch(logoutUser());
         });
         router.push("/login");
-    }, []);
+    }, [state]);
 
     return (
         <>
@@ -141,9 +141,11 @@ const Header = ({ className }) => {
                                                 path={headerData.activity_link}
                                             >
                                                 <i className="feather-bell" />
-                                                <span className="badge">
-                                                    {notificationsCount}
-                                                </span>
+                                                {notificationsCount > 0 && (
+                                                    <span className="badge">
+                                                        {notificationsCount}
+                                                    </span>
+                                                )}
                                             </Anchor>
                                         </div>
                                     </div>

@@ -5,12 +5,14 @@ import Activity from "@components/activity";
 import { IDType, ImageType } from "@utils/types";
 import { useUserContext } from "src/context/context";
 import axios from "axios";
+import moment from "moment";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const ActivityArea = ({ space, className }) => {
     // const [activities] = useState(data?.activities || []);
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
+    const { state, dispatch } = useUserContext();
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
@@ -22,7 +24,7 @@ const ActivityArea = ({ space, className }) => {
                 `/api/notification/getNotifications/${userId}`
             );
             // eslint-disable-next-line react/prop-types
-            setNotifications(data.notifications || []);
+            setNotifications(data.notifications.reverse() || []);
         } catch (error) {
             setNotifications([]);
         }
@@ -31,7 +33,7 @@ const ActivityArea = ({ space, className }) => {
 
     useEffect(() => {
         retrieveNotifications();
-    }, [notifications]);
+    }, [state]);
 
     return (
         <div
@@ -55,12 +57,16 @@ const ActivityArea = ({ space, className }) => {
                                 image={item.image}
                                 title={item.title}
                                 desc={item.content}
-                                time={item.createdAt}
-                                date={item.createdAt}
+                                time={moment(item.createdAt).format(
+                                    "h:mm:ss a"
+                                )}
+                                date={moment(item.createdAt).format(
+                                    "Do MMMM YYYY"
+                                )}
                                 author={item.author}
                                 status={item.status}
                                 read={item.read}
-                                type={item.type.toLowerCase()}
+                                type={item?.type?.toLowerCase()}
                             />
                         ))}
                 </div>
