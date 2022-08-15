@@ -18,8 +18,11 @@ const Activity = ({
     type,
     id,
 }) => {
-    const unreadActivityStyle = {
-        backgroundColor: "#FFCB74",
+    const unreadActivityBg = {
+        backgroundColor: "#333",
+    };
+    const unreadActivityText = {
+        color: "#f6f6f6",
     };
     const router = useRouter();
 
@@ -30,7 +33,6 @@ const Activity = ({
     };
 
     const handleClick = async (id, read, type) => {
-        console.log("click");
         if (!read) await markAsRead(id);
         router.push(getPath(type));
     };
@@ -38,7 +40,7 @@ const Activity = ({
     return (
         <div
             className={clsx("single-activity-wrapper", className)}
-            style={read ? {} : unreadActivityStyle}
+            style={read ? {} : unreadActivityBg}
         >
             <div className="inner">
                 <div className="read-content">
@@ -59,13 +61,15 @@ const Activity = ({
                             path="#"
                             onClick={() => handleClick(id, read, type)}
                         >
-                            <h6 className="title">{title}</h6>
+                            <h6 style={read ? {} : unreadActivityText}>
+                                {title}
+                            </h6>
                         </Anchor>
                         <p dangerouslySetInnerHTML={{ __html: desc }} />
                         <div className="time-maintane">
                             <div className="time data">
                                 <i className="feather-clock" />
-                                <span>
+                                <span style={read ? {} : unreadActivityText}>
                                     {/* {JSON.stringify(time, date)} */}
                                     {time} on {date}
                                 </span>
