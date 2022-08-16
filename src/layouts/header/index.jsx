@@ -15,6 +15,8 @@ import { logoutUser } from "src/context/actions";
 import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
 import { magic } from "../../utils/magic";
+import Modal from "react-bootstrap/Modal";
+import IndexKYC from "@components/KYCModal/IndexKYC";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
@@ -24,6 +26,12 @@ const Header = ({ className }) => {
     const router = useRouter();
 
     const { state, dispatch } = useUserContext();
+ 
+    // modal state here start
+    const [showBidModal, setShowBidModal] = useState(false);
+    const handleBidModal = () => {
+        setShowBidModal((prev) => !prev);
+    };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
@@ -92,6 +100,19 @@ const Header = ({ className }) => {
                             )}
                             {isAuthenticated && (
                                 <>
+                       <IndexKYC show={showBidModal} handleModal={handleBidModal}/>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                                onClick={handleBidModal}
+                                            >
+                                                +
+                                            </Button>
+                                        </div>
+                                    </div>
                                     <div className="setting-option header-btn">
                                         <div className="icon-box">
                                             <Button
