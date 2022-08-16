@@ -2,25 +2,28 @@ import { prisma } from "../../../../prisma/prisma";
 
 export default async function handler(req, res) {
     const { id } = req.query;
-    // { notifications: [ {} ] }
-
     try {
         let notificationData = await prisma.NotificationsBearer.findUnique({
             where: {
                 bearerId: id,
             },
             select: {
-                notifications: true,
+                notifications: {
+                    where: {
+                        read: false,
+                    },
+                },
             },
         });
         if (notificationData == null) {
-            notificationData = { notifications: [] };
+            notificationData = {
+                notifications: [],
+            };
         }
-        const { notifications } = notificationData;
         prisma.$disconnect();
+        const { notifications } = notificationData;
         res.status(200).json({ notifications });
     } catch (error) {
-        console.log(error);
         res.status(400).json({ message: error });
     }
 }

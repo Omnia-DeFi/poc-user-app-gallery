@@ -13,10 +13,11 @@ export default async function handler(req, res) {
             },
         });
         if (userId == null) {
-            userId = "";
+            userId = "0";
         } else {
             userId = userId.id;
         }
+        prisma.$disconnect();
         res.status(200).json({ userId });
     } catch (error) {
         res.status(400).json({ message: error });
