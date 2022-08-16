@@ -65,6 +65,7 @@ const ActivityArea = ({ space, className }) => {
                                 status={item.status}
                                 read={item.read}
                                 type={item?.type?.toLowerCase()}
+                                notificationsRefresh={retrieveNotifications}
                             />
                         ))}
                 </div>

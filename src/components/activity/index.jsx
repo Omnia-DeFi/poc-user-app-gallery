@@ -5,6 +5,7 @@ import Anchor from "@ui/anchor";
 import { markAsRead } from "@utils/markAsRead";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Activity = ({
     className,
@@ -17,6 +18,7 @@ const Activity = ({
     read,
     type,
     id,
+    notificationsRefresh,
 }) => {
     const unreadActivityBg = {
         backgroundColor: "#333",
@@ -29,7 +31,7 @@ const Activity = ({
     const getPath = (type) => {
         if (type === "kyc" || type === "kyb") return "/profile";
         if (type === "assets") return "/assets";
-        return "#";
+        return notificationsRefresh();
     };
 
     const handleClick = async (id, read, type) => {
@@ -57,14 +59,12 @@ const Activity = ({
                         </div>
                     )}
                     <div className="content">
-                        <Anchor
-                            path="#"
+                        <h6
                             onClick={() => handleClick(id, read, type)}
+                            style={read ? {} : unreadActivityText}
                         >
-                            <h6 style={read ? {} : unreadActivityText}>
-                                {title}
-                            </h6>
-                        </Anchor>
+                            {title}
+                        </h6>
                         <p dangerouslySetInnerHTML={{ __html: desc }} />
                         <div className="time-maintane">
                             <div className="time data">
@@ -98,6 +98,7 @@ Activity.propTypes = {
     read: PropTypes.bool.isRequired,
     type: string,
     id: string,
+    notificationsRefresh: PropTypes.func,
     image: PropTypes.shape({
         src: PropTypes.oneOfType([PropTypes.shape(), PropTypes.string])
             .isRequired,
