@@ -54,7 +54,6 @@ const ActivityArea = ({ space, className }) => {
                             <Activity
                                 id={item.id}
                                 key={item.id}
-                                image={item.image}
                                 title={item.title}
                                 desc={item.content}
                                 time={moment(item.createdAt).format(
@@ -63,7 +62,6 @@ const ActivityArea = ({ space, className }) => {
                                 date={moment(item.createdAt).format(
                                     "Do MMMM YYYY"
                                 )}
-                                author={item.author}
                                 status={item.status}
                                 read={item.read}
                                 type={item?.type?.toLowerCase()}

@@ -70,7 +70,6 @@ const Activity = ({
                             <div className="time data">
                                 <i className="feather-clock" />
                                 <span style={read ? {} : unreadActivityText}>
-                                    {/* {JSON.stringify(time, date)} */}
                                     {time} on {date}
                                 </span>
                             </div>
@@ -96,20 +95,16 @@ Activity.propTypes = {
     desc: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    read: Boolean,
+    read: PropTypes.bool.isRequired,
     type: string,
     id: string,
-    author: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        slug: PropTypes.string.isRequired,
-    }).isRequired,
     image: PropTypes.shape({
         src: PropTypes.oneOfType([PropTypes.shape(), PropTypes.string])
             .isRequired,
         alt: PropTypes.string,
         width: PropTypes.number,
         height: PropTypes.number,
-    }).isRequired,
+    }),
     status: PropTypes.oneOf(["follow", "sale", "like", "offer"]),
 };
 
