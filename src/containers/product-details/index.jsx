@@ -8,12 +8,19 @@ import ProductTitle from "@components/product-details/title";
 import BidTab from "@components/product-details/bid-tab";
 import { ImageType } from "@utils/types";
 import PlaceBidModal from "@components/modals/placebid-modal";
-// Demo Image
+import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
 
 const ProductDetailsArea = ({ space, className, product }) => {
     const [showBidModal, setShowBidModal] = useState(false);
+    const router = useRouter();
+    const { state, dispatch } = useUserContext();
     const handleBidModal = () => {
-        setShowBidModal((prev) => !prev);
+        if (state.login) {
+            setShowBidModal((prev) => !prev);
+        } else {
+            router.push("/login");
+        }
     };
     return (
         <div

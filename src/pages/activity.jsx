@@ -5,20 +5,34 @@ import Footer from "@layout/footer";
 import ActivityArea from "@containers/activity";
 
 // Demo Data
-import activityData from "../data/activity.json";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
 }
-const Home = () => (
-    <Wrapper>
-        <SEO pageTitle="Acivity" />
-        <Header />
-        <main id="main-content">
-            <ActivityArea data={{ activities: activityData }} />
-        </main>
-        <Footer />
-    </Wrapper>
-);
+const Home = () => {
+    const router = useRouter();
+
+    const { state } = useUserContext();
+
+    useEffect(() => {
+        if (!state.login) {
+            router.push("/login");
+        }
+    }, [state, router]);
+
+    return (
+        <Wrapper>
+            <SEO pageTitle="Acivity" />
+            <Header />
+            <main id="main-content">
+                <ActivityArea />
+            </main>
+            <Footer />
+        </Wrapper>
+    );
+};
 
 export default Home;

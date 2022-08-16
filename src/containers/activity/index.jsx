@@ -1,11 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Activity from "@components/activity";
 import { IDType, ImageType } from "@utils/types";
+import { useUserContext } from "src/context/context";
+import axios from "axios";
+import moment from "moment";
+import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
-const ActivityArea = ({ space, className, data }) => {
-    const [activities] = useState(data?.activities || []);
+const ActivityArea = ({ space, className }) => {
+    // const [activities] = useState(data?.activities || []);
+    const [notifications, setNotifications] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const { state, dispatch } = useUserContext();
+
+    const retrieveNotifications = async () => {
+        const userId = await getUserIdByEmail(state.email);
+        setLoading(true);
+        // eslint-disable-next-line no-shadow
+
+        try {
+            const { data } = await axios.get(
+                `/api/notification/getNotifications/${userId}`
+            );
+            // eslint-disable-next-line react/prop-types
+            setNotifications(data.notifications.reverse() || []);
+        } catch (error) {
+            setNotifications([]);
+        }
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        retrieveNotifications();
+    }, [state]);
 
     return (
         <div
@@ -17,22 +45,29 @@ const ActivityArea = ({ space, className, data }) => {
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title">All following Acivity</h3>
+                    <h3 className="title">All Notifications</h3>
                 </div>
                 <div className="row g-6 activity-direction">
-                    {activities?.map((item) => (
-                        <Activity
-                            key={item.id}
-                            image={item.image}
-                            title={item.title}
-                            path={item.slug}
-                            desc={item.description}
-                            time={item.time}
-                            date={item.date}
-                            author={item.author}
-                            status={item.status}
-                        />
-                    ))}
+                    {loading && <p className="">Loading</p>}
+                    {notifications &&
+                        notifications?.map((item) => (
+                            <Activity
+                                id={item.id}
+                                key={item.id}
+                                title={item.title}
+                                desc={item.content}
+                                time={moment(item.createdAt).format(
+                                    "h:mm:ss a"
+                                )}
+                                date={moment(item.createdAt).format(
+                                    "Do MMMM YYYY"
+                                )}
+                                status={item.status}
+                                read={item.read}
+                                type={item?.type?.toLowerCase()}
+                                notificationsRefresh={retrieveNotifications}
+                            />
+                        ))}
                 </div>
             </div>
         </div>
