@@ -20,6 +20,7 @@ export default async function handler(req, res) {
                 notifications: [],
             };
         }
+        prisma.$disconnect();
         const { notifications } = notificationData;
         res.status(200).json({ notifications });
     } catch (error) {

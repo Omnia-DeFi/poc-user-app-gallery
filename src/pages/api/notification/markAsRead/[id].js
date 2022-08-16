@@ -12,6 +12,7 @@ export default async function handler(req, res) {
                 read: true,
             },
         });
+        prisma.$disconnect();
         res.status(200).json({ message: "markedAsRead" });
     } catch (error) {
         console.log(error);
