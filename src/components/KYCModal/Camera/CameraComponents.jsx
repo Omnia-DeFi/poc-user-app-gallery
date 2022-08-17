@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Camera } from "react-camera-pro";
+
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
@@ -153,10 +153,11 @@ function CameraComponents() {
                                 Take Photo
                             </button>
                         </div> */}
-                        <div>
-                            {image === null && <Camera aspectRatio={16 / 9} ref={camera} />}
-                            
-                            
+                        {/* <div>
+                            {image === null && (
+                                <Camera aspectRatio={16 / 9} ref={camera} />
+                            )}
+
                             <button
                                 onClick={() =>
                                     setImage(camera.current.takePhoto())
@@ -165,7 +166,7 @@ function CameraComponents() {
                                 Take photo
                             </button>
                             <img src={image} alt="Taken photo" />
-                        </div>
+                        </div> */}
                     </div>
                     {/* take photo */}
                 </div>
