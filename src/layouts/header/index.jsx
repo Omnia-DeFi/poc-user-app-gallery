@@ -12,10 +12,11 @@ import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import { useEffect, useState, useCallback } from "react";
 import { useUserContext } from "src/context/context";
 import { logoutUser } from "src/context/actions";
-import { getNotifications } from "@utils/getNotReadNotifications";
 import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
 import { magic } from "../../utils/magic";
+import Modal from "react-bootstrap/Modal";
+import IndexKYC from "@components/kyc-modal/IndexKYC";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
@@ -23,17 +24,17 @@ const Header = ({ className }) => {
     const { search, searchHandler } = useFlyoutSearch();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
-    const [notificationsCount, setNotificationsCount] = useState(0);
-    const { state, dispatch } = useUserContext();
 
-    const updateNotifications = async () => {
-        const notifications = await getNotifications(state.email);
-        setNotificationsCount(notifications.length);
+    const { state, dispatch } = useUserContext();
+ 
+    // modal state here start
+    const [showBidModal, setShowBidModal] = useState(false);
+    const handleBidModal = () => {
+        setShowBidModal((prev) => !prev);
     };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
-        updateNotifications();
     }, [state]);
 
     const logout = useCallback(() => {
@@ -99,6 +100,19 @@ const Header = ({ className }) => {
                             )}
                             {isAuthenticated && (
                                 <>
+                       <IndexKYC show={showBidModal} handleModal={handleBidModal}/>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                                onClick={handleBidModal}
+                                            >
+                                                +
+                                            </Button>
+                                        </div>
+                                    </div>
                                     <div className="setting-option header-btn">
                                         <div className="icon-box">
                                             <Button
@@ -135,22 +149,16 @@ const Header = ({ className }) => {
                                             </Button>
                                         </div>
                                     </div>
-                                    <div className="setting-option rn-icon-list notification-badge">
-                                        <div className="icon-box">
-                                            <Anchor
-                                                path={headerData.activity_link}
-                                            >
-                                                <i className="feather-bell" />
-                                                {notificationsCount > 0 && (
-                                                    <span className="badge">
-                                                        {notificationsCount}
-                                                    </span>
-                                                )}
-                                            </Anchor>
-                                        </div>
-                                    </div>
                                 </>
                             )}
+                            <div className="setting-option rn-icon-list notification-badge">
+                                <div className="icon-box">
+                                    <Anchor path={headerData.activity_link}>
+                                        <i className="feather-bell" />
+                                        <span className="badge">6</span>
+                                    </Anchor>
+                                </div>
+                            </div>
                             <div className="setting-option mobile-menu-bar d-block d-xl-none">
                                 <div className="hamberger">
                                     <BurgerButton onClick={offcanvasHandler} />
