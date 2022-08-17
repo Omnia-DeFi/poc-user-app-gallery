@@ -3,7 +3,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-function TakeSelfie({ secondStepHandler }) {
+function TakeGovernmentIDFront({ fifthStepHandler }) {
     return (
         <>
             <Modal.Header>
@@ -27,15 +27,17 @@ function TakeSelfie({ secondStepHandler }) {
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5">
-                    <h5 className="my-2">Take a selfie</h5>
-                    <p className="m-0">
-                        Make sure your whole face is visible without any glare
-                        or blur
-                    </p>
-                    <img src="/images/KYC/selfie.png" alt="selfie" />
+                    <h5 className="my-2">Select a Government ID</h5>
+                    <div></div>
+                    
                     <div className="mt-5">
+                        <div className="mb-5">
+                        <p>Front of Driving Licence</p>
+                        <p>Your name and photo should be clearly visible</p>
+                        <img src="/images/KYC/driving-licence-front.png" alt="selfie" />
+                        </div>
                         <Button
-                            onClick={secondStepHandler}
+                            onClick={fifthStepHandler}
                             size="medium"
                             fullwidth
                         >
@@ -48,4 +50,4 @@ function TakeSelfie({ secondStepHandler }) {
     );
 }
 
-export default TakeSelfie;
+export default TakeGovernmentIDFront;

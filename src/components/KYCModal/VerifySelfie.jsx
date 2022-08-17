@@ -3,7 +3,8 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-function TakeSelfie({ secondStepHandler }) {
+function VerifySelfie({ secondStepHandler, imgSrc,fourthStepHandler }) {
+    console.log(imgSrc);
     return (
         <>
             <Modal.Header>
@@ -27,20 +28,31 @@ function TakeSelfie({ secondStepHandler }) {
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5">
-                    <h5 className="my-2">Take a selfie</h5>
+                    <h5 className="my-2">Your selfie</h5>
                     <p className="m-0">
                         Make sure your whole face is visible without any glare
                         or blur
                     </p>
-                    <img src="/images/KYC/selfie.png" alt="selfie" />
-                    <div className="mt-5">
-                        <Button
+                    <img className="Webcam-selfie" src={imgSrc} alt="selfie" />
+                    <div className="mt-5 d-flex mx-4 justify-content-around">
+                       <div>
+                       <Button
                             onClick={secondStepHandler}
                             size="medium"
                             fullwidth
                         >
-                            CLICK PHOTO
+                            RETAKE
                         </Button>
+                       </div>
+                       <div>
+                       <Button
+                            onClick={fourthStepHandler}
+                            size="medium"
+                            fullwidth
+                        >
+                            LOOKS GOOD
+                        </Button>
+                       </div>
                     </div>
                 </div>
             </Modal.Body>
@@ -48,4 +60,4 @@ function TakeSelfie({ secondStepHandler }) {
     );
 }
 
-export default TakeSelfie;
+export default VerifySelfie;
