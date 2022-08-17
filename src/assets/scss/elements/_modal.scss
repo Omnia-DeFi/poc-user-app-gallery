@@ -238,3 +238,90 @@ body.modal-open {
         }
     }
 }
+
+.webcamCapture {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+}
+.Capture-round {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    right: 18%;
+    bottom: 25%;
+    width: 50%;
+    height: 40%;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    z-index: 1;
+}
+.take-photo {
+    position: absolute;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    top: 87%;
+    bottom: 5%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    cursor: pointer !important;
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(150, 150, 150, 0.4);
+    border-width: 10px;
+}
+.webcamCapture-face-fits {
+    position: absolute;
+    height: 70px;
+    width: 100;
+    border-radius: 50%;
+    top: 65%;
+    bottom: 5%;
+    left: 13%;
+    right: 13%;
+    color: white !important;
+    text-align: center;
+    font-size: 12px !important;
+}
+
+.webcamCapture__webcam {
+    color: white;
+    height: 400px;
+}
+.webcam-close {
+    color: #fff !important;
+    cursor: pointer !important;
+}
+
+.webcamCapture__button {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    // bottom: 0;
+    top: 7%;
+    padding-left: 10px;
+    padding-right: 10px;
+    left: 50%;
+
+    // background-color: rgba(22, 29, 32, 0.5);
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    color: white !important;
+    width: 100%;
+    height: 5;
+}
+
+.webcamCapture__button p,
+button {
+    color: #fff !important;
+    cursor: default;
+}
+.webcamCapture__chatIcon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: white;
+    cursor: pointer;
+}

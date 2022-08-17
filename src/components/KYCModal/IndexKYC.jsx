@@ -3,6 +3,8 @@ import Button from "@ui/button";
 import { useState } from "react";
 import CustomerDetails from "./CustomerDetails";
 import TakeSelfie from "./TakeSelfie";
+import CameraComponents from "./Camera/CameraComponents";
+import Camera2 from "./Camera/Camera2";
 
 function IndexKYC({ show, handleModal }) {
     const [firstStep, setFirstStep] = useState(true);
@@ -59,6 +61,9 @@ function IndexKYC({ show, handleModal }) {
                 )}
                 {secondStep && (
                     <TakeSelfie secondStepHandler={secondStepHandler} />
+                )}
+                {thirdStep && (
+                    <Camera2 />
                 )}
             </Modal>
         </div>
