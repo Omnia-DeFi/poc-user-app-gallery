@@ -26,7 +26,7 @@ const Header = ({ className }) => {
     const router = useRouter();
 
     const { state, dispatch } = useUserContext();
- 
+
     // modal state here start
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
@@ -82,6 +82,22 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div> */}
+                            <IndexKYC
+                                show={showBidModal}
+                                handleModal={handleBidModal}
+                            />
+                            <div className="setting-option header-btn">
+                                <div className="icon-box">
+                                    <Button
+                                        color="primary-alta"
+                                        className="connectBtn"
+                                        size="small"
+                                        onClick={handleBidModal}
+                                    >
+                                        +
+                                    </Button>
+                                </div>
+                            </div>
                             {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
@@ -100,19 +116,6 @@ const Header = ({ className }) => {
                             )}
                             {isAuthenticated && (
                                 <>
-                       <IndexKYC show={showBidModal} handleModal={handleBidModal}/>
-                                    <div className="setting-option header-btn">
-                                        <div className="icon-box">
-                                            <Button
-                                                color="primary-alta"
-                                                className="connectBtn"
-                                                size="small"
-                                                onClick={handleBidModal}
-                                            >
-                                                +
-                                            </Button>
-                                        </div>
-                                    </div>
                                     <div className="setting-option header-btn">
                                         <div className="icon-box">
                                             <Button
