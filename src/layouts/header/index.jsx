@@ -16,7 +16,7 @@ import headerData from "../../data/general/header.json";
 import menuData from "../../data/general/menu.json";
 import { magic } from "../../utils/magic";
 import Modal from "react-bootstrap/Modal";
-import IndexKYC from "@components/KYCModal/IndexKYC";
+import IndexKYC from "@components/kyc-modal/IndexKYC";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
