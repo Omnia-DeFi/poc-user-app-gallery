@@ -17,6 +17,7 @@ import menuData from "../../data/general/menu.json";
 import { magic } from "../../utils/magic";
 import Modal from "react-bootstrap/Modal";
 import IndexKYC from "@components/kyc-modal/IndexKYC";
+import IndexKYB from "@components/kyb-modal/IndexKYB";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
@@ -26,7 +27,7 @@ const Header = ({ className }) => {
     const router = useRouter();
 
     const { state, dispatch } = useUserContext();
- 
+
     // modal state here start
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
@@ -82,6 +83,22 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div> */}
+                            <IndexKYB
+                                show={showBidModal}
+                                handleModal={handleBidModal}
+                            />
+                            <div className="setting-option header-btn">
+                                <div className="icon-box">
+                                    <Button
+                                        color="primary-alta"
+                                        className="connectBtn"
+                                        size="small"
+                                        onClick={handleBidModal}
+                                    >
+                                        +
+                                    </Button>
+                                </div>
+                            </div>
                             {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
@@ -100,19 +117,6 @@ const Header = ({ className }) => {
                             )}
                             {isAuthenticated && (
                                 <>
-                       <IndexKYC show={showBidModal} handleModal={handleBidModal}/>
-                                    <div className="setting-option header-btn">
-                                        <div className="icon-box">
-                                            <Button
-                                                color="primary-alta"
-                                                className="connectBtn"
-                                                size="small"
-                                                onClick={handleBidModal}
-                                            >
-                                                +
-                                            </Button>
-                                        </div>
-                                    </div>
                                     <div className="setting-option header-btn">
                                         <div className="icon-box">
                                             <Button
