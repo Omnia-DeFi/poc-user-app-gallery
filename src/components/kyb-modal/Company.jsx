@@ -1,18 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import Select from "react-select";
-import { useState } from "react";
-
-const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-];
+import jurisdictionData from "../../data/jurisdiction.json";
 
 function Company({}) {
     const [selectedOption, setSelectedOption] = useState(null);
+    const [options, setOptions] = useState([]);
+
+   // if local asset use this set of code >>>>>>
+    useEffect(() => {
+        setOptions(
+            jurisdictionData.map(({ id, jurisdiction, code }) => ({
+                id,
+                label: jurisdiction,
+                value: code
+            }))
+        );
+    }, []);
+
+    // if not local asset use this set of code >>>>>>
+
+    // useEffect(() => {
+    //       const getOptions = async () => {
+    //         try {
+    //           const response = await fetch("");
+    //           const options = await response.json();
+    //           console.log(options);
+    //           setOptions(
+    //             jurisdictionData.map(({ id, jurisdiction, code }) => ({
+    //               id,
+    //               label: jurisdiction,
+    //               value: code
+    //             }))
+    //           );
+    //         } catch (error) {
+    //           // ignore
+    //         }
+    //       };
+    //       getOptions();
+    // }, []);
+  
     return (
         <>
             <Modal.Header>
