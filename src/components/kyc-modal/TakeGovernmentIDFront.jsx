@@ -32,7 +32,7 @@ function TakeGovernmentIDFront({ fifthStepHandler }) {
                         <img
                             style={{ width: "50px", height: "50px" }}
                             className="me-4 mt-3 "
-                            src="/images/KYC/logo.png"
+                            src="/images/kyc/logo.png"
                             alt=""
                         />
                     </div>
@@ -66,19 +66,19 @@ function TakeGovernmentIDFront({ fifthStepHandler }) {
                             <p>Your name and photo should be clearly visible</p>
                             {driverLicense && (
                                 <img
-                                    src="/images/KYC/driving-licence-front.png"
+                                    src="/images/kyc/driving-licence-front.png"
                                     alt="driving-licence-front"
                                 />
                             )}
                             {passport && (
                                 <img
-                                    src="/images/KYC/passport.png"
+                                    src="/images/kyc/passport.png"
                                     alt="passport-front"
                                 />
                             )}
                             {nationalID && (
                                 <img
-                                    src="/images/KYC/national-id-front.png"
+                                    src="/images/kyc/national-id-front.png"
                                     alt="national-id-front"
                                 />
                             )}

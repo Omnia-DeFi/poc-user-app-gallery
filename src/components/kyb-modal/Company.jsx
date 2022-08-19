@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 // import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
 import Button from "@ui/button";
 import Select from "react-select";
 import { useState } from "react";
@@ -17,31 +16,32 @@ function Company({}) {
     return (
         <>
             <Modal.Header>
-                <div className="d-flex justify-content-center ">
-                    <div>
+                <div className="text-center">
+                    <div className="mb-4">
                         <img
-                            style={{ width: "50px", height: "50px" }}
-                            className="me-4 mt-3 "
-                            src="/images/KYC/logo.png"
+                            width= "60px" height="60px"
+                            src="/images/kyc/kyb-icon.png"
                             alt=""
                         />
                     </div>
                     <div>
-                        <h6 className="my-2">Hi, Help us Setup your account</h6>
-                        <p className="m-0">
-                            We will verify it with your KYB documents
+                        <h6 className="m-3 mt-0">Verify Your Business</h6>
+                        <p className="mt-3 fs-4">
+                            Our partner ShuftiPro will vet your business through KYB &amp; AML processes to ensure no illegal business has been conducted
                         </p>
                     </div>
                 </div>
             </Modal.Header>
             <Modal.Body>
-                <form>
-                    <div className="row p-3">
-                        <label className="mt-3" htmlFor="company-registration-number">
+                <form className="company-form">
+                    <div className="p-3 pt-0">
+                        <label
+                            htmlFor="Company-Registration-Number"
+                        >
                             Company Registration Number
                         </label>
                         <input
-                            className="border p-3 rounded"
+                            className="border p-3 rounded modal-input-box"
                             type="text"
                             placeholder="Enter your company registration number"
                             id="company-registration-number"
@@ -51,28 +51,42 @@ function Company({}) {
                             Company Name
                         </label>
                         <input
-                            className="border p-3 rounded"
+                            className="border p-3 rounded modal-input-box"
                             type="text"
                             placeholder="Enter your company name"
                             id="company-name"
+                            required
+                        />
+                        <label
+                            className="mt-3"
+                            htmlFor="business-incorporation-date"
+                        >
+                            Business Incorporation Date
+                        </label>
+                        <input
+                            className="border p-3 rounded modal-input-box"
+                            type="date"
+                            id="business-incorporation-date"
                             required
                         />
 
                         <label className="mt-3" htmlFor="jurisdiction-code">
                             Company Jurisdiction
                         </label>
+
                         <Select
                             className="text-xl"
                             defaultValue={selectedOption}
                             onChange={setSelectedOption}
                             options={options}
+                            required
                             isClearable={true}
                             id="jurisdiction-code"
                         />
                     </div>
                     <div className="mt-5">
                         <Button size="medium" fullwidth>
-                            Continue
+                            Submit
                         </Button>
                     </div>
                 </form>

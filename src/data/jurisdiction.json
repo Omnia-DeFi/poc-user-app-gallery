@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "jurisdiction": "Alabama (US)",
+        "code": "us_al"
+    },
+    {
+        "id": 2,
+        "jurisdiction": "Alaska (US)",
+        "code": "us_ak"
+    },
+    {
+        "id": 3,
+        "jurisdiction": "Arizona (US)",
+        "code": "us_az"
+    },
+    {
+        "id": 4,
+        "jurisdiction": "Arkansas (US)",
+        "code": "us_ar"
+    },
+    {
+        "id": 5,
+        "jurisdiction": "California (US)",
+        "code": "us_ca"
+    }
+]
