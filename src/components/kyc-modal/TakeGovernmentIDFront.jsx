@@ -3,11 +3,15 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-function TakeGovernmentIDFront({ fifthStepHandler }) {
-    const [driverLicense, setDriverLicense] = useState(true);
-    const [passport, setPassport] = useState(false);
-    const [nationalID, setNationalID] = useState(false);
-
+function TakeGovernmentIDFront({
+    fifthStepHandler,
+    setNationalID,
+    nationalID,
+    setPassport,
+    passport,
+    setDriverLicense,
+    driverLicense,
+}) {
     const driverLicenseHandler = () => {
         setDriverLicense(true);
         setPassport(false);
@@ -58,11 +62,11 @@ function TakeGovernmentIDFront({ fifthStepHandler }) {
 
                     <div className="mt-5">
                         <div className="mb-5 modal-id-show">
-                            <p>
-                                Front of {driverLicense && "Driving Licence"}{" "}
+                            <h6 className="text-bold mb-3">
+                                Front of {driverLicense && "Driving Licence"}
                                 {passport && "Passport"}{" "}
                                 {nationalID && "National ID"}
-                            </p>
+                            </h6>
                             <p>Your name and photo should be clearly visible</p>
                             {driverLicense && (
                                 <img

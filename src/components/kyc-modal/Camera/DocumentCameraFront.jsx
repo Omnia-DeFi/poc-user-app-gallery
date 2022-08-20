@@ -8,21 +8,22 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-function Camera2({ imgSrc, setImgSrc, thirdStepHandler }) {
+function DocumentCameraFront({
+    documentFrontImage,
+    setDocumentFrontImage,
+    sixthStepHandler,
+    nationalID,
+    passport,
+    driverLicense,
+}) {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
-        setImgSrc(imageSrc);
-        // history.push("/preview");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        thirdStepHandler();
+        setDocumentFrontImage(imageSrc);
+        sixthStepHandler();
     }, [webcamRef]);
 
-    // console.log(imgSrc);
-
-    // const openChats = () => {
-    //   history.replace("/chats");
-    // };
+    console.log(documentFrontImage);
     return (
         <div className="webcamCapture">
             <Webcam
@@ -35,19 +36,28 @@ function Camera2({ imgSrc, setImgSrc, thirdStepHandler }) {
             />
 
             <div className="webcamCapture__button">
-                <p>Take a Selfie</p>
+                <p>
+                    {driverLicense && "Driving Licence"}
+                    {passport && "Passport"} {nationalID && "National ID"} front
+                    side
+                </p>
                 <div>
                     <button>Tips</button>
                 </div>
                 <p className="webcam-close">Close</p>
             </div>
-            <span className="Capture-round"></span>
+            <span className="Capture-rectangle"></span>
             <span className="take-photo" onClick={capture}></span>
-            <p className="webcamCapture-face-fits">
-                Make sure your face fits inside the oval and is clearly visible
+            <p className="webcam-rectangle-top">
+                Your Name and Photo should be clearly visible
+            </p>
+            <p className="webcam-rectangle-bottom">
+                Fit front side of {driverLicense && "Driving Licence"}
+                {passport && "Passport"} {nationalID && "National ID"} card
+                inside the box
             </p>
         </div>
     );
 }
 
-export default Camera2;
+export default DocumentCameraFront;
