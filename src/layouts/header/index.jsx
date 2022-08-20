@@ -25,6 +25,7 @@ const Header = ({ className }) => {
     const { search, searchHandler } = useFlyoutSearch();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
+    const [isScroll, setIsScroll] = useState(false);
 
     const { state, dispatch } = useUserContext();
 
@@ -44,6 +45,14 @@ const Header = ({ className }) => {
         });
         router.push("/login");
     }, [state]);
+
+    useEffect(() => {
+        if (showBidModal) {
+            document.body.classList.add("modal-open");
+        } else {
+            document.body.classList.remove("modal-open");
+        }
+    }, [showBidModal]);
 
     return (
         <>

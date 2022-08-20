@@ -15,6 +15,8 @@ function IndexKYB({ show, handleModal }) {
                 show={show}
                 onHide={handleModal}
                 centered
+                backdrop="static"
+                keyboard={false}
             >
                 {show && (
                     <button

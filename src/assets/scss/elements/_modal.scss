@@ -381,3 +381,7 @@ button {
 .modal-input-box::-webkit-input-placeholder {
     font-size: 14px;
 }
+
+body.modal-open {
+    overflow: hidden;
+}
