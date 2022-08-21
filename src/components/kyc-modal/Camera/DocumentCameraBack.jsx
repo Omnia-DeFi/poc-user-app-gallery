@@ -9,6 +9,7 @@ const videoConstraints = {
 };
 
 function DocumentCameraBack({
+    seventhStepHandler,
     setDocumentBackImage,
     documentBackImage,
     nineStepHandler,
@@ -44,7 +45,9 @@ function DocumentCameraBack({
                 <div>
                     <button>Tips</button>
                 </div>
-                <p className="webcam-close">Close</p>
+                <p onClick={seventhStepHandler} className="webcam-close">
+                    Close
+                </p>
             </div>
             <span className="Capture-rectangle"></span>
             <span className="take-photo" onClick={capture}></span>
@@ -61,4 +64,3 @@ function DocumentCameraBack({
 }
 
 export default DocumentCameraBack;
-

@@ -18,8 +18,8 @@ function VerifySelfie({ secondStepHandler, imgSrc,fourthStepHandler }) {
                         />
                     </div>
                     <div className="ms-4">
-                        <h6 className="my-2">Verify your identity</h6>
-                        <p className="m-0">
+                        <h6 className="my-2 fs-6">Verify your identity</h6>
+                        <p className="m-0 ">
                             Please upload a selfie and provide personal details
                             for KYC verification
                         </p>
@@ -28,8 +28,8 @@ function VerifySelfie({ secondStepHandler, imgSrc,fourthStepHandler }) {
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5">
-                    <h5 className="my-2">Your selfie</h5>
-                    <p className="m-0">
+                    <h5 className="my-2 text-muted">Your selfie</h5>
+                    <p className="m-0 text-muted">
                         Make sure your whole face is visible without any glare
                         or blur
                     </p>

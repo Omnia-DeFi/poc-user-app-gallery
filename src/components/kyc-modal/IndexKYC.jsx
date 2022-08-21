@@ -3,13 +3,14 @@ import Button from "@ui/button";
 import { useState } from "react";
 import CustomerDetails from "./CustomerDetails";
 import TakeSelfie from "./TakeSelfie";
-import Camera2 from "./Camera/Camera2";
 import DocumentCameraFront from "./Camera/DocumentCameraFront";
 import VerifySelfie from "./VerifySelfie";
 import TakeGovernmentIDFront from "./TakeGovernmentIDFront";
 import VerifyDocumentFront from "./VerifyDocumentFront";
 import TakeGovernmentIDBack from "./TakeGovernmentIDBack";
 import DocumentCameraBack from "./Camera/DocumentCameraBack";
+import Success from "./Success";
+import Camera from "./Camera/Camera";
 
 function IndexKYC({ show, handleModal }) {
     const [firstStep, setFirstStep] = useState(true);
@@ -22,6 +23,7 @@ function IndexKYC({ show, handleModal }) {
     const [eighthStep, setEighthStep] = useState(false);
     const [nineStep, setNineStep] = useState(false);
     const [tenStep, setTenStep] = useState(false);
+    const [elevenStep, setElevenStep] = useState(false);
 
     const [driverLicense, setDriverLicense] = useState(true);
     const [passport, setPassport] = useState(false);
@@ -38,7 +40,6 @@ function IndexKYC({ show, handleModal }) {
     ]);
 
     const firstStepHandler = () => {
-        console.log("first step");
         setFirstStep(false);
         setSecondStep(true);
         setThirdStep(false);
@@ -49,9 +50,9 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(false);
         setTenStep(false);
+        setElevenStep(false);
     };
     const secondStepHandler = () => {
-        console.log("second step");
         setSecondStep(false);
         setFirstStep(false);
         setThirdStep(true);
@@ -62,9 +63,9 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(false);
         setTenStep(false);
+        setElevenStep(false);
     };
     const thirdStepHandler = () => {
-        console.log("third step");
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(true);
@@ -75,9 +76,9 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(false);
         setTenStep(false);
+        setElevenStep(false);
     };
     const fourthStepHandler = () => {
-        console.log("fourth step");
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
@@ -88,9 +89,9 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(false);
         setTenStep(false);
+        setElevenStep(false);
     };
     const fifthStepHandler = () => {
-        console.log("fifth step");
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
@@ -101,9 +102,9 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(false);
         setTenStep(false);
+        setElevenStep(false);
     };
     const sixthStepHandler = () => {
-        console.log("sixth step");
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
@@ -114,9 +115,9 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(false);
         setTenStep(false);
+        setElevenStep(false);
     };
     const seventhStepHandler = () => {
-        console.log("seventh step");
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
@@ -127,6 +128,7 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(true);
         setNineStep(false);
         setTenStep(false);
+        setElevenStep(false);
     };
     const eightStepHandler = () => {
         setThirdStep(false);
@@ -139,6 +141,7 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(true);
         setTenStep(false);
+        setElevenStep(false);
     };
     const nineStepHandler = () => {
         setThirdStep(false);
@@ -151,6 +154,39 @@ function IndexKYC({ show, handleModal }) {
         setEighthStep(false);
         setNineStep(false);
         setTenStep(true);
+        setElevenStep(false);
+    };
+
+    const tenStepHandler = () => {
+        setThirdStep(false);
+        setSecondStep(false);
+        setFourthStep(false);
+        setFirstStep(false);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNineStep(false);
+        setTenStep(false);
+        setElevenStep(true);
+    };
+
+    const elevenStepHandler = () => {
+        setThirdStep(false);
+        setSecondStep(false);
+        setFourthStep(false);
+        setFirstStep(true);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNineStep(false);
+        setTenStep(false);
+        setElevenStep(false);
+        setImgSrc(null);
+        setDocumentBackImage(null);
+        setDocumentFrontImage(null);
+        handleModal()
     };
 
     const looksGoodHandler = () => {
@@ -193,10 +229,10 @@ function IndexKYC({ show, handleModal }) {
                     <TakeSelfie secondStepHandler={secondStepHandler} />
                 )}
                 {thirdStep && (
-                    <Camera2
-                        imgSrc={imgSrc}
+                    <Camera
                         setImgSrc={setImgSrc}
                         thirdStepHandler={thirdStepHandler}
+                        firstStepHandler={firstStepHandler}
                     />
                 )}
                 {fourthStep && (
@@ -219,6 +255,7 @@ function IndexKYC({ show, handleModal }) {
                 )}
                 {sixthStep && (
                     <DocumentCameraFront
+                        fourthStepHandler={fourthStepHandler}
                         sixthStepHandler={sixthStepHandler}
                         documentFrontImage={documentFrontImage}
                         setDocumentFrontImage={setDocumentFrontImage}
@@ -230,6 +267,7 @@ function IndexKYC({ show, handleModal }) {
 
                 {seventhStep && (
                     <VerifyDocumentFront
+                 
                         documentFrontImage={documentFrontImage}
                         seventhStepHandler={seventhStepHandler}
                         fifthStepHandler={fifthStepHandler}
@@ -240,6 +278,7 @@ function IndexKYC({ show, handleModal }) {
                 )}
                 {eighthStep && (
                     <TakeGovernmentIDBack
+                    sixthStepHandler={sixthStepHandler}
                         documentFrontImage={documentFrontImage}
                         nationalID={nationalID}
                         passport={passport}
@@ -251,7 +290,8 @@ function IndexKYC({ show, handleModal }) {
                 )}
                 {nineStep && (
                     <DocumentCameraBack
-                    nineStepHandler={nineStepHandler}
+                        nineStepHandler={nineStepHandler}
+                        seventhStepHandler={seventhStepHandler}
                         setDocumentBackImage={setDocumentBackImage}
                         documentBackImage={documentBackImage}
                         nationalID={nationalID}
@@ -262,6 +302,7 @@ function IndexKYC({ show, handleModal }) {
                 {tenStep && (
                     <TakeGovernmentIDBack
                         documentFrontImage={documentFrontImage}
+                        tenStepHandler={tenStepHandler}
                         nationalID={nationalID}
                         passport={passport}
                         driverLicense={driverLicense}
@@ -269,6 +310,9 @@ function IndexKYC({ show, handleModal }) {
                         setDocumentBackImage={setDocumentBackImage}
                         documentBackImage={documentBackImage}
                     />
+                )}
+                {elevenStep && (
+                    <Success elevenStepHandler={elevenStepHandler} />
                 )}
             </Modal>
         </div>

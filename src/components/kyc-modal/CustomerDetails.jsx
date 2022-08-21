@@ -1,50 +1,103 @@
-import React from "react";
+import React, { useState } from "react";
 // import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "@ui/button";
 
 function CustomerDetails({ firstStepHandler }) {
+    const [gender, setGender] = useState("");
+    const [validgender, setValidGender] = useState(false);
+    const [formValue, setFormValue] = useState({
+        username: "",
+        dateofbirth: "",
+    });
+
+    console.log(formValue);
+    console.log(validgender);
+
+    const changeGender = (e) => {
+        setValidGender(true);
+        setGender(e);
+    };
+
+    const handleChange = (e) => {
+        setFormValue({
+            ...formValue,
+            [e.target.name]: e.target.value,
+        });
+    };
+    const formHandler = () => {
+        let i;
+        let ok = true;
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, "0");
+        let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+        let yyyy = today.getFullYear();
+        today = yyyy + "-" + mm + "-" + dd;
+        for (i = 0; i < formValue.username.length; i++) {
+            let val = formValue.username.charCodeAt(i);
+            if ((val >= 65 && val <= 90) || (val >= 97 && val <= 122)) {
+            } else if (val == 32) {
+            } else ok = false;
+        }
+        if (!ok) alert("Name cannot contain numbers or special characters !");
+        else if (formValue.dateofbirth >= today)
+            alert("invalid date of birth !");
+        else if (validgender === false) alert("Please select gender!");
+        else {
+            firstStepHandler();
+        }
+    };
+
     return (
         <>
             <Modal.Header>
-                <div className="d-flex justify-content-center ">
-                    <div>
+                <div className="text-center">
+                    <div className="mb-4">
                         <img
-                            style={{ width: "50px", height: "50px" }}
-                            className="me-4 mt-3 "
+                            style={{ width: "60px", height: "60px" }}
                             src="/images/KYC/logo.png"
                             alt=""
                         />
                     </div>
                     <div>
-                        <h6 className="my-2">
-                            Hi ! Help us Setup your account
+                        <h6 className="m-3 mt-0">
+                            Verify Your Identity
                         </h6>
-                        <p className="m-0">
+                        <p className="mt-3 fs-4">
                             We'll verify it with your KYC documents
                         </p>
                     </div>
                 </div>
             </Modal.Header>
             <Modal.Body>
-                <form>
-                    <div className="row p-3">
-                        <label htmlFor="">Your full name</label>
+                <form className="company-form">
+                    <div className="p-3 pt-0">
+                        <label htmlFor="full-name">Your full name</label>
                         <input
-                            className="border p-3 rounded"
+                            className="border p-3 rounded modal-input-box"
                             type="text"
                             required
                             name="username"
+                            id="full-name"
+                            defaultValue={formValue.username}
+                            onChange={(e) => handleChange(e)}
                             placeholder="eg: Raj Kumar Babu"
                         />
-                        <p>Ensure it matches name on your idendity documents</p>
-                        <label htmlFor="">Your date of birth</label>
+                        <p className="input-box-button">
+                            Ensure it matches name on your idendity documents
+                        </p>
+                        <label htmlFor="date-of-birth">
+                            Your date of birth
+                        </label>
                         <input
-                            className="border p-3 rounded"
+                            className="border p-3 rounded modal-input-box"
                             type="date"
                             required
+                            defaultValue={formValue.dateofbirth}
+                            onChange={(e) => handleChange(e)}
                             name="dateofbirth"
+                            id="date-of-birth"
                             placeholder="DD/MM/YYYY"
                         />
 
@@ -54,9 +107,12 @@ function CustomerDetails({ firstStepHandler }) {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className="bbutton col-12 border btn btn-block btn-success btn-outline-success"
-                                        value="Female"
-                                        // onClick={() => this.changegender("Female")}
+                                        className={`w-100 btn ${
+                                            gender === "Female"
+                                                ? `btn-success`
+                                                : `btn-secondary `
+                                        }`}
+                                        onClick={() => changeGender("Female")}
                                     >
                                         Female
                                     </button>
@@ -64,9 +120,12 @@ function CustomerDetails({ firstStepHandler }) {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className="bbutton border RoundButton btn btn-block btn-outline-success"
-                                        value="Male"
-                                        // onClick={() => this.changegender("Male")}
+                                        className={`w-100 btn ${
+                                            gender === "Male"
+                                                ? `btn-success`
+                                                : `btn-secondary `
+                                        }`}
+                                        onClick={() => changeGender("Male")}
                                     >
                                         Male
                                     </button>
@@ -74,9 +133,12 @@ function CustomerDetails({ firstStepHandler }) {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className="bbutton RoundButton border btn btn-block btn-outline-success"
-                                        value="Other"
-                                        // onClick={() => this.changegender("Other")}
+                                        className={`w-100 btn ${
+                                            gender === "Other"
+                                                ? `btn-success`
+                                                : `btn-secondary `
+                                        }`}
+                                        onClick={() => changeGender("Other")}
                                     >
                                         Other
                                     </button>
@@ -85,11 +147,7 @@ function CustomerDetails({ firstStepHandler }) {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <Button
-                            onClick={firstStepHandler}
-                            size="medium"
-                            fullwidth
-                        >
+                        <Button onClick={formHandler} size="medium" fullwidth>
                             Continue
                         </Button>
                     </div>
