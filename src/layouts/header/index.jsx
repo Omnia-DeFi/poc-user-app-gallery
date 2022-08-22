@@ -18,6 +18,7 @@ import { magic } from "../../utils/magic";
 import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
 import IndexKYC from "@components/kyc-modal/IndexKYC";
+import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
 import DropdownMenu from "./DropdownMenu";
 import { getNotifications } from "@utils/getNotReadNotifications";
@@ -34,9 +35,13 @@ const Header = ({ className }) => {
     const { state, dispatch } = useUserContext();
 
     // modal state here start
-    const [showBidModal, setShowBidModal] = useState(false);
-    const handleBidModal = () => {
-        setShowBidModal((prev) => !prev);
+    const [showKycModal, setShowKycModal] = useState(false);
+    const handleKycModal = () => {
+        setShowKycModal((prev) => !prev);
+    };
+    const [showKybModal, setShowKybModal] = useState(false);
+    const handleKybModal = () => {
+        setShowKybModal((prev) => !prev);
     };
 
     const updateNotifications = async () => {
@@ -82,8 +87,13 @@ const Header = ({ className }) => {
                             {isAuthenticated && (
                                 <>
                                     <IndexKYC
-                                        show={showBidModal}
-                                        handleModal={handleBidModal}
+                                        show={showKycModal}
+                                        handleModal={handleKycModal}
+                                    />
+
+                                    <IndexKYB
+                                        show={showKybModal}
+                                        handleModal={handleKybModal}
                                     />
 
                                     <div className="setting-option rn-icon-list notification-badge">
@@ -156,7 +166,8 @@ const Header = ({ className }) => {
                                     state={state}
                                     isAuthenticated={isAuthenticated}
                                     logout={logout}
-                                    handleBidModal={handleBidModal}
+                                    handleKycModal={handleKycModal}
+                                    handleKybModal={handleKybModal}
                                 />
                             )}
                             {!isAuthenticated && (

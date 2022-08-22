@@ -4,7 +4,13 @@ import Image from "next/image";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 
-function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
+function DropdownMenu({
+    state,
+    isAuthenticated,
+    logout,
+    handleKycModal,
+    handleKybModal,
+}) {
     const router = useRouter();
     // the states are unverified , pending , verified , failed
     const [kycState, setkycState] = useState("unverified");
@@ -16,7 +22,12 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                 <>
                     <div className="drop-down-menu-item drop-down-single-item">
                         <div className="me-4">
-                            <Image width="30px" height="30px" src="/images/profile-dropdown/wallet.svg" alt="Wallet"/>
+                            <Image
+                                width="30px"
+                                height="30px"
+                                src="/images/profile-dropdown/wallet.svg"
+                                alt="Wallet"
+                            />
                         </div>
                         <p>
                             {state.issuer.slice(9, 15)}
@@ -26,23 +37,33 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                     </div>
                     <div className="drop-down-menu-item drop-down-single-item ">
                         <div className="me-4">
-                            <Image width="30px" height="30px" src="/images/profile-dropdown/email.svg" alt="Email"/>
+                            <Image
+                                width="30px"
+                                height="30px"
+                                src="/images/profile-dropdown/email.svg"
+                                alt="Email"
+                            />
                         </div>
                         <p> {state.email}</p>
                     </div>
 
                     {/* KYC Start here */}
-                    { kycState === "unverified" ? (
+                    {kycState === "unverified" ? (
                         <Tippy
                             content="Not verified. Click here to verify."
                             placement="left"
                         >
                             <div
-                                onClick={handleBidModal}
+                                onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
                                 <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_not_verified.svg" alt="KYC"/>
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyc_not_verified.svg"
+                                        alt="KYC"
+                                    />
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <p className="me-3 ">KYC </p>
@@ -56,7 +77,12 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                         <Tippy content="Verification Pending" placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
                                 <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_pending.svg" alt="KYC Pending"/>
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyc_pending.svg"
+                                        alt="KYC Pending"
+                                    />
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center ">
                                     <p className="me-3 ">KYC </p>
@@ -68,21 +94,26 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                         </Tippy>
                     ) : kycState === "verified" ? (
                         <Tippy
-                        content="Verification Successful"
-                        placement="left"
-                    >
-                        <div className="drop-down-menu-item drop-down-single-item ">
-                            <div className="me-4">
-                                <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_verified.svg" alt="KYC Successful"/>
+                            content="Verification Successful"
+                            placement="left"
+                        >
+                            <div className="drop-down-menu-item drop-down-single-item ">
+                                <div className="me-4">
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyc_verified.svg"
+                                        alt="KYC Successful"
+                                    />
+                                </div>
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <p className="me-3 ">KYC </p>
+                                    <span className="successful-text">
+                                        ( Verification Successful )
+                                    </span>
+                                </div>
                             </div>
-                            <div className="d-flex justify-content-center align-items-center">
-                                <p className="me-3 ">KYC </p>
-                                <span className="successful-text">
-                                    ( Verification Successful )
-                                </span>
-                            </div>
-                        </div>
-                    </Tippy>
+                        </Tippy>
                     ) : (
                         <Tippy
                             content="Verification failed. Click here to
@@ -90,11 +121,16 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                             placement="left"
                         >
                             <div
-                                onClick={handleBidModal}
+                                onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
                                 <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_failed.svg" alt="KYC Failed"/>
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyc_failed.svg"
+                                        alt="KYC Failed"
+                                    />
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <p className="me-3 ">KYC </p>
@@ -107,14 +143,22 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                     )}
 
                     {/* KYB Start Here */}
-                    { kybState === "unverified" ? (
+                    {kybState === "unverified" ? (
                         <Tippy
                             content="Not verified. Click here to verify."
                             placement="left"
                         >
-                            <div className="drop-down-menu-item drop-down-single-item ">
+                            <div
+                                onClick={handleKybModal}
+                                className="drop-down-menu-item drop-down-single-item "
+                            >
                                 <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_not_verified.svg" alt="KYB"/>
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyb_not_verified.svg"
+                                        alt="KYB"
+                                    />
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -131,11 +175,16 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                                 </div>
                             </div>
                         </Tippy>
-                   ) : kybState === "pending" ? (
+                    ) : kybState === "pending" ? (
                         <Tippy content="Verification Pending " placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
                                 <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_pending.svg" alt="KYB Pending"/>
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyb_pending.svg"
+                                        alt="KYB Pending"
+                                    />
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -151,14 +200,19 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                                 </div>
                             </div>
                         </Tippy>
-                     ) : kybState === "verified" ? (
+                    ) : kybState === "verified" ? (
                         <Tippy
                             content="Verification Successful"
                             placement="left"
                         >
                             <div className="drop-down-menu-item drop-down-single-item ">
                                 <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_verified.svg" alt="KYB Successful"/>
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyb_verified.svg"
+                                        alt="KYB Successful"
+                                    />
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -174,15 +228,23 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                                 </div>
                             </div>
                         </Tippy>
-                      ) : (
+                    ) : (
                         <Tippy
                             content="Verification failed. Click here to
                         resubmit."
                             placement="left"
                         >
-                            <div className="drop-down-menu-item drop-down-single-item ">
+                            <div
+                                onClick={handleKybModal}
+                                className="drop-down-menu-item drop-down-single-item "
+                            >
                                 <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_failed.svg" alt="KYB Failed"/>
+                                    <Image
+                                        width="30px"
+                                        height="30px"
+                                        src="/images/profile-dropdown/kyb_failed.svg"
+                                        alt="KYB Failed"
+                                    />
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -208,7 +270,12 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                 className="drop-down-menu-item drop-down-menu-item-last drop-down-single-item"
             >
                 <div className="me-4">
-                    <Image width="30px" height="30px" src="/images/profile-dropdown/logout.svg" alt="Logout"/>
+                    <Image
+                        width="30px"
+                        height="30px"
+                        src="/images/profile-dropdown/logout.svg"
+                        alt="Logout"
+                    />
                 </div>
                 <p>Log Out</p>
             </div>
