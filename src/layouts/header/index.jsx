@@ -34,9 +34,9 @@ const Header = ({ className }) => {
     const { state, dispatch } = useUserContext();
 
     // modal state here start
-    const [showBidModal, setShowBidModal] = useState(false);
-    const handleBidModal = () => {
-        setShowBidModal((prev) => !prev);
+    const [showKycModal, setShowKycModal] = useState(false);
+    const handleKycModal = () => {
+        setShowKycModal((prev) => !prev);
     };
 
     const updateNotifications = async () => {
@@ -82,8 +82,8 @@ const Header = ({ className }) => {
                             {isAuthenticated && (
                                 <>
                                     <IndexKYC
-                                        show={showBidModal}
-                                        handleModal={handleBidModal}
+                                        show={showKycModal}
+                                        handleModal={handleKycModal}
                                     />
 
                                     <div className="setting-option rn-icon-list notification-badge">
@@ -156,7 +156,7 @@ const Header = ({ className }) => {
                                     state={state}
                                     isAuthenticated={isAuthenticated}
                                     logout={logout}
-                                    handleBidModal={handleBidModal}
+                                    handleKycModal={handleKycModal}
                                 />
                             )}
                             {!isAuthenticated && (

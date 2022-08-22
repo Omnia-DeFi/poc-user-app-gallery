@@ -4,7 +4,11 @@ import Image from "next/image";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 
-function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
+function DropdownMenu({
+    state,
+    isAuthenticated,
+    logout,
+    handleKycModal,
     const router = useRouter();
     // the states are unverified , pending , verified , failed
     const [kycState, setkycState] = useState("unverified");
@@ -38,7 +42,7 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                             placement="left"
                         >
                             <div
-                                onClick={handleBidModal}
+                                onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
                                 <div className="me-4">
@@ -90,7 +94,7 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                             placement="left"
                         >
                             <div
-                                onClick={handleBidModal}
+                                onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
                                 <div className="me-4">
