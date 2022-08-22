@@ -57,7 +57,7 @@ body.modal-open {
     }
     .btn-close {
         margin: 0;
-        position: fixed;
+        position: absolute;
         z-index: 99;
         right: 30px;
         top: 30px;
