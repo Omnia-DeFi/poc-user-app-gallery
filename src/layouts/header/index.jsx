@@ -21,6 +21,7 @@ import IndexKYC from "@components/kyc-modal/IndexKYC";
 import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
 import DropdownMenu from "./DropdownMenu";
+import { getNotifications } from "@utils/getNotReadNotifications";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
@@ -30,6 +31,7 @@ const Header = ({ className }) => {
     const router = useRouter();
     const [isScroll, setIsScroll] = useState(false);
     const [open, setOpen] = useState(false);
+    const [notificationsCount, setNotificationsCount] = useState(0);
 
     const { state, dispatch } = useUserContext();
 
@@ -39,8 +41,14 @@ const Header = ({ className }) => {
         setShowBidModal((prev) => !prev);
     };
 
+    const updateNotifications = async () => {
+        const notifications = await getNotifications(state.email);
+        setNotificationsCount(notifications.length);
+    };
+
     useEffect(() => {
         setIsAuthenticated(state.login);
+        updateNotifications();
     }, [state]);
 
     const logout = useCallback(() => {
@@ -48,7 +56,7 @@ const Header = ({ className }) => {
             dispatch(logoutUser());
         });
         router.push("/login");
-    }, [state]);
+    }, [state.email]);
 
     useEffect(() => {
         if (showBidModal) {
@@ -82,21 +90,27 @@ const Header = ({ className }) => {
                         </div>
                         <div className="header-right">
                             {isAuthenticated && (
-                               <>
-                                 <IndexKYC
-                                    show={showBidModal}
-                                    handleModal={handleBidModal}
-                                />
-                             
-                                <div className="setting-option rn-icon-list notification-badge">
-                                    <div className="icon-box">
-                                        <Anchor path={headerData.activity_link}>
-                                            <i className="feather-bell" />
-                                            <span className="badge">6</span>
-                                        </Anchor>
+                                <>
+                                    <IndexKYC
+                                        show={showBidModal}
+                                        handleModal={handleBidModal}
+                                    />
+
+                                    <div className="setting-option rn-icon-list notification-badge">
+                                        <div className="icon-box">
+                                            <Anchor
+                                                path={headerData.activity_link}
+                                            >
+                                                <i className="feather-bell" />
+                                                {notificationsCount > 0 && (
+                                                    <span className="badge">
+                                                        {notificationsCount}
+                                                    </span>
+                                                )}
+                                            </Anchor>
+                                        </div>
                                     </div>
-                                </div>
-                               </>
+                                </>
                             )}
                             <div
                                 id="my_switcher"
@@ -104,7 +118,7 @@ const Header = ({ className }) => {
                             >
                                 <ColorSwitcher />
                             </div>
-                            
+
                             <div
                                 onClick={offcanvasHandler}
                                 className="setting-option my_switcher mobile-menu-bar hamberger-menu-icon d-flex d-xl-none"
@@ -172,7 +186,7 @@ const Header = ({ className }) => {
                                     handleBidModal={handleBidModal}
                                 />
                             )}
-                              {!isAuthenticated && (
+                            {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
                                         <Button
