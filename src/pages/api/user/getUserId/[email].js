@@ -17,6 +17,7 @@ export default async function handler(req, res) {
         } else {
             userId = userId.id;
         }
+        prisma.$disconnect();
         res.status(200).json({ userId });
     } catch (error) {
         res.status(400).json({ message: error });

@@ -5,6 +5,7 @@ import Activity from "@components/activity";
 import { IDType, ImageType } from "@utils/types";
 import { useUserContext } from "src/context/context";
 import axios from "axios";
+import moment from "moment";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const ActivityArea = ({ space, className, data }) => {
@@ -22,12 +23,12 @@ const ActivityArea = ({ space, className, data }) => {
         );
         setLoading(false);
         // eslint-disable-next-line react/prop-types
-        setNotifications(data.notifications || []);
+        setNotifications(data.notifications.reverse() || []);
     };
 
     useEffect(() => {
         retrieveNotifications();
-    }, []);
+    }, [state]);
 
     return (
         <div
@@ -46,15 +47,20 @@ const ActivityArea = ({ space, className, data }) => {
                     {notifications &&
                         notifications?.map((item) => (
                             <Activity
+                                id={item.id}
                                 key={item.id}
-                                image={item.image}
                                 title={item.title}
-                                path="#"
                                 desc={item.content}
-                                time={item.createdAt}
-                                date={item.createdAt}
-                                author={item.author}
+                                time={moment(item.createdAt).format(
+                                    "h:mm:ss a"
+                                )}
+                                date={moment(item.createdAt).format(
+                                    "Do MMMM YYYY"
+                                )}
                                 status={item.status}
+                                read={item.read}
+                                type={item?.type?.toLowerCase()}
+                                notificationsRefresh={retrieveNotifications}
                             />
                         ))}
                 </div>

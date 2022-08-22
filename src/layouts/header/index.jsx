@@ -20,6 +20,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import IndexKYC from "@components/kyc-modal/IndexKYC";
 import Form from "react-bootstrap/Form";
 import DropdownMenu from "./DropdownMenu";
+import { getNotifications } from "@utils/getNotReadNotifications";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
@@ -35,10 +36,17 @@ const Header = ({ className }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
         setShowBidModal((prev) => !prev);
+    };  
+    const [notificationsCount, setNotificationsCount] = useState(0);
+
+    const updateNotifications = async () => {
+        const notifications = await getNotifications(state.email);
+        setNotificationsCount(notifications.length);
     };
 
     useEffect(() => {
         setIsAuthenticated(state.login);
+        updateNotifications();
     }, [state]);
 
     const logout = useCallback(() => {
@@ -93,6 +101,7 @@ const Header = ({ className }) => {
                                 className="setting-option my_switcher"
                             >
                                 <ColorSwitcher />
+
                             </div>
                             
                             <div
