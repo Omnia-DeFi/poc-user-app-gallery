@@ -41,6 +41,10 @@ const Header = ({ className }) => {
     const handleKycModal = () => {
         setShowKycModal((prev) => !prev);
     };
+    const [showKybModal, setShowKybModal] = useState(false);
+    const handleKybModal = () => {
+        setShowKybModal((prev) => !prev);
+    };
 
     // kyb modal state here start
     const [showKybModal, setShowKybModal] = useState(false);
@@ -105,6 +109,11 @@ const Header = ({ className }) => {
                                         show={showKycModal}
                                         handleModal={handleKycModal}
                                     />
+                                    <IndexKYB
+                                        show={showKybModal}
+                                        handleModal={handleKybModal}
+                                    />
+
                                     <IndexKYB
                                         show={showKybModal}
                                         handleModal={handleKybModal}
