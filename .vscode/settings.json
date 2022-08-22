@@ -24,6 +24,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "files.associations": {
         "*.jsx": "javascriptreact"
-    },
-    "svg.preview.background": "black"
+    }
 }
