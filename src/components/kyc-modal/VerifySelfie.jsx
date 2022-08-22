@@ -13,7 +13,7 @@ function VerifySelfie({ secondStepHandler, imgSrc,fourthStepHandler }) {
                         <img
                             style={{ width: "50px", height: "50px" }}
                             className="me-4 mt-3 "
-                            src="/images/KYC/logo.png"
+                            src="/images/kyc/logo.png"
                             alt=""
                         />
                     </div>

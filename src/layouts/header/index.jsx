@@ -18,6 +18,7 @@ import { magic } from "../../utils/magic";
 import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
 import IndexKYC from "@components/kyc-modal/IndexKYC";
+import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
 import DropdownMenu from "./DropdownMenu";
 
@@ -27,6 +28,7 @@ const Header = ({ className }) => {
     const { search, searchHandler } = useFlyoutSearch();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
+    const [isScroll, setIsScroll] = useState(false);
     const [open, setOpen] = useState(false);
 
     const { state, dispatch } = useUserContext();
@@ -47,6 +49,14 @@ const Header = ({ className }) => {
         });
         router.push("/login");
     }, [state]);
+
+    useEffect(() => {
+        if (showBidModal) {
+            document.body.classList.add("modal-open");
+        } else {
+            document.body.classList.remove("modal-open");
+        }
+    }, [showBidModal]);
 
     return (
         <>
@@ -135,7 +145,24 @@ const Header = ({ className }) => {
                                         />
                                     </svg>
                                 </div>
-                            )}
+                                <FlyoutSearchForm isOpen={search} />
+                            </div> */}
+                            <IndexKYB
+                                show={showBidModal}
+                                handleModal={handleBidModal}
+                            />
+                            <div className="setting-option header-btn">
+                                <div className="icon-box">
+                                    <Button
+                                        color="primary-alta"
+                                        className="connectBtn"
+                                        size="small"
+                                        onClick={handleBidModal}
+                                    >
+                                        +
+                                    </Button>
+                                </div>
+                            </div>
 
                             {open && (
                                 <DropdownMenu
@@ -161,6 +188,65 @@ const Header = ({ className }) => {
                                     </div>
                                 </div>
                             )}
+                            {isAuthenticated && (
+                                <>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                                onClick={logout}
+                                            >
+                                                Log Out
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                            >
+                                                {state.issuer.slice(9, 15)}
+                                                ....
+                                                {state.issuer.slice(-4)}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <div className="setting-option header-btn">
+                                        <div className="icon-box">
+                                            <Button
+                                                color="primary-alta"
+                                                className="connectBtn"
+                                                size="small"
+                                            >
+                                                {state.email}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                            <div className="setting-option rn-icon-list notification-badge">
+                                <div className="icon-box">
+                                    <Anchor path={headerData.activity_link}>
+                                        <i className="feather-bell" />
+                                        <span className="badge">6</span>
+                                    </Anchor>
+                                </div>
+                            </div>
+                            <div className="setting-option mobile-menu-bar d-block d-xl-none">
+                                <div className="hamberger">
+                                    <BurgerButton onClick={offcanvasHandler} />
+                                </div>
+                            </div>
+                            <div
+                                id="my_switcher"
+                                className="setting-option my_switcher"
+                            >
+                                <ColorSwitcher />
+                            </div>
                         </div>
                     </div>
                 </div>

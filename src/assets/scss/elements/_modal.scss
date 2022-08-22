@@ -416,6 +416,7 @@ button {
    
 
 }
+
 .company-form {
     display: flex;
     flex-direction: column;
@@ -431,6 +432,11 @@ button {
 .modal-input-box::-webkit-input-placeholder {
     font-size: 14px;
 }
+
+body.modal-open {
+    overflow: hidden;
+}
+
 p.input-box-button {
     font-size: 13px;
 }

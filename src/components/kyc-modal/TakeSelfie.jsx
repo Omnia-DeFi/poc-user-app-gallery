@@ -12,7 +12,7 @@ function TakeSelfie({ secondStepHandler }) {
                         <img
                             style={{ width: "50px", height: "50px" }}
                             className="me-4 mt-3 "
-                            src="/images/KYC/logo.png"
+                            src="/images/kyc/logo.png"
                             alt=""
                         />
                     </div>
@@ -32,7 +32,7 @@ function TakeSelfie({ secondStepHandler }) {
                         Make sure your whole face is visible without any glare
                         or blur
                     </p>
-                    <img src="/images/KYC/selfie.png" alt="selfie" />
+                    <img src="/images/kyc/selfie.png" alt="selfie" />
                     <div className="mt-5">
                         <Button
                             onClick={secondStepHandler}
