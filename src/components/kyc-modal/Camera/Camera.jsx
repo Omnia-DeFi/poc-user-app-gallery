@@ -8,21 +8,14 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-function Camera2({ imgSrc, setImgSrc, thirdStepHandler }) {
+function Camera({  setImgSrc, thirdStepHandler,firstStepHandler }) {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setImgSrc(imageSrc);
-        // history.push("/preview");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         thirdStepHandler();
     }, [webcamRef]);
 
-    // console.log(imgSrc);
-
-    // const openChats = () => {
-    //   history.replace("/chats");
-    // };
     return (
         <div className="webcamCapture">
             <Webcam
@@ -39,7 +32,7 @@ function Camera2({ imgSrc, setImgSrc, thirdStepHandler }) {
                 <div>
                     <button>Tips</button>
                 </div>
-                <p className="webcam-close">Close</p>
+                <p onClick={firstStepHandler} className="webcam-close">Close</p>
             </div>
             <span className="Capture-round"></span>
             <span className="take-photo" onClick={capture}></span>
@@ -50,4 +43,4 @@ function Camera2({ imgSrc, setImgSrc, thirdStepHandler }) {
     );
 }
 
-export default Camera2;
+export default Camera;

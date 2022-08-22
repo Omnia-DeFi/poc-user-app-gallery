@@ -62,7 +62,6 @@ body.modal-open {
         right: 30px;
         top: 30px;
         background: rgba(255, 255, 255, 0.08);
-        opacity: 1;
         padding: 0;
         width: 40px;
         height: 40px;
@@ -239,6 +238,8 @@ body.modal-open {
     }
 }
 
+// all custom code here..
+
 .webcamCapture {
     position: relative;
     margin: auto;
@@ -246,12 +247,12 @@ body.modal-open {
 }
 .Capture-round {
     position: absolute;
-    top: 20%;
-    left: 25%;
+    top: 7%;
+    left: 15%;
     right: 18%;
     bottom: 25%;
-    width: 50%;
-    height: 40%;
+    width: 70%;
+    height: 55%;
     border-radius: 50%;
     border: 2px solid #fff;
     z-index: 1;
@@ -326,18 +327,14 @@ button {
     cursor: pointer;
 }
 .Webcam-selfie {
-    width: 281px;
+    width: 100%;
     height: 186px;
     margin: 0 auto;
     display: flex;
 }
 
 .select-Government-ID {
-    display: flex;
-    justify-content: space-between;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
+    display: block;
     margin-top: 20px;
     margin-bottom: 20px;
     width: 100%;
@@ -355,7 +352,9 @@ button {
     padding-right: 20px;
     font-size: 17px;
     margin-left: 10px;
+    margin-bottom: 10px;
 }
+
 .select-Government-ID div:hover {
     background-color: #f4d35f;
     color: white;
@@ -364,6 +363,58 @@ button {
     height: 200px;
     display: flex;
     margin: 0 auto;
+}
+
+.Capture-rectangle {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    bottom: 25%;
+    width: 90%;
+    height: 40%;
+    border: 2px solid #fff;
+    z-index: 1;
+}
+
+.webcam-rectangle-bottom {
+    position: absolute;
+    height: 79px;
+    width: 100;
+    top: 62%;
+    bottom: 5%;
+    right: 13%;
+    color: white !important;
+    text-align: center;
+    font-size: 12px !important;
+}
+.webcam-rectangle-top {
+    position: absolute;
+    height: 70px;
+    width: 100;
+    top: 14%;
+    bottom: 5%;
+    left: 13%;
+    right: 13%;
+    color: white !important;
+    text-align: center;
+    font-size: 12px !important;
+}
+.Government-id{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.Government-id-img{
+    display: flex;
+   
+    
+}
+.Government-id-img img{
+    width: 100px;
+    height: 75px; 
+    margin-right: 5px;
+   
+
 }
 
 .company-form {
@@ -385,3 +436,13 @@ button {
 body.modal-open {
     overflow: hidden;
 }
+
+p.input-box-button {
+    font-size: 13px;
+}
+.pencilButton{
+    border: none;
+    background-color: #ffffff;
+    float: right;
+}
+  

@@ -3,11 +3,15 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-function TakeGovernmentIDFront({ fifthStepHandler }) {
-    const [driverLicense, setDriverLicense] = useState(true);
-    const [passport, setPassport] = useState(false);
-    const [nationalID, setNationalID] = useState(false);
-
+function TakeGovernmentIDFront({
+    fifthStepHandler,
+    setNationalID,
+    nationalID,
+    setPassport,
+    passport,
+    setDriverLicense,
+    driverLicense,
+}) {
     const driverLicenseHandler = () => {
         setDriverLicense(true);
         setPassport(false);
@@ -49,48 +53,73 @@ function TakeGovernmentIDFront({ fifthStepHandler }) {
                 <div className="border border-2 p-5">
                     <h5 className="my-2">Select a Government ID</h5>
                     <div className="select-Government-ID">
-                        <div onClick={driverLicenseHandler}>
+                        <div className={`${driverLicense && `bg-warning text-white`}`} onClick={driverLicenseHandler}>
                             Driving Licence
                         </div>
-                        <div onClick={passportHandler}>Passport</div>
-                        <div onClick={nationalIDHandler}>National ID</div>
+                        <div className={`${passport && `bg-warning text-white`}`} onClick={passportHandler}>Passport</div>
+                        <div className={`${nationalID && `bg-warning text-white`}`} onClick={nationalIDHandler}>National ID</div>
                     </div>
 
                     <div className="mt-5">
                         <div className="mb-5 modal-id-show">
-                            <p>
-                                Front of {driverLicense && "Driving Licence"}{" "}
+                            <h6 className="text-bold mb-3">
+                                Front of {driverLicense && "Driving Licence"}
                                 {passport && "Passport"}{" "}
                                 {nationalID && "National ID"}
-                            </p>
+                            </h6>
                             <p>Your name and photo should be clearly visible</p>
                             {driverLicense && (
                                 <img
-                                    src="/images/kyc/driving-licence-front.png"
+                                    src="/images/KYC/driving-licence-front.png"
                                     alt="driving-licence-front"
                                 />
                             )}
                             {passport && (
                                 <img
-                                    src="/images/kyc/passport.png"
+                                    src="/images/KYC/passport.png"
                                     alt="passport-front"
                                 />
                             )}
                             {nationalID && (
                                 <img
-                                    src="/images/kyc/national-id-front.png"
+                                    src="/images/KYC/national-id-front.png"
                                     alt="national-id-front"
                                 />
                             )}
                         </div>
-                        <Button
+                        <button
                             onClick={fifthStepHandler}
-                            size="medium"
-                            fullwidth
+                            className="btn btn-success d-flex justify-content-center mx-auto"
                         >
                             CLICK PHOTO
-                        </Button>
+                        </button>
                     </div>
+                </div>
+                <div className="">
+                    <p className="d-flex mt-3 justify-content-center align-items-center">
+                        <span>
+                            <svg
+                                width="20px"
+                                height="20px"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                />
+                            </svg>
+                        </span>{" "}
+                        Your ID or photo will be used only for KYC purpose
+                    </p>
+                    <button type="button" class="btn btn-secondary w-100">
+                        {" "}
+                        SAVE & CONTINUE
+                    </button>
                 </div>
             </Modal.Body>
         </>
