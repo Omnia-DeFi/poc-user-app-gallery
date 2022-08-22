@@ -2,7 +2,6 @@ import { prisma } from "../../../../prisma/prisma";
 
 export default async function handler(req, res) {
     const { id } = req.query;
-    // { notifications: [ {} ] }
 
     try {
         let notificationData = await prisma.NotificationsBearer.findUnique({
@@ -14,7 +13,7 @@ export default async function handler(req, res) {
             },
         });
         if (notificationData == null) {
-            notificationData = { notifications: [] };
+            notificationData = { notifications: [{}] };
         }
         const { notifications } = notificationData;
         prisma.$disconnect();
