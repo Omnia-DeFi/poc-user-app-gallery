@@ -8,6 +8,7 @@ import ActivityArea from "@containers/activity";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUserContext } from "src/context/context";
+import activityData from "../data/activity.json";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
@@ -28,7 +29,7 @@ const Home = () => {
             <SEO pageTitle="Acivity" />
             <Header />
             <main id="main-content">
-                <ActivityArea />
+                <ActivityArea data={{ activities: activityData }} />
             </main>
             <Footer />
         </Wrapper>

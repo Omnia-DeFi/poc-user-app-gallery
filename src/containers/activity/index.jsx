@@ -8,27 +8,22 @@ import axios from "axios";
 import moment from "moment";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
-const ActivityArea = ({ space, className }) => {
+const ActivityArea = ({ space, className, data }) => {
     // const [activities] = useState(data?.activities || []);
+    const { state, dispatch } = useUserContext();
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
-    const { state, dispatch } = useUserContext();
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
         setLoading(true);
         // eslint-disable-next-line no-shadow
-
-        try {
-            const { data } = await axios.get(
-                `/api/notification/getNotifications/${userId}`
-            );
-            // eslint-disable-next-line react/prop-types
-            setNotifications(data.notifications.reverse() || []);
-        } catch (error) {
-            setNotifications([]);
-        }
+        const { data } = await axios.post(
+            `/api/notification/getNotifications/${userId}`
+        );
         setLoading(false);
+        // eslint-disable-next-line react/prop-types
+        setNotifications(data.notifications.reverse() || []);
     };
 
     useEffect(() => {
