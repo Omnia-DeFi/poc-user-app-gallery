@@ -1,0 +1,698 @@
+[
+    {
+        "id": 1,
+        "jurisdiction": "Abu Dhabi (UAE)",
+        "code": "ae_az"
+    },
+    {
+        "id": 2,
+        "jurisdiction": "Alabama (US)",
+        "code": "us_al"
+    },
+    {
+        "id": 3,
+        "jurisdiction": "Alaska (US)",
+        "code": "us_ak"
+    },
+    {
+        "id": 4,
+        "jurisdiction": "Albania",
+        "code": "al"
+    },
+    {
+        "id": 5,
+        "jurisdiction": "Arizona (US)",
+        "code": "us_az"
+    },
+    {
+        "id": 6,
+        "jurisdiction": "Arkansas (US)",
+        "code": "us_ar"
+    },
+    {
+        "id": 7,
+        "jurisdiction": "Aruba",
+        "code": "aw"
+    },
+    {
+        "id": 8,
+        "jurisdiction": "Australia",
+        "code": "au"
+    },
+    {
+        "id": 9,
+        "jurisdiction": "Bahamas",
+        "code": "bs"
+    },
+    {
+        "id": 10,
+        "jurisdiction": "Bahrain",
+        "code": "bh"
+    },
+    {
+        "id": 11,
+        "jurisdiction": "Bangladesh",
+        "code": "bd"
+    },
+    {
+        "id": 12,
+        "jurisdiction": "Barbados",
+        "code": "bb"
+    },
+    {
+        "id": 13,
+        "jurisdiction": "Belarus",
+        "code": "by"
+    },
+    {
+        "id": 14,
+        "jurisdiction": "Belgium",
+        "code": "be"
+    },
+    {
+        "id": 15,
+        "jurisdiction": "Belize",
+        "code": "bz"
+    },
+    {
+        "id": 16,
+        "jurisdiction": "Bermuda",
+        "code": "bm"
+    },
+    {
+        "id": 17,
+        "jurisdiction": "Bolivia",
+        "code": "bo"
+    },
+    {
+        "id": 18,
+        "jurisdiction": "Brazil",
+        "code": "br"
+    },
+    {
+        "id": 19,
+        "jurisdiction": "Bulgaria",
+        "code": "bg"
+    },
+    {
+        "id": 20,
+        "jurisdiction": "California (US)",
+        "code": "us_ca"
+    },
+    {
+        "id": 21,
+        "jurisdiction": "Cambodia",
+        "code": "kh"
+    },
+    {
+        "id": 22,
+        "jurisdiction": "Canada",
+        "code": "ca"
+    },
+    {
+        "id": 23,
+        "jurisdiction": "Colorado (US)",
+        "code": "us_co"
+    },
+    {
+        "id": 24,
+        "jurisdiction": "Connecticut (US)",
+        "code": "us_ct"
+    },
+    {
+        "id": 25,
+        "jurisdiction": "Croatia",
+        "code": "hr"
+    },
+    {
+        "id": 26,
+        "jurisdiction": "Curaçao",
+        "code": "cw"
+    },
+    {
+        "id": 27,
+        "jurisdiction": "Cyprus",
+        "code": "cy"
+    },
+    {
+        "id": 28,
+        "jurisdiction": "Delaware (US)",
+        "code": "us_de"
+    },
+    {
+        "id": 29,
+        "jurisdiction": "Denmark",
+        "code": "dk"
+    },
+    {
+        "id": 30,
+        "jurisdiction": "District of Columbia (US)",
+        "code": "us_dc"
+    },
+    {
+        "id": 31,
+        "jurisdiction": "Dominican Republic",
+        "code": "do"
+    },
+    {
+        "id": 32,
+        "jurisdiction": "Dubai (UAE)",
+        "code": "ae_du"
+    },
+    {
+        "id": 33,
+        "jurisdiction": "Finland",
+        "code": "fi"
+    },
+    {
+        "id": 34,
+        "jurisdiction": "Florida (US)",
+        "code": "us_fl"
+    },
+    {
+        "id": 35,
+        "jurisdiction": "France",
+        "code": "fr"
+    },
+    {
+        "id": 36,
+        "jurisdiction": "French Guiana",
+        "code": "gf"
+    },
+    {
+        "id": 37,
+        "jurisdiction": "Georgia (US)",
+        "code": "us_ga"
+    },
+    {
+        "id": 38,
+        "jurisdiction": "Germany",
+        "code": "de"
+    },
+    {
+        "id": 39,
+        "jurisdiction": "Gibraltar",
+        "code": "gi"
+    },
+    {
+        "id": 40,
+        "jurisdiction": "Greece",
+        "code": "gr"
+    },
+    {
+        "id": 41,
+        "jurisdiction": "Greenland",
+        "code": "gl"
+    },
+    {
+        "id": 42,
+        "jurisdiction": "Guadeloupe",
+        "code": "gp"
+    },
+    {
+        "id": 43,
+        "jurisdiction": "Guernsey",
+        "code": "gg"
+    },
+    {
+        "id": 44,
+        "jurisdiction": "Hawaii (US)",
+        "code": "us_hi"
+    },
+    {
+        "id": 45,
+        "jurisdiction": "Hong Kong",
+        "code": "hk"
+    },
+    {
+        "id": 46,
+        "jurisdiction": "Iceland",
+        "code": "is"
+    },
+    {
+        "id": 47,
+        "jurisdiction": "Idaho (US)",
+        "code": "us_id"
+    },
+    {
+        "id": 48,
+        "jurisdiction": "India",
+        "code": "in"
+    },
+    {
+        "id": 49,
+        "jurisdiction": "Indiana (US)",
+        "code": "us_in"
+    },
+    {
+        "id": 50,
+        "jurisdiction": "Iowa (US)",
+        "code": "us_ia"
+    },
+    {
+        "id": 51,
+        "jurisdiction": "Iran",
+        "code": "ir"
+    },
+    {
+        "id": 52,
+        "jurisdiction": "Ireland",
+        "code": "ie"
+    },
+    {
+        "id": 53,
+        "jurisdiction": "Isle of Man",
+        "code": "im"
+    },
+    {
+        "id": 54,
+        "jurisdiction": "Israel",
+        "code": "il"
+    },
+    {
+        "id": 55,
+        "jurisdiction": "Jamaica",
+        "code": "jm"
+    },
+    {
+        "id": 56,
+        "jurisdiction": "Japan",
+        "code": "jp"
+    },
+    {
+        "id": 57,
+        "jurisdiction": "Jersey",
+        "code": "je"
+    },
+    {
+        "id": 58,
+        "jurisdiction": "Kansas (US)",
+        "code": "us_ks"
+    },
+    {
+        "id": 59,
+        "jurisdiction": "Kentucky (US)",
+        "code": "us_ky"
+    },
+    {
+        "id": 60,
+        "jurisdiction": "Latvia",
+        "code": "lv"
+    },
+    {
+        "id": 61,
+        "jurisdiction": "Liechtenstein",
+        "code": "li"
+    },
+    {
+        "id": 62,
+        "jurisdiction": "Louisiana (US)",
+        "code": "us_la"
+    },
+    {
+        "id": 63,
+        "jurisdiction": "Luxembourg",
+        "code": "lu"
+    },
+    {
+        "id": 64,
+        "jurisdiction": "Maine (US)",
+        "code": "us_me"
+    },
+    {
+        "id": 65,
+        "jurisdiction": "Malaysia",
+        "code": "my"
+    },
+    {
+        "id": 66,
+        "jurisdiction": "Malta",
+        "code": "mt"
+    },
+    {
+        "id": 67,
+        "jurisdiction": "Martinique",
+        "code": "mq"
+    },
+    {
+        "id": 68,
+        "jurisdiction": "Maryland (US)",
+        "code": "us_md"
+    },
+    {
+        "id": 69,
+        "jurisdiction": "Massachusetts (US)",
+        "code": "us_ma"
+    },
+    {
+        "id": 70,
+        "jurisdiction": "Mauritius",
+        "code": "mu"
+    },
+    {
+        "id": 71,
+        "jurisdiction": "Mayotte",
+        "code": "yt"
+    },
+    {
+        "id": 72,
+        "jurisdiction": "Mexico",
+        "code": "mx"
+    },
+    {
+        "id": 73,
+        "jurisdiction": "Michigan (US)",
+        "code": "us_mi"
+    },
+    {
+        "id": 74,
+        "jurisdiction": "Minnesota (US)",
+        "code": "us_mn"
+    },
+    {
+        "id": 75,
+        "jurisdiction": "Mississippi (US)",
+        "code": "us_ms"
+    },
+    {
+        "id": 76,
+        "jurisdiction": "Missouri (US)",
+        "code": "us_mo"
+    },
+    {
+        "id": 77,
+        "jurisdiction": "Moldova",
+        "code": "md"
+    },
+    {
+        "id": 78,
+        "jurisdiction": "Montana (US)",
+        "code": "us_mt"
+    },
+    {
+        "id": 79,
+        "jurisdiction": "Montenegro",
+        "code": "me"
+    },
+    {
+        "id": 80,
+        "jurisdiction": "Myanmar",
+        "code": "mm"
+    },
+    {
+        "id": 81,
+        "jurisdiction": ". Nebraska (US)",
+        "code": "us_ne"
+    },
+    {
+        "id": 82,
+        "jurisdiction": "Netherlands",
+        "code": "nl"
+    },
+    {
+        "id": 83,
+        "jurisdiction": "Nevada (US)",
+        "code": "us_nv"
+    },
+    {
+        "id": 84,
+        "jurisdiction": "New Brunswick (Canada)",
+        "code": "ca_nb"
+    },
+    {
+        "id": 85,
+        "jurisdiction": "New Hampshire (US)",
+        "code": "us_nh"
+    },
+    {
+        "id": 86,
+        "jurisdiction": "New Jersey (US)",
+        "code": "us_nj"
+    },
+    {
+        "id": 87,
+        "jurisdiction": "New Mexico (US)",
+        "code": "us_nm"
+    },
+    {
+        "id": 88,
+        "jurisdiction": "New York (US)",
+        "code": "us_ny"
+    },
+    {
+        "id": 89,
+        "jurisdiction": "New Zealand",
+        "code": "nz"
+    },
+    {
+        "id": 90,
+        "jurisdiction": "Newfoundland and Labrador (Canada)",
+        "code": "ca_nl"
+    },
+    {
+        "id": 91,
+        "jurisdiction": "North Carolina (US)",
+        "code": "us_nc"
+    },
+    {
+        "id": 92,
+        "jurisdiction": "North Dakota",
+        "code": "us_nd"
+    },
+    {
+        "id": 93,
+        "jurisdiction": "Norway",
+        "code": "no"
+    },
+    {
+        "id": 94,
+        "jurisdiction": "Nova Scotia (Canada)",
+        "code": "ca_ns"
+    },
+    {
+        "id": 95,
+        "jurisdiction": "Ohio (US)",
+        "code": "us_oh"
+    },
+    {
+        "id": 96,
+        "jurisdiction": "Oklahoma (US)",
+        "code": "us_ok"
+    },
+    {
+        "id": 97,
+        "jurisdiction": "Oregon (US)",
+        "code": "us_or"
+    },
+    {
+        "id": 98,
+        "jurisdiction": "Pakistan",
+        "code": "pk"
+    },
+    {
+        "id": 99,
+        "jurisdiction": "Panama",
+        "code": "pa"
+    },
+    {
+        "id": 100,
+        "jurisdiction": "Pennsylvania (US)",
+        "code": "us_pa"
+    },
+    {
+        "id": 101,
+        "jurisdiction": "Poland",
+        "code": "pl"
+    },
+    {
+        "id": 102,
+        "jurisdiction": "Prince Edward Island (Canada)",
+        "code": "ca_pe"
+    },
+    {
+        "id": 103,
+        "jurisdiction": "Puerto Rico",
+        "code": "pr"
+    },
+    {
+        "id": 104,
+        "jurisdiction": "Quebec (Canada)",
+        "code": "ca_qc"
+    },
+    {
+        "id": 105,
+        "jurisdiction": "Rhode Island (US)",
+        "code": "us_ri"
+    },
+    {
+        "id": 106,
+        "jurisdiction": "Romania",
+        "code": "ro"
+    },
+    {
+        "id": 107,
+        "jurisdiction": "Rwanda",
+        "code": "rw"
+    },
+    {
+        "id": 108,
+        "jurisdiction": "Réunion",
+        "code": "re"
+    },
+    {
+        "id": 109,
+        "jurisdiction": "Saint Barthélemy",
+        "code": "bl"
+    },
+    {
+        "id": 110,
+        "jurisdiction": "Saint Martin (French part)",
+        "code": "mf"
+    },
+    {
+        "id": 111,
+        "jurisdiction": "Saint Pierre and Miquelon",
+        "code": "pm"
+    },
+    {
+        "id": 112,
+        "jurisdiction": "Singapore",
+        "code": "sk"
+    },
+    {
+        "id": 113,
+        "jurisdiction": "Slovakia",
+        "code": "sk"
+    },
+    {
+        "id": 114,
+        "jurisdiction": "Slovenia",
+        "code": "si"
+    },
+    {
+        "id": 115,
+        "jurisdiction": "South Africa",
+        "code": "za"
+    },
+    {
+        "id": 116,
+        "jurisdiction": "South Carolina (US)",
+        "code": "us_sc"
+    },
+    {
+        "id": 117,
+        "jurisdiction": "South Dakota (US)",
+        "code": "us_sd"
+    },
+    {
+        "id": 118,
+        "jurisdiction": "Spain",
+        "code": "es"
+    },
+    {
+        "id": 119,
+        "jurisdiction": "Sweden",
+        "code": "se"
+    },
+    {
+        "id": 120,
+        "jurisdiction": "Switzerland",
+        "code": "ch"
+    },
+    {
+        "id": 121,
+        "jurisdiction": "Tajikistan",
+        "code": "tj"
+    },
+    {
+        "id": 122,
+        "jurisdiction": "Tanzania",
+        "code": "tz"
+    },
+    {
+        "id": 123,
+        "jurisdiction": "Tennessee (US)",
+        "code": "us_tn"
+    },
+    {
+        "id": 124,
+        "jurisdiction": "Texas",
+        "code": "us_tx"
+    },
+    {
+        "id": 125,
+        "jurisdiction": "Thailand",
+        "code": "th"
+    },
+    {
+        "id": 126,
+        "jurisdiction": "Tonga",
+        "code": "to"
+    },
+    {
+        "id": 127,
+        "jurisdiction": "Tunisia",
+        "code": "tn"
+    },
+    {
+        "id": 128,
+        "jurisdiction": "Uganda",
+        "code": "ug"
+    },
+    {
+        "id": 129,
+        "jurisdiction": "Ukraine",
+        "code": "ua"
+    },
+    {
+        "id": 130,
+        "jurisdiction": "United Kingdom",
+        "code": "gb"
+    },
+    {
+        "id": 131,
+        "jurisdiction": "Utah (US)",
+        "code": "us_ut"
+    },
+    {
+        "id": 132,
+        "jurisdiction": "Vanuatu",
+        "code": "vu"
+    },
+    {
+        "id": 133,
+        "jurisdiction": "Vermont (US)",
+        "code": "us_vt"
+    },
+    {
+        "id": 134,
+        "jurisdiction": "Viet Nam",
+        "code": "vn"
+    },
+    {
+        "id": 135,
+        "jurisdiction": "Virginia (US)",
+        "code": "us_va"
+    },
+    {
+        "id": 136,
+        "jurisdiction": "Washington (US)",
+        "code": "us_wa"
+    },
+    {
+        "id": 137,
+        "jurisdiction": "West Virginia (US)",
+        "code": "us_wv"
+    },
+    {
+        "id": 138,
+        "jurisdiction": "Wisconsin (US)",
+        "code": "us_wi"
+    },
+    {
+        "id": 139,
+        "jurisdiction": "Wyoming (US)",
+        "code": "us_wy"
+    }
+   
+]

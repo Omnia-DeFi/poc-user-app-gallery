@@ -5,7 +5,7 @@ export const getUserIdByEmail = async (email) => {
         const { data } = await axios.get(`/api/user/getUserId/${email}`);
         return data.userId;
     } catch (error) {
-        const userId = { userId: "0" };
+        const userId = { userId: "" };
         return userId;
     }
 };
