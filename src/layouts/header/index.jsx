@@ -41,10 +41,6 @@ const Header = ({ className }) => {
     const handleKycModal = () => {
         setShowKycModal((prev) => !prev);
     };
-    const [showKybModal, setShowKybModal] = useState(false);
-    const handleKybModal = () => {
-        setShowKybModal((prev) => !prev);
-    };
 
     // kyb modal state here start
     const [showKybModal, setShowKybModal] = useState(false);
