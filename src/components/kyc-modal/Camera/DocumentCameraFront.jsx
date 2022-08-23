@@ -43,9 +43,18 @@ function DocumentCameraFront({
                     side
                 </p>
                 <div>
-                    <button  type="button"  data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tips</button>
+                    <button
+                        type="button"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Tooltip on bottom"
+                    >
+                        Tips
+                    </button>
                 </div>
-                <p onClick={fourthStepHandler} className="webcam-close">Close</p>
+                <p onClick={fourthStepHandler} className="webcam-close">
+                    Close
+                </p>
             </div>
             <span className="Capture-rectangle"></span>
             <span className="take-photo" onClick={capture}></span>

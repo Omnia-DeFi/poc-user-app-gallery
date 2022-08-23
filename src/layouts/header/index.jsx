@@ -84,7 +84,7 @@ const Header = ({ className }) => {
                             </div>
                         </div>
                         <div className="header-right">
-                              {/* <div className="setting-option d-none d-lg-block">
+                            {/* <div className="setting-option d-none d-lg-block">
                                 <SearchForm />
                             </div>
                             <div className="setting-option rn-icon-list d-block d-lg-none">
@@ -100,7 +100,7 @@ const Header = ({ className }) => {
                                 <FlyoutSearchForm isOpen={search} />
                             </div> */}
                             {isAuthenticated && (
-                               <>
+                                <>
                                     <IndexKYC
                                         show={showKycModal}
                                         handleModal={handleKycModal}
@@ -109,20 +109,22 @@ const Header = ({ className }) => {
                                         show={showKybModal}
                                         handleModal={handleKybModal}
                                     />
-                             
-                                <div className="setting-option rn-icon-list notification-badge">
-                                    <div className="icon-box">
-                                    <Anchor path={headerData.activity_link} >
-                                            <i className="feather-bell" />
-                                            {notificationsCount > 0 && (
+
+                                    <div className="setting-option rn-icon-list notification-badge">
+                                        <div className="icon-box">
+                                            <Anchor
+                                                path={headerData.activity_link}
+                                            >
+                                                <i className="feather-bell" />
+                                                {notificationsCount > 0 && (
                                                     <span className="badge">
                                                         {notificationsCount}
                                                     </span>
                                                 )}
-                                        </Anchor>
+                                            </Anchor>
+                                        </div>
                                     </div>
-                                </div>
-                               </>
+                                </>
                             )}
                             <div
                                 id="my_switcher"
@@ -130,7 +132,7 @@ const Header = ({ className }) => {
                             >
                                 <ColorSwitcher />
                             </div>
-                            
+
                             <div
                                 onClick={offcanvasHandler}
                                 className="setting-option my_switcher mobile-menu-bar hamberger-menu-icon d-flex d-xl-none"
@@ -182,7 +184,7 @@ const Header = ({ className }) => {
                                     handleKybModal={handleKybModal}
                                 />
                             )}
-                              {!isAuthenticated && (
+                            {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
                                         <Button

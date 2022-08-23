@@ -10,17 +10,13 @@ function VerifyDocumentFront({
     nationalID,
     passport,
     driverLicense,
-   
 }) {
     const [idImage, setIdImage] = useState([
         "/images/KYC/driving-licence-front.png",
         "/images/KYC/driving-licence-front.png",
     ]);
 
-
-
     const looksGoodHandler = () => {
-
         seventhStepHandler();
         // if (img.length === 0) {
         //     setIdImage(documentImage);
