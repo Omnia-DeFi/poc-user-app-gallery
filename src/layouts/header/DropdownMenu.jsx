@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 
-function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
+function DropdownMenu({ state, isAuthenticated, logout, handleKycModal, handleKybModal }) {
     const router = useRouter();
     // the states are unverified , pending , verified , failed
     const [kycState, setkycState] = useState("unverified");
@@ -15,8 +14,8 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
             {isAuthenticated && (
                 <>
                     <div className="drop-down-menu-item drop-down-single-item">
-                        <div className="me-4">
-                            <Image width="30px" height="30px" src="/images/profile-dropdown/wallet.svg" alt="Wallet"/>
+                        <div className="side-icon">
+                            <img src="/images/profile-dropdown/wallet.svg" alt="Wallet"/>
                         </div>
                         <p>
                             {state.issuer.slice(9, 15)}
@@ -25,8 +24,8 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                         </p>
                     </div>
                     <div className="drop-down-menu-item drop-down-single-item ">
-                        <div className="me-4">
-                            <Image width="30px" height="30px" src="/images/profile-dropdown/email.svg" alt="Email"/>
+                        <div className="side-icon">
+                            <img src="/images/profile-dropdown/email.svg" alt="Email"/>
                         </div>
                         <p> {state.email}</p>
                     </div>
@@ -38,11 +37,11 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                             placement="left"
                         >
                             <div
-                                onClick={handleBidModal}
+                                onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
-                                <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_not_verified.svg" alt="KYC"/>
+                                <div className="side-icon">
+                                    <img src="/images/profile-dropdown/kyc_not_verified.svg" alt="KYC"/>
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <p className="me-3 ">KYC </p>
@@ -55,8 +54,8 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                     ) : kycState === "pending" ? (
                         <Tippy content="Verification Pending" placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_pending.svg" alt="KYC Pending"/>
+                                <div className="side-icon">
+                                    <img src="/images/profile-dropdown/kyc_pending.svg" alt="KYC Pending"/>
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center ">
                                     <p className="me-3 ">KYC </p>
@@ -72,8 +71,8 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                         placement="left"
                     >
                         <div className="drop-down-menu-item drop-down-single-item ">
-                            <div className="me-4">
-                                <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_verified.svg" alt="KYC Successful"/>
+                            <div className="side-icon">
+                                <img src="/images/profile-dropdown/kyc_verified.svg" alt="KYC Successful"/>
                             </div>
                             <div className="d-flex justify-content-center align-items-center">
                                 <p className="me-3 ">KYC </p>
@@ -90,11 +89,11 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                             placement="left"
                         >
                             <div
-                                onClick={handleBidModal}
+                                onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
-                                <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyc_failed.svg" alt="KYC Failed"/>
+                                <div className="side-icon">
+                                    <img src="/images/profile-dropdown/kyc_failed.svg" alt="KYC Failed"/>
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <p className="me-3 ">KYC </p>
@@ -112,9 +111,9 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                             content="Not verified. Click here to verify."
                             placement="left"
                         >
-                            <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_not_verified.svg" alt="KYB"/>
+                            <div onClick={handleKybModal} className="drop-down-menu-item drop-down-single-item ">
+                                <div className="side-icon">
+                                    <img src="/images/profile-dropdown/kyb_not_verified.svg" alt="KYB"/>
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -134,8 +133,8 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                    ) : kybState === "pending" ? (
                         <Tippy content="Verification Pending " placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_pending.svg" alt="KYB Pending"/>
+                                <div className="side-icon">
+                                    <img src="/images/profile-dropdown/kyb_pending.svg" alt="KYB Pending"/>
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -157,8 +156,8 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                             placement="left"
                         >
                             <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_verified.svg" alt="KYB Successful"/>
+                                <div className="side-icon">
+                                    <img src="/images/profile-dropdown/kyb_verified.svg" alt="KYB Successful"/>
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -180,9 +179,9 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                         resubmit."
                             placement="left"
                         >
-                            <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image width="30px" height="30px" src="/images/profile-dropdown/kyb_failed.svg" alt="KYB Failed"/>
+                            <div onClick={handleKybModal} className="drop-down-menu-item drop-down-single-item ">
+                                <div className="side-icon">
+                                    <img src="/images/profile-dropdown/kyb_failed.svg" alt="KYB Failed"/>
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-center align-items-center">
@@ -207,8 +206,8 @@ function DropdownMenu({ state, isAuthenticated, logout, handleBidModal }) {
                 onClick={logout}
                 className="drop-down-menu-item drop-down-menu-item-last drop-down-single-item"
             >
-                <div className="me-4">
-                    <Image width="30px" height="30px" src="/images/profile-dropdown/logout.svg" alt="Logout"/>
+                <div className="side-icon">
+                    <img src="/images/profile-dropdown/logout.svg" alt="Logout"/>
                 </div>
                 <p>Log Out</p>
             </div>

@@ -1,5 +1,5 @@
 .drop-down-menu {
-    width: 270px;
+    width: 280px;
     // height: 300px;
     position: absolute;
     top: 67px;
@@ -12,16 +12,18 @@
 
 .drop-down-menu-item {
     display: flex;
+    // align-items: center;
     // flex-direction: row;
     border-bottom: 1px solid #65676b2a;
-    padding: 10px;
+    padding: 15px;
     span {
         font-size: 10px;
         cursor: pointer;
     }
     p {
         margin: 0;
-        font-size: 18px;
+        font-size: 16px;
+        line-height: normal;
     }
     .company-info {
         p {
@@ -42,11 +44,30 @@
 }
 
 .pending-text {
-    color: #00b3d3;
+    color: #ffa500;
 }
 .successful-text {
     color: #68bd61;
 }
 .failed-text {
     color: #ea524f;
+}
+
+@media (max-width: 575px) {
+    .drop-down-menu {
+        width: 270px;
+        position: absolute;
+        top: 112px;
+        right: 0px;
+        border-radius: 10px;
+        overflow: hidden;
+        z-index: 5;
+    }
+}
+
+
+.side-icon img{
+    width: 20px;
+    height: auto;
+    margin-right: 10px;
 }

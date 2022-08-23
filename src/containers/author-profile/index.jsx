@@ -17,7 +17,7 @@ const AuthorProfileArea = ({ className, data }) => {
     return (
         <div className={clsx("rn-authore-profile-area", className)}>
             <TabContainer defaultActiveKey="nav-profile">
-                <div className="container">
+                <div className="container mt-5">
                     <div className="row">
                         <div className="col-12">
                             <div className="tab-wrapper-one">

@@ -226,13 +226,16 @@ function IndexKYC({ show, handleModal }) {
                     <CustomerDetails firstStepHandler={firstStepHandler} />
                 )}
                 {secondStep && (
-                    <TakeSelfie secondStepHandler={secondStepHandler} />
+                    <TakeSelfie
+                        firstStepHandler={firstStepHandler}
+                        secondStepHandler={secondStepHandler}
+                    />
                 )}
                 {thirdStep && (
                     <Camera
                         setImgSrc={setImgSrc}
-                        thirdStepHandler={thirdStepHandler}
                         firstStepHandler={firstStepHandler}
+                        thirdStepHandler={thirdStepHandler}
                     />
                 )}
                 {fourthStep && (

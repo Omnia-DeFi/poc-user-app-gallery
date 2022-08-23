@@ -1993,6 +1993,10 @@ html[data-theme="light"] body {
     }
 }
 
+html[data-theme="light"] .rn-popup-modal .btn-close{
+    background: rgba(49, 49, 49, 0.226);
+}
+
 html[data-theme="light"] {
     .drop-down-menu {
         background: #fff;
