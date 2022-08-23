@@ -12,9 +12,6 @@ function CustomerDetails({ firstStepHandler }) {
         dateofbirth: "",
     });
 
-    console.log(formValue);
-    console.log(validgender);
-
     const changeGender = (e) => {
         setValidGender(true);
         setGender(e);
@@ -28,7 +25,7 @@ function CustomerDetails({ firstStepHandler }) {
     };
     const formHandler = () => {
         let i;
-        let ok = true;
+        let valid = true;
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, "0");
         let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -38,13 +35,15 @@ function CustomerDetails({ firstStepHandler }) {
             let val = formValue.username.charCodeAt(i);
             if ((val >= 65 && val <= 90) || (val >= 97 && val <= 122)) {
             } else if (val == 32) {
-            } else ok = false;
+            } else valid = false;
         }
-        if (!ok) alert("Name cannot contain numbers or special characters !");
-        else if (formValue.dateofbirth >= today)
+        if (!valid) {
+            alert("Name cannot contain numbers or special characters !");
+        } else if (formValue.dateofbirth >= today) {
             alert("invalid date of birth !");
-        else if (validgender === false) alert("Please select gender!");
-        else {
+        } else if (validgender === false) {
+            alert("Please select gender!");
+        } else {
             firstStepHandler();
         }
     };
@@ -56,12 +55,12 @@ function CustomerDetails({ firstStepHandler }) {
                     <div className="mb-4">
                         <img
                             style={{ width: "60px", height: "60px" }}
-                            src="/images/KYC/logo.png"
+                            src="/images/kyc/logo.png"
                             alt=""
                         />
                     </div>
-                    <div>
-                        <h6 className="m-3 mt-0">
+                    <div className="p-4">
+                        <h6>
                             Verify Your Identity
                         </h6>
                         <p className="mt-3 fs-4">
@@ -84,10 +83,11 @@ function CustomerDetails({ firstStepHandler }) {
                             onChange={(e) => handleChange(e)}
                             placeholder="eg: Raj Kumar Babu"
                         />
-                        <p className="input-box-button">
+                        <p className="input-box-button mb-0">
                             Ensure it matches name on your idendity documents
                         </p>
-                        <label htmlFor="date-of-birth">
+
+                       <label className="mt-4" htmlFor="date-of-birth">
                             Your date of birth
                         </label>
                         <input
@@ -98,12 +98,10 @@ function CustomerDetails({ firstStepHandler }) {
                             onChange={(e) => handleChange(e)}
                             name="dateofbirth"
                             id="date-of-birth"
-                            placeholder="DD/MM/YYYY"
                         />
-
-                        <div className="mt-3">
-                            <label className="text-color">Your gender</label>
-                            <div className="row mt-3">
+                        <div className="mt-4">
+                            <label htmlFor="gender">Your gender</label>
+                            <div className="row mt-3" id="gender">
                                 <div className="col-4">
                                     <button
                                         type="button"
@@ -146,9 +144,9 @@ function CustomerDetails({ firstStepHandler }) {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-5">
-                        <Button onClick={formHandler} size="medium" fullwidth>
-                            Continue
+                    <div className="mt-5 text-center">
+                        <Button onClick={formHandler} size="medium">
+                            Submit
                         </Button>
                     </div>
                 </form>

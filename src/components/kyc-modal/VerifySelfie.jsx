@@ -8,32 +8,33 @@ function VerifySelfie({ secondStepHandler, imgSrc,fourthStepHandler }) {
     return (
         <>
             <Modal.Header>
-                <div className="d-flex justify-content-center ">
+                <div className="text-center">
                     <div>
                         <img
                             style={{ width: "50px", height: "50px" }}
-                            className="me-4 mt-3 "
-                            src="/images/KYC/logo.png"
+                            className="mt-3 "
+                            src="/images/kyc/logo.png"
                             alt=""
                         />
                     </div>
                     <div className="ms-4">
-                        <h6 className="my-2 fs-6">Verify your identity</h6>
+                        <h6 className="my-2 fs-2">Verify your identity</h6>
                         <p className="m-0 ">
-                            Please upload a selfie and provide personal details
-                            for KYC verification
+                            Your Selfie for KYC verification
                         </p>
                     </div>
                 </div>
             </Modal.Header>
             <Modal.Body>
-                <div className="border border-2 p-5">
+                <div className="border border-2 p-5 text-center">
                     <h5 className="my-2 text-muted">Your selfie</h5>
                     <p className="m-0 text-muted">
                         Make sure your whole face is visible without any glare
                         or blur
                     </p>
-                    <img className="Webcam-selfie" src={imgSrc} alt="selfie" />
+                    <div className="mt-3">
+                        <img className="Webcam-selfie" src={imgSrc} alt="selfie" />
+                    </div>
                     <div className="mt-5 d-flex mx-4 justify-content-around">
                        <div>
                        <Button

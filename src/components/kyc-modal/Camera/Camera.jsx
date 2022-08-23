@@ -1,14 +1,15 @@
 import React, { useRef, useCallback } from "react";
 // import "./WebcamCapture.css";
 import Webcam from "react-webcam";
+import Button from "@ui/button";
 
 const videoConstraints = {
     width: 350,
-    height: 450,
+    height: 350,
     facingMode: "user",
 };
 
-function Camera({  setImgSrc, thirdStepHandler,firstStepHandler }) {
+function Camera({  setImgSrc, thirdStepHandler, firstStepHandler }) {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -17,29 +18,31 @@ function Camera({  setImgSrc, thirdStepHandler,firstStepHandler }) {
     }, [webcamRef]);
 
     return (
-        <div className="webcamCapture">
-            <Webcam
-                audio={false}
-                height={videoConstraints.height}
-                ref={webcamRef}
-                screenshotFormat="image/jpeg"
-                width={videoConstraints.width}
-                videoConstraints={videoConstraints}
-            />
+        <>
+            <div className="webcamCapture">
+                <Webcam
+                    audio={false}
+                    height={videoConstraints.height}
+                    ref={webcamRef}
+                    screenshotFormat="image/jpeg"
+                    width={videoConstraints.width}
+                    videoConstraints={videoConstraints}
+                />
 
-            <div className="webcamCapture__button">
-                <p>Take a Selfie</p>
-                <div>
-                    <button>Tips</button>
-                </div>
-                <p onClick={firstStepHandler} className="webcam-close">Close</p>
+                <span className="Capture-round"></span>
+                <span className="take-photo" onClick={capture}></span>
             </div>
-            <span className="Capture-round"></span>
-            <span className="take-photo" onClick={capture}></span>
-            <p className="webcamCapture-face-fits">
-                Make sure your face fits inside the oval and is clearly visible
-            </p>
-        </div>
+
+            <div className="webcamCapture__text">
+                <p>Take a Selfie</p>
+                <p className="webcamCapture-instructions">
+                    Make sure your face fits inside the oval and is clearly visible
+                </p>
+                <Button onClick={firstStepHandler} size="medium">
+                    Back
+                </Button>
+            </div>
+        </>
     );
 }
 

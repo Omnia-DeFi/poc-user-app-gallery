@@ -22,7 +22,6 @@ import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
 import DropdownMenu from "./DropdownMenu";
 import { getNotifications } from "@utils/getNotReadNotifications";
-
 const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
@@ -31,22 +30,23 @@ const Header = ({ className }) => {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [notificationsCount, setNotificationsCount] = useState(0);
-
     const { state, dispatch } = useUserContext();
-
-    // modal state here start
-    const [showKycModal, setShowKycModal] = useState(false);
-    const handleKycModal = () => {
-        setShowKycModal((prev) => !prev);
-    };
-    const [showKybModal, setShowKybModal] = useState(false);
-    const handleKybModal = () => {
-        setShowKybModal((prev) => !prev);
-    };
-
     const updateNotifications = async () => {
         const notifications = await getNotifications(state.email);
         setNotificationsCount(notifications.length);
+    };
+    // kyc modal state here start
+    const [showKycModal, setShowKycModal] = useState(false);
+
+    const handleKycModal = () => {
+        setShowKycModal((prev) => !prev);
+    };
+
+    // kyb modal state here start
+    const [showKybModal, setShowKybModal] = useState(false);
+
+    const handleKybModal = () => {
+        setShowKybModal((prev) => !prev);
     };
 
     useEffect(() => {
@@ -84,33 +84,45 @@ const Header = ({ className }) => {
                             </div>
                         </div>
                         <div className="header-right">
+                              {/* <div className="setting-option d-none d-lg-block">
+                                <SearchForm />
+                            </div>
+                            <div className="setting-option rn-icon-list d-block d-lg-none">
+                                <div className="icon-box search-mobile-icon">
+                                    <button
+                                        type="button"
+                                        aria-label="Click here to open search form"
+                                        onClick={searchHandler}
+                                    >
+                                        <i className="feather-search" />
+                                    </button>
+                                </div>
+                                <FlyoutSearchForm isOpen={search} />
+                            </div> */}
                             {isAuthenticated && (
-                                <>
+                               <>
                                     <IndexKYC
                                         show={showKycModal}
                                         handleModal={handleKycModal}
                                     />
-
                                     <IndexKYB
                                         show={showKybModal}
                                         handleModal={handleKybModal}
                                     />
-
-                                    <div className="setting-option rn-icon-list notification-badge">
-                                        <div className="icon-box">
-                                            <Anchor
-                                                path={headerData.activity_link}
-                                            >
-                                                <i className="feather-bell" />
-                                                {notificationsCount > 0 && (
+                             
+                                <div className="setting-option rn-icon-list notification-badge">
+                                    <div className="icon-box">
+                                    <Anchor path={headerData.activity_link} >
+                                            <i className="feather-bell" />
+                                            {notificationsCount > 0 && (
                                                     <span className="badge">
                                                         {notificationsCount}
                                                     </span>
                                                 )}
-                                            </Anchor>
-                                        </div>
+                                        </Anchor>
                                     </div>
-                                </>
+                                </div>
+                               </>
                             )}
                             <div
                                 id="my_switcher"
@@ -118,7 +130,7 @@ const Header = ({ className }) => {
                             >
                                 <ColorSwitcher />
                             </div>
-
+                            
                             <div
                                 onClick={offcanvasHandler}
                                 className="setting-option my_switcher mobile-menu-bar hamberger-menu-icon d-flex d-xl-none"
@@ -170,7 +182,7 @@ const Header = ({ className }) => {
                                     handleKybModal={handleKybModal}
                                 />
                             )}
-                            {!isAuthenticated && (
+                              {!isAuthenticated && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
                                         <Button

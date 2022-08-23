@@ -7,7 +7,7 @@ function IndexKYB({ show, handleModal }) {
     const [firstStep, setFirstStep] = useState(true);
     const [secondStep, setSecondStep] = useState(false);
     const [thirdStep, setThirdStep] = useState(false);
-
+    
     return (
         <div>
             <Modal
@@ -29,7 +29,10 @@ function IndexKYB({ show, handleModal }) {
                     </button>
                 )}
 
-                {firstStep && <Company />}
+                {firstStep && (
+                    <Company/>
+                )}
+            
             </Modal>
         </div>
     );

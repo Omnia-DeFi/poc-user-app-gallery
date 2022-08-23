@@ -13,16 +13,16 @@ export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
 }
 
-const Author = () => (
+const Profile = () => (
     <Wrapper>
-        <SEO pageTitle="Author" />
+        <SEO pageTitle="Profile" />
         <Header />
         <main id="main-content">
-            <AuthorIntroArea data={authorData} />
+            {/* <AuthorIntroArea data={authorData} /> */}
             <AuthorProfileArea data={{ products: productData }} />
         </main>
         <Footer />
     </Wrapper>
 );
 
-export default Author;
+export default Profile;
