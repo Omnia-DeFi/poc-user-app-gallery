@@ -53,11 +53,28 @@ function TakeGovernmentIDFront({
                 <div className="border border-2 p-5">
                     <h5 className="my-2">Select a Government ID</h5>
                     <div className="select-Government-ID">
-                        <div className={`${driverLicense && `bg-warning text-white`}`} onClick={driverLicenseHandler}>
+                        <div
+                            className={`${
+                                driverLicense && `bg-warning text-white`
+                            }`}
+                            onClick={driverLicenseHandler}
+                        >
                             Driving Licence
                         </div>
-                        <div className={`${passport && `bg-warning text-white`}`} onClick={passportHandler}>Passport</div>
-                        <div className={`${nationalID && `bg-warning text-white`}`} onClick={nationalIDHandler}>National ID</div>
+                        <div
+                            className={`${passport && `bg-warning text-white`}`}
+                            onClick={passportHandler}
+                        >
+                            Passport
+                        </div>
+                        <div
+                            className={`${
+                                nationalID && `bg-warning text-white`
+                            }`}
+                            onClick={nationalIDHandler}
+                        >
+                            National ID
+                        </div>
                     </div>
 
                     <div className="mt-5">

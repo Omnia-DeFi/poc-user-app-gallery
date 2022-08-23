@@ -60,9 +60,7 @@ function CustomerDetails({ firstStepHandler }) {
                         />
                     </div>
                     <div className="p-4">
-                        <h6>
-                            Verify Your Identity
-                        </h6>
+                        <h6>Verify Your Identity</h6>
                         <p className="mt-3 fs-4">
                             We'll verify it with your KYC documents
                         </p>
@@ -87,7 +85,7 @@ function CustomerDetails({ firstStepHandler }) {
                             Ensure it matches name on your idendity documents
                         </p>
 
-                       <label className="mt-4" htmlFor="date-of-birth">
+                        <label className="mt-4" htmlFor="date-of-birth">
                             Your date of birth
                         </label>
                         <input

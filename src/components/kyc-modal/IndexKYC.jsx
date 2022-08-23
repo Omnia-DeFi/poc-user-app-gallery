@@ -186,7 +186,7 @@ function IndexKYC({ show, handleModal }) {
         setImgSrc(null);
         setDocumentBackImage(null);
         setDocumentFrontImage(null);
-        handleModal()
+        handleModal();
     };
 
     const looksGoodHandler = () => {
@@ -270,7 +270,6 @@ function IndexKYC({ show, handleModal }) {
 
                 {seventhStep && (
                     <VerifyDocumentFront
-                 
                         documentFrontImage={documentFrontImage}
                         seventhStepHandler={seventhStepHandler}
                         fifthStepHandler={fifthStepHandler}
@@ -281,7 +280,7 @@ function IndexKYC({ show, handleModal }) {
                 )}
                 {eighthStep && (
                     <TakeGovernmentIDBack
-                    sixthStepHandler={sixthStepHandler}
+                        sixthStepHandler={sixthStepHandler}
                         documentFrontImage={documentFrontImage}
                         nationalID={nationalID}
                         passport={passport}

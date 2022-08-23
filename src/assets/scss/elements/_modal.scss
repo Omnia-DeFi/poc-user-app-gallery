@@ -58,7 +58,7 @@
         z-index: 99;
         right: 30px;
         top: 30px;
-        background: rgba(255, 255, 255, 0.08);		   
+        background: rgba(255, 255, 255, 0.08);
         padding: 0;
         width: 40px;
         height: 40px;
@@ -397,22 +397,17 @@
     text-align: center;
     font-size: 12px !important;
 }
-.Government-id{
+.Government-id {
     display: flex;
     justify-content: space-between;
-    
 }
-.Government-id-img{
+.Government-id-img {
     display: flex;
-   
-    
 }
-.Government-id-img img{
+.Government-id-img img {
     width: 100px;
-    height: 75px; 
+    height: 75px;
     margin-right: 5px;
-   
-
 }
 .company-form {
     // display: flex;
@@ -432,9 +427,8 @@
 p.input-box-button {
     font-size: 13px;
 }
-.pencilButton{
+.pencilButton {
     border: none;
     background-color: #ffffff;
     float: right;
 }
-  

@@ -32,7 +32,11 @@ function TakeSelfie({ firstStepHandler, secondStepHandler }) {
                         Make sure your whole face is visible without any glare
                         or blur
                     </p>
-                    <img width="200px" src="/images/kyc/selfie.png" alt="selfie" />
+                    <img
+                        width="200px"
+                        src="/images/kyc/selfie.png"
+                        alt="selfie"
+                    />
                     <div className="mt-5">
                         <Button
                             onClick={secondStepHandler}
@@ -44,10 +48,7 @@ function TakeSelfie({ firstStepHandler, secondStepHandler }) {
                     </div>
                 </div>
                 <div className="text-center mt-3">
-                    <Button
-                        onClick={firstStepHandler}
-                        size="medium"
-                    >
+                    <Button onClick={firstStepHandler} size="medium">
                         Back
                     </Button>
                 </div>

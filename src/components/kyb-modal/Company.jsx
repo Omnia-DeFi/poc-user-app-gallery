@@ -9,13 +9,13 @@ function Company({}) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [options, setOptions] = useState([]);
 
-   // if local asset use this set of code >>>>>>
+    // if local asset use this set of code >>>>>>
     useEffect(() => {
         setOptions(
             jurisdictionData.map(({ id, jurisdiction, code }) => ({
                 id,
                 label: jurisdiction,
-                value: code
+                value: code,
             }))
         );
     }, []);
@@ -41,22 +41,25 @@ function Company({}) {
     //       };
     //       getOptions();
     // }, []);
-  
+
     return (
         <>
             <Modal.Header>
                 <div className="text-center">
                     <div className="mb-4">
                         <img
-                            width= "60px" height="60px"
+                            width="60px"
+                            height="60px"
                             src="/images/kyc/kyb-icon.png"
                             alt=""
                         />
                     </div>
                     <div className="p-4">
-                        <h6 >Verify Your Business</h6>
+                        <h6>Verify Your Business</h6>
                         <p className="fs-4">
-                            Our partner ShuftiPro will vet your business through KYB &amp; AML processes to ensure no illegal business has been conducted
+                            Our partner ShuftiPro will vet your business through
+                            KYB &amp; AML processes to ensure no illegal
+                            business has been conducted
                         </p>
                     </div>
                 </div>
@@ -64,9 +67,7 @@ function Company({}) {
             <Modal.Body>
                 <form className="company-form">
                     <div className="p-3 pt-0">
-                        <label
-                            htmlFor="Company-Registration-Number"
-                        >
+                        <label htmlFor="Company-Registration-Number">
                             Company Registration Number
                         </label>
                         <input
@@ -114,9 +115,7 @@ function Company({}) {
                         />
                     </div>
                     <div className="mt-5 text-center">
-                        <Button size="medium">
-                            Submit
-                        </Button>
+                        <Button size="medium">Submit</Button>
                     </div>
                 </form>
             </Modal.Body>
@@ -125,4 +124,3 @@ function Company({}) {
 }
 
 export default Company;
-
