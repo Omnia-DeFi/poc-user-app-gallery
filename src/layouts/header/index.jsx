@@ -110,11 +110,6 @@ const Header = ({ className }) => {
                                         handleModal={handleKybModal}
                                     />
 
-                                    <IndexKYB
-                                        show={showKybModal}
-                                        handleModal={handleKybModal}
-                                    />
-
                                     <div className="setting-option rn-icon-list notification-badge">
                                         <div className="icon-box">
                                             <Anchor
