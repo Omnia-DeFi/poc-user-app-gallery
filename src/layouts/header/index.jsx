@@ -9,7 +9,7 @@ import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useRouter } from "next/router";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext  } from "react";
 import { useUserContext } from "src/context/context";
 import { logoutUser } from "src/context/actions";
 import headerData from "../../data/general/header.json";
@@ -22,6 +22,7 @@ import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
 import DropdownMenu from "./DropdownMenu";
 import { getNotifications } from "@utils/getNotReadNotifications";
+import { ModeContext } from "src/context/ModeContext";												  
 const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
@@ -31,6 +32,7 @@ const Header = ({ className }) => {
     const [open, setOpen] = useState(false);
     const [notificationsCount, setNotificationsCount] = useState(0);
     const { state, dispatch } = useUserContext();
+	const { kycState, setkycState } = useContext(ModeContext);													  
     const updateNotifications = async () => {
         const notifications = await getNotifications(state.email);
         setNotificationsCount(notifications.length);

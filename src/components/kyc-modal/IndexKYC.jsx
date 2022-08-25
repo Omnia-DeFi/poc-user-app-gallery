@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CustomerDetails from "./CustomerDetails";
 import TakeSelfie from "./TakeSelfie";
 import DocumentCameraFront from "./Camera/DocumentCameraFront";
@@ -11,8 +11,14 @@ import TakeGovernmentIDBack from "./TakeGovernmentIDBack";
 import DocumentCameraBack from "./Camera/DocumentCameraBack";
 import Success from "./Success";
 import Camera from "./Camera/Camera";
+import VerifyYourAddress from "./VerifyYourAddress";
+import VerifyYourAddressCamera from "./Camera/VerifyYourAddressCamera";
+import VerifyAddress from "./VerifyAddress";
+import UploadPhoto from "./UploadPhoto";
+import { ModeContext } from "src/context/ModeContext";
 
 function IndexKYC({ show, handleModal }) {
+    const { kycState, setkycState } = useContext(ModeContext);
     const [firstStep, setFirstStep] = useState(true);
     const [secondStep, setSecondStep] = useState(false);
     const [thirdStep, setThirdStep] = useState(false);
@@ -21,23 +27,46 @@ function IndexKYC({ show, handleModal }) {
     const [sixthStep, setSixthStep] = useState(false);
     const [seventhStep, setSeventhStep] = useState(false);
     const [eighthStep, setEighthStep] = useState(false);
-    const [nineStep, setNineStep] = useState(false);
-    const [tenStep, setTenStep] = useState(false);
-    const [elevenStep, setElevenStep] = useState(false);
+    const [ninethStep, setNinethStep] = useState(false);
+    const [tenthStep, setTenthStep] = useState(false);
+    const [eleventhStep, setEleventhStep] = useState(false);
+    const [twelvethStep, setTwelvethStep] = useState(false);
+    const [thirteenthStep, setThirteenthStep] = useState(false);
+    const [fourteenthStep, setFourteenthStep] = useState(false);
+    const [fifteenthStep, setFifteenthStep] = useState(false);
 
     const [driverLicense, setDriverLicense] = useState(true);
     const [passport, setPassport] = useState(false);
     const [nationalID, setNationalID] = useState(false);
 
     const [imgSrc, setImgSrc] = useState(null);
+    const [addressImgSrc, setAddressImgSrc] = useState(null);
     const [documentFrontImage, setDocumentFrontImage] = useState(null);
     const [documentBackImage, setDocumentBackImage] = useState(null);
 
     const [dos, setDos] = useState({});
     const [idImage, setIdImage] = useState([
-        "/images/KYC/driving-licence-front.png",
-        "/images/KYC/driving-licence-front.png",
+        "/images/kyc/driving-licence-front.png",
+        "/images/kyc/driving-licence-front.png",
     ]);
+
+    const firstBack = () => {
+        setFirstStep(true);
+        setSecondStep(false);
+        setThirdStep(false);
+        setFourthStep(false);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
+    };
 
     const firstStepHandler = () => {
         setFirstStep(false);
@@ -48,9 +77,13 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
     const secondStepHandler = () => {
         setSecondStep(false);
@@ -61,9 +94,13 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
     const thirdStepHandler = () => {
         setThirdStep(false);
@@ -74,9 +111,13 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
     const fourthStepHandler = () => {
         setThirdStep(false);
@@ -87,9 +128,13 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
     const fifthStepHandler = () => {
         setThirdStep(false);
@@ -100,22 +145,30 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(true);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
     const sixthStepHandler = () => {
-        setThirdStep(false);
-        setSecondStep(false);
-        setFourthStep(false);
         setFirstStep(false);
+        setSecondStep(false);
+        setThirdStep(false);
+        setFourthStep(false);
         setFifthStep(false);
         setSixthStep(false);
         setSeventhStep(true);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
     const seventhStepHandler = () => {
         setThirdStep(false);
@@ -126,11 +179,15 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(true);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
-    const eightStepHandler = () => {
+    const eighthStepHandler = () => {
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
@@ -139,11 +196,16 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(true);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(true);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
+        setDocumentBackImage(null);
     };
-    const nineStepHandler = () => {
+    const ninethStepHandler = () => {
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
@@ -152,12 +214,16 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(true);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(true);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
     };
 
-    const tenStepHandler = () => {
+    const tenthStepHandler = () => {
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
@@ -166,24 +232,134 @@ function IndexKYC({ show, handleModal }) {
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(true);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(true);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
+        setAddressImgSrc(null);
     };
 
-    const elevenStepHandler = () => {
+    const eleventhStepHandler = () => {
         setThirdStep(false);
         setSecondStep(false);
         setFourthStep(false);
+        setFirstStep(false);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(true);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
+        // setImgSrc(null);
+        // setDocumentBackImage(null);
+        // setDocumentFrontImage(null);
+        // handleModal();
+    };
+
+    const twelvethStepHandler = () => {
+        setThirdStep(false);
+        setSecondStep(false);
+        setFourthStep(false);
+        setFirstStep(false);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(true);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
+    };
+
+    const thirteenthStepHandler = () => {
+        setThirdStep(false);
+        setSecondStep(false);
+        setFourthStep(false);
+        setFirstStep(false);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(true);
+        setFifteenthStep(false);
+    };
+
+    const fourteenthStepHandler = () => {
+        setThirdStep(false);
+        setSecondStep(false);
+        setFourthStep(false);
+        setFirstStep(false);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(true);
+    };
+
+    const fifteenthStepHandler = () => {
         setFirstStep(true);
+        setSecondStep(false);
+        setThirdStep(false);
+        setFourthStep(false);
         setFifthStep(false);
         setSixthStep(false);
         setSeventhStep(false);
         setEighthStep(false);
-        setNineStep(false);
-        setTenStep(false);
-        setElevenStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
         setImgSrc(null);
+        setAddressImgSrc(null);
+        setDocumentBackImage(null);
+        setDocumentFrontImage(null);
+        handleModal();
+        setkycState("pending");
+    };
+
+    const modalCloseHandler = () => {
+        setFirstStep(true);
+        setSecondStep(false);
+        setThirdStep(false);
+        setFourthStep(false);
+        setFifthStep(false);
+        setSixthStep(false);
+        setSeventhStep(false);
+        setEighthStep(false);
+        setNinethStep(false);
+        setTenthStep(false);
+        setEleventhStep(false);
+        setTwelvethStep(false);
+        setThirteenthStep(false);
+        setFourteenthStep(false);
+        setFifteenthStep(false);
+        setImgSrc(null);
+        setAddressImgSrc(null);
         setDocumentBackImage(null);
         setDocumentFrontImage(null);
         handleModal();
@@ -216,7 +392,7 @@ function IndexKYC({ show, handleModal }) {
                         type="button"
                         className="btn-close"
                         aria-label="Close"
-                        onClick={handleModal}
+                        onClick={modalCloseHandler}
                     >
                         <i className="feather-x" />
                     </button>
@@ -229,6 +405,7 @@ function IndexKYC({ show, handleModal }) {
                     <TakeSelfie
                         firstStepHandler={firstStepHandler}
                         secondStepHandler={secondStepHandler}
+                        firstBack={firstBack}
                     />
                 )}
                 {thirdStep && (
@@ -281,18 +458,18 @@ function IndexKYC({ show, handleModal }) {
                 {eighthStep && (
                     <TakeGovernmentIDBack
                         sixthStepHandler={sixthStepHandler}
+                        eighthStepHandler={eighthStepHandler}
                         documentFrontImage={documentFrontImage}
                         nationalID={nationalID}
                         passport={passport}
                         driverLicense={driverLicense}
-                        eightStepHandler={eightStepHandler}
                         setDocumentBackImage={setDocumentBackImage}
                         documentBackImage={documentBackImage}
                     />
                 )}
-                {nineStep && (
+                {ninethStep && (
                     <DocumentCameraBack
-                        nineStepHandler={nineStepHandler}
+                        ninethStepHandler={ninethStepHandler}
                         seventhStepHandler={seventhStepHandler}
                         setDocumentBackImage={setDocumentBackImage}
                         documentBackImage={documentBackImage}
@@ -301,20 +478,49 @@ function IndexKYC({ show, handleModal }) {
                         driverLicense={driverLicense}
                     />
                 )}
-                {tenStep && (
+                {tenthStep && (
                     <TakeGovernmentIDBack
                         documentFrontImage={documentFrontImage}
-                        tenStepHandler={tenStepHandler}
+                        tenthStepHandler={tenthStepHandler}
                         nationalID={nationalID}
                         passport={passport}
                         driverLicense={driverLicense}
-                        eightStepHandler={eightStepHandler}
+                        eighthStepHandler={eighthStepHandler}
                         setDocumentBackImage={setDocumentBackImage}
                         documentBackImage={documentBackImage}
                     />
                 )}
-                {elevenStep && (
-                    <Success elevenStepHandler={elevenStepHandler} />
+
+                {eleventhStep && (
+                    <VerifyYourAddress
+                        eleventhStepHandler={eleventhStepHandler}
+                        setAddressImgSrc={setAddressImgSrc}
+                        thirteenthStepHandler={thirteenthStepHandler}
+                        ninethStepHandler={ninethStepHandler}
+                    />
+                )}
+                {twelvethStep && (
+                    <VerifyYourAddressCamera
+                        setAddressImgSrc={setAddressImgSrc}
+                        twelvethStepHandler={twelvethStepHandler}
+                        tenthStepHandler={tenthStepHandler}
+                    />
+                )}
+                {thirteenthStep && (
+                    <VerifyAddress
+                        addressImgSrc={addressImgSrc}
+                        fourteenthStepHandler={fourteenthStepHandler}
+                        tenthStepHandler={tenthStepHandler}
+                    />
+                )}
+                {fourteenthStep && (
+                    <UploadPhoto
+                        setAddressImgSrc={setAddressImgSrc}
+                        twelvethStepHandler={twelvethStepHandler}
+                    />
+                )}
+                {fifteenthStep && (
+                    <Success fifteenthStepHandler={fifteenthStepHandler} />
                 )}
             </Modal>
         </div>

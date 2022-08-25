@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
+import { ModeContext } from "src/context/ModeContext";
 
 function DropdownMenu({
     state,
@@ -11,9 +12,12 @@ function DropdownMenu({
     handleKybModal,
 }) {
     const router = useRouter();
+
+    const item_value = sessionStorage.getItem("status");
+    console.log(item_value);
     // the states are unverified , pending , verified , failed
-    const [kycState, setkycState] = useState("unverified");
-    const [kybState, setkybState] = useState("unverified");
+    const { kycState, setkycState, kybState, setkybState } =
+        useContext(ModeContext);
 
     return (
         <div className="drop-down-menu">

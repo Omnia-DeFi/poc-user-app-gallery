@@ -9,7 +9,7 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
+function Camera({  setImgSrc, thirdStepHandler, firstStepHandler }) {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -34,10 +34,9 @@ function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
             </div>
 
             <div className="webcamCapture__text">
-                <p>Take a Selfie</p>
+                <p className="fw-bold">Take a Selfie</p>
                 <p className="webcamCapture-instructions">
-                    Make sure your face fits inside the oval and is clearly
-                    visible
+                    Make sure your face fits inside the oval and is clearly visible
                 </p>
                 <Button onClick={firstStepHandler} size="medium">
                     Back
