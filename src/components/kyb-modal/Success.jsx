@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { RingLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
 
 const override = {
     display: "block",
-    margin: "0 auto",
-    borderColor: "red",
+    margin: "50px auto",
 };
 
 function Success({ secondStepHandler }) {
@@ -26,12 +25,18 @@ function Success({ secondStepHandler }) {
     return (
         <>
             {isAlert ? (
-                <RingLoader
-                    color={color}
-                    loading={loading}
-                    cssOverride={override}
-                    size={150}
-                />
+                <>
+                    <div className="text-center">
+                        <h6 className="mb-2">Documents Processing</h6>
+                        <p>Please wait while your documents are being processed</p>
+                    </div>
+                    <MoonLoader
+                        color={color}
+                        loading={loading}
+                        cssOverride={override}
+                        size={80}
+                    />
+                </>
             ) : (
                 <div className="d-flex flex-column align-items-center justify-content-center">
                     <h1 className="text-success">Congratulations</h1>
