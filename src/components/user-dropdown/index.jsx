@@ -3,7 +3,7 @@ import Anchor from "@ui/anchor";
 
 const UserDropdown = () => (
     <div className="icon-box">
-        <Anchor path="/author">
+        <Anchor path="/profile">
             <Image
                 src="/images/icons/boy-avater.png"
                 alt="Images"
@@ -72,7 +72,7 @@ const UserDropdown = () => (
             </div>
             <ul className="list-inner">
                 <li>
-                    <Anchor path="/author">My Profile</Anchor>
+                    <Anchor path="/profile">My Profile</Anchor>
                 </li>
                 <li>
                     <Anchor path="/edit-profile">Edit Profile</Anchor>

@@ -26,7 +26,7 @@
         "bitCount": 15,
         "owner": {
             "name": "Texas Estate News",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.jpg"
             }
@@ -75,7 +75,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -87,7 +87,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -99,7 +99,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -111,7 +111,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -123,7 +123,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -164,7 +164,7 @@
         "bitCount": 13,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -213,7 +213,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -225,7 +225,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -237,7 +237,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -249,7 +249,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -261,7 +261,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -302,7 +302,7 @@
         "bitCount": 30,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -386,7 +386,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -398,7 +398,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -410,7 +410,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -422,7 +422,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -434,7 +434,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -475,7 +475,7 @@
         "bitCount": 25,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -559,7 +559,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -571,7 +571,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -583,7 +583,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -595,7 +595,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -607,7 +607,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -648,7 +648,7 @@
         "bitCount": 12,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -732,7 +732,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -744,7 +744,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -756,7 +756,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -768,7 +768,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -780,7 +780,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -821,7 +821,7 @@
         "bitCount": 17,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -905,7 +905,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -917,7 +917,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -929,7 +929,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -941,7 +941,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -953,7 +953,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -993,7 +993,7 @@
         "bitCount": 9,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -1077,7 +1077,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -1089,7 +1089,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -1101,7 +1101,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -1113,7 +1113,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -1125,7 +1125,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -1165,7 +1165,7 @@
         "bitCount": 10,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -1249,7 +1249,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -1261,7 +1261,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -1273,7 +1273,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -1285,7 +1285,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -1297,7 +1297,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -1337,7 +1337,7 @@
         "bitCount": 8,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -1421,7 +1421,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -1433,7 +1433,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -1445,7 +1445,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -1457,7 +1457,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -1469,7 +1469,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }
@@ -1509,7 +1509,7 @@
         "bitCount": 15,
         "owner": {
             "name": "Brodband",
-            "slug": "/author",
+            "slug": "/profile",
             "image": {
                 "src": "/images/client/client-1.png"
             }
@@ -1593,7 +1593,7 @@
                 "id": 1,
                 "user": {
                     "name": "Allen Waltker",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-3.png"
                     }
@@ -1605,7 +1605,7 @@
                 "id": 2,
                 "user": {
                     "name": "Joe Biden",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-4.png"
                     }
@@ -1617,7 +1617,7 @@
                 "id": 3,
                 "user": {
                     "name": "Sonial Mridha",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-5.png"
                     }
@@ -1629,7 +1629,7 @@
                 "id": 4,
                 "user": {
                     "name": "Tribute Dhusra",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-6.png"
                     }
@@ -1641,7 +1641,7 @@
                 "id": 5,
                 "user": {
                     "name": "Sonia Sobnom",
-                    "slug": "/author",
+                    "slug": "/profile",
                     "image": {
                         "src": "/images/client/client-7.png"
                     }

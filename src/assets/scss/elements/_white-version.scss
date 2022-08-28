@@ -1993,8 +1993,63 @@ html[data-theme="light"] body {
     }
 }
 
+html[data-theme="light"] .rn-popup-modal .btn-close {
+    background: rgba(49, 49, 49, 0.226);
+}
+
 html[data-theme="light"] {
     .drop-down-menu {
         background: #fff;
+    }
+}
+
+html[data-theme="light"] .jurisdiction-code {
+    .react-select__control {
+        background-color: transparent;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .react-select__control--is-focused {
+        box-shadow: none;
+    }
+
+    .react-select__placeholder {
+        color: var(--color-light-body);
+    }
+
+    .react-select__single-value {
+        color: var(--color-light-body);
+    }
+
+    .react-select__menu {
+        background-color: #fff;
+    }
+
+    .react-select__clear-indicator:hover path {
+        fill: var(--color-primary);
+    }
+
+    .react-select__menu {
+        .react-select__option--is-focused {
+            background: #9292924b;
+        }
+
+        .react-select__option--is-selected {
+            background-color: var(--color-primary);
+            color: var(--color-black);
+        }
+    }
+}
+
+html[data-theme="light"] .success-checkmark {
+    .check-icon {
+        &::before,
+        &::after {
+            background-color: #fff;
+        }
+
+        .icon-fix {
+            background-color: #fff;
+        }
     }
 }

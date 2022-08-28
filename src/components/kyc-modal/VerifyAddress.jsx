@@ -1,10 +1,12 @@
-import React from "react";
-// import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
+import React, { useEffect, useState } from "react";
 
-function VerifySelfie({ secondStepHandler, imgSrc, fourthStepHandler }) {
-    console.log(imgSrc);
+function VerifyAddress({
+    addressImgSrc,
+    fourteenthStepHandler,
+    tenthStepHandler,
+}) {
     return (
         <>
             <Modal.Header>
@@ -12,48 +14,48 @@ function VerifySelfie({ secondStepHandler, imgSrc, fourthStepHandler }) {
                     <div>
                         <img
                             style={{ width: "50px", height: "50px" }}
-                            className="mt-3 "
                             src="/images/kyc/logo.png"
                             alt=""
                         />
                     </div>
                     <div className="ms-4">
-                        <h6 className="my-2 fs-2">Verify your identity</h6>
-                        <p className="m-0 ">Your Selfie for KYC verification</p>
+                        <h6 className="my-2 fs-2">Verify Your Address</h6>
+                        <p className="m-0 ">
+                            Proof of address for KYC verification
+                        </p>
                     </div>
                 </div>
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5 text-center">
-                    <h5 className="my-2 text-muted">Your selfie</h5>
+                    <h5 className="my-2 text-muted">Proof of Address</h5>
                     <p className="m-0 text-muted">
-                        Make sure your whole face is visible without any glare
-                        or blur
+                        Make sure your full address is clearly visible
                     </p>
                     <div className="mt-3">
                         <img
                             className="Webcam-selfie"
-                            src={imgSrc}
+                            src={addressImgSrc}
                             alt="selfie"
                         />
                     </div>
                     <div className="mt-5 d-flex mx-4 justify-content-around">
                         <div>
                             <Button
-                                onClick={secondStepHandler}
+                                onClick={tenthStepHandler}
                                 size="medium"
                                 fullwidth
                             >
-                                RETAKE
+                                Change
                             </Button>
                         </div>
                         <div>
                             <Button
-                                onClick={fourthStepHandler}
+                                onClick={fourteenthStepHandler}
                                 size="medium"
                                 fullwidth
                             >
-                                LOOKS GOOD
+                                Continue
                             </Button>
                         </div>
                     </div>
@@ -63,4 +65,4 @@ function VerifySelfie({ secondStepHandler, imgSrc, fourthStepHandler }) {
     );
 }
 
-export default VerifySelfie;
+export default VerifyAddress;

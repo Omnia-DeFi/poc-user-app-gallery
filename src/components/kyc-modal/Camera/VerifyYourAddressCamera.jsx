@@ -1,25 +1,28 @@
 import React, { useRef, useCallback } from "react";
-// import "./WebcamCapture.css";
 import Webcam from "react-webcam";
 import Button from "@ui/button";
 
 const videoConstraints = {
     width: 350,
-    height: 350,
+    height: 510,
     facingMode: "user",
 };
 
-function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
+function VerifyYourAddressCamera({
+    setAddressImgSrc,
+    twelvethStepHandler,
+    tenthStepHandler,
+}) {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
-        setImgSrc(imageSrc);
-        thirdStepHandler();
+        setAddressImgSrc(imageSrc);
+        twelvethStepHandler();
     }, [webcamRef]);
 
     return (
         <>
-            <div className="webcamCapture">
+            <div className="webcamCapture address-document">
                 <Webcam
                     audio={false}
                     height={videoConstraints.height}
@@ -29,17 +32,17 @@ function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
                     videoConstraints={videoConstraints}
                 />
 
-                <span className="Capture-round"></span>
+                <span className="Capture-a4"></span>
                 <span className="take-photo" onClick={capture}></span>
             </div>
 
             <div className="webcamCapture__text">
-                <p className="fw-bold">Take a Selfie</p>
-                <p className="webcamCapture-instructions">
-                    Make sure your face fits inside the oval and is clearly
-                    visible
+                <h6 className="mb-3">Take a Picture</h6>
+                <p className="">
+                    Make sure your document is inside the rectangle and is
+                    clearly visible
                 </p>
-                <Button onClick={firstStepHandler} size="medium">
+                <Button onClick={tenthStepHandler} size="medium">
                     Back
                 </Button>
             </div>
@@ -47,4 +50,4 @@ function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
     );
 }
 
-export default Camera;
+export default VerifyYourAddressCamera;

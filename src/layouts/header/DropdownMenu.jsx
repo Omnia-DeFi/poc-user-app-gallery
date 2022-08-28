@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
+import { ModeContext } from "src/context/ModeContext";
 
 function DropdownMenu({
     state,
@@ -12,19 +12,20 @@ function DropdownMenu({
     handleKybModal,
 }) {
     const router = useRouter();
+
+    const item_value = sessionStorage.getItem("status");
+    console.log(item_value);
     // the states are unverified , pending , verified , failed
-    const [kycState, setkycState] = useState("unverified");
-    const [kybState, setkybState] = useState("unverified");
+    const { kycState, setkycState, kybState, setkybState } =
+        useContext(ModeContext);
 
     return (
         <div className="drop-down-menu">
             {isAuthenticated && (
                 <>
                     <div className="drop-down-menu-item drop-down-single-item">
-                        <div className="me-4">
-                            <Image
-                                width="30px"
-                                height="30px"
+                        <div className="side-icon">
+                            <img
                                 src="/images/profile-dropdown/wallet.svg"
                                 alt="Wallet"
                             />
@@ -36,10 +37,8 @@ function DropdownMenu({
                         </p>
                     </div>
                     <div className="drop-down-menu-item drop-down-single-item ">
-                        <div className="me-4">
-                            <Image
-                                width="30px"
-                                height="30px"
+                        <div className="side-icon">
+                            <img
                                 src="/images/profile-dropdown/email.svg"
                                 alt="Email"
                             />
@@ -57,10 +56,8 @@ function DropdownMenu({
                                 onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyc_not_verified.svg"
                                         alt="KYC"
                                     />
@@ -76,10 +73,8 @@ function DropdownMenu({
                     ) : kycState === "pending" ? (
                         <Tippy content="Verification Pending" placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyc_pending.svg"
                                         alt="KYC Pending"
                                     />
@@ -98,10 +93,8 @@ function DropdownMenu({
                             placement="left"
                         >
                             <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyc_verified.svg"
                                         alt="KYC Successful"
                                     />
@@ -124,10 +117,8 @@ function DropdownMenu({
                                 onClick={handleKycModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyc_failed.svg"
                                         alt="KYC Failed"
                                     />
@@ -152,10 +143,8 @@ function DropdownMenu({
                                 onClick={handleKybModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyb_not_verified.svg"
                                         alt="KYB"
                                     />
@@ -178,10 +167,8 @@ function DropdownMenu({
                     ) : kybState === "pending" ? (
                         <Tippy content="Verification Pending " placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyb_pending.svg"
                                         alt="KYB Pending"
                                     />
@@ -206,10 +193,8 @@ function DropdownMenu({
                             placement="left"
                         >
                             <div className="drop-down-menu-item drop-down-single-item ">
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyb_verified.svg"
                                         alt="KYB Successful"
                                     />
@@ -238,10 +223,8 @@ function DropdownMenu({
                                 onClick={handleKybModal}
                                 className="drop-down-menu-item drop-down-single-item "
                             >
-                                <div className="me-4">
-                                    <Image
-                                        width="30px"
-                                        height="30px"
+                                <div className="side-icon">
+                                    <img
                                         src="/images/profile-dropdown/kyb_failed.svg"
                                         alt="KYB Failed"
                                     />
@@ -269,10 +252,8 @@ function DropdownMenu({
                 onClick={logout}
                 className="drop-down-menu-item drop-down-menu-item-last drop-down-single-item"
             >
-                <div className="me-4">
-                    <Image
-                        width="30px"
-                        height="30px"
+                <div className="side-icon">
+                    <img
                         src="/images/profile-dropdown/logout.svg"
                         alt="Logout"
                     />

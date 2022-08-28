@@ -9,7 +9,7 @@ import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useRouter } from "next/router";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useUserContext } from "src/context/context";
 import { logoutUser } from "src/context/actions";
 import headerData from "../../data/general/header.json";
@@ -22,7 +22,7 @@ import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
 import DropdownMenu from "./DropdownMenu";
 import { getNotifications } from "@utils/getNotReadNotifications";
-
+import { ModeContext } from "src/context/ModeContext";
 const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
@@ -31,22 +31,24 @@ const Header = ({ className }) => {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [notificationsCount, setNotificationsCount] = useState(0);
-
     const { state, dispatch } = useUserContext();
-
-    // modal state here start
-    const [showKycModal, setShowKycModal] = useState(false);
-    const handleKycModal = () => {
-        setShowKycModal((prev) => !prev);
-    };
-    const [showKybModal, setShowKybModal] = useState(false);
-    const handleKybModal = () => {
-        setShowKybModal((prev) => !prev);
-    };
-
+    const { kycState, setkycState } = useContext(ModeContext);
     const updateNotifications = async () => {
         const notifications = await getNotifications(state.email);
         setNotificationsCount(notifications.length);
+    };
+    // kyc modal state here start
+    const [showKycModal, setShowKycModal] = useState(false);
+
+    const handleKycModal = () => {
+        setShowKycModal((prev) => !prev);
+    };
+
+    // kyb modal state here start
+    const [showKybModal, setShowKybModal] = useState(false);
+
+    const handleKybModal = () => {
+        setShowKybModal((prev) => !prev);
     };
 
     useEffect(() => {
@@ -84,13 +86,27 @@ const Header = ({ className }) => {
                             </div>
                         </div>
                         <div className="header-right">
+                            {/* <div className="setting-option d-none d-lg-block">
+                                <SearchForm />
+                            </div>
+                            <div className="setting-option rn-icon-list d-block d-lg-none">
+                                <div className="icon-box search-mobile-icon">
+                                    <button
+                                        type="button"
+                                        aria-label="Click here to open search form"
+                                        onClick={searchHandler}
+                                    >
+                                        <i className="feather-search" />
+                                    </button>
+                                </div>
+                                <FlyoutSearchForm isOpen={search} />
+                            </div> */}
                             {isAuthenticated && (
                                 <>
                                     <IndexKYC
                                         show={showKycModal}
                                         handleModal={handleKycModal}
                                     />
-
                                     <IndexKYB
                                         show={showKybModal}
                                         handleModal={handleKybModal}

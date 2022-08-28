@@ -5,68 +5,87 @@ import Button from "@ui/button";
 
 function TakeGovernmentIDBack({
     sixthStepHandler,
-    tenStepHandler,
+    eighthStepHandler,
+    tenthStepHandler,
     documentFrontImage,
     nationalID,
     passport,
     driverLicense,
-    eightStepHandler,
     documentBackImage,
     setDocumentBackImage,
 }) {
     return (
         <>
             <Modal.Header>
-                <div className="d-flex justify-content-center ">
-                    <div>
-                        <img
-                            style={{ width: "50px", height: "50px" }}
-                            className="me-4 mt-3 "
-                            src="/images/KYC/logo.png"
-                            alt=""
-                        />
-                    </div>
-                    <div className="ms-4">
-                        <h6 className="my-2">Verify your identity</h6>
-                        <p className="m-0">
-                            Please upload a selfie and provide personal details
-                            for KYC verification
-                        </p>
-                    </div>
+                <div className="text-center">
+                    <img
+                        style={{ width: "50px", height: "50px" }}
+                        src="/images/kyc/logo.png"
+                        alt=""
+                    />
+                    <h6 className="my-2">Verify your identity</h6>
+                    <p className="m-0">
+                        Please take a picture of front and back of your
+                        government ID for KYC verification
+                    </p>
                 </div>
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5">
                     <div className="Government-id">
                         <p className="mt-4">Your Government ID</p>
-                        <button
-                            type="button"
-                            className="pencilButton btn btn-outline-primary"
-                            onClick={sixthStepHandler}
-                        >
-                            <img
-                                className="pencilIcon"
-                                src="/images/KYC/pencil-edit-button.png"
-                                height="20"
-                                width="20"
-                            />
-                        </button>
+                        {documentBackImage ? (
+                            <button
+                                type="button"
+                                className="edit-icon btn btn-outline-primary"
+                                onClick={eighthStepHandler}
+                            >
+                                <img
+                                    className="pencilIcon"
+                                    src="/images/kyc/pencil-edit-button.png"
+                                    height="20"
+                                    width="20"
+                                />
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                className="edit-icon btn btn-outline-primary"
+                                onClick={sixthStepHandler}
+                            >
+                                <img
+                                    className="pencilIcon"
+                                    src="/images/kyc/pencil-edit-button.png"
+                                    height="20"
+                                    width="20"
+                                />
+                            </button>
+                        )}
                     </div>
                     <div className="Government-id-img">
-                        <img
-                            src={documentFrontImage}
-                            alt="driving-licence-back"
-                        />
+                        <img src={documentFrontImage} alt="document-front" />
                         {documentBackImage && (
-                            <img
-                                src={documentBackImage}
-                                alt="driving-licence-back"
-                            />
+                            <img src={documentBackImage} alt="document-back" />
                         )}
                     </div>
 
                     {documentBackImage ? (
-                        <></>
+                        <>
+                            <p className="my-4">
+                                Front of your{" "}
+                                {driverLicense && "Driving Licence"}
+                                {passport && "Passport"}{" "}
+                                {nationalID && "National ID"}
+                            </p>
+                            <p className="my-2">
+                                Make sure your address is clearly visible
+                            </p>
+                            <img
+                                className="Webcam-selfie"
+                                src={documentBackImage}
+                                alt="documentFront"
+                            />
+                        </>
                     ) : (
                         <div className="mt-5">
                             <div className="mb-5 modal-id-show">
@@ -85,31 +104,33 @@ function TakeGovernmentIDBack({
                                     <>
                                         {driverLicense && (
                                             <img
-                                                src="/images/KYC/driving-licence-back.png"
+                                                src="/images/kyc/driving-licence-back.png"
                                                 alt="driving-licence-back"
                                             />
                                         )}
                                         {passport && (
                                             <img
-                                                src="/images/KYC/passport.png"
+                                                src="/images/kyc/passport.png"
                                                 alt="passport-front"
                                             />
                                         )}
                                         {nationalID && (
                                             <img
-                                                src="/images/KYC/national-id-back.png"
+                                                src="/images/kyc/national-id-back.png"
                                                 alt="national-id-back"
                                             />
                                         )}
                                     </>
                                 )}
                             </div>
-                            <button
-                                onClick={eightStepHandler}
-                                className="btn btn-success d-flex justify-content-center mx-auto"
-                            >
-                                CLICK PHOTO
-                            </button>
+                            <div className="text-center">
+                                <Button
+                                    onClick={eighthStepHandler}
+                                    size="medium"
+                                >
+                                    CLICK PHOTO
+                                </Button>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -131,17 +152,16 @@ function TakeGovernmentIDBack({
                                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                                 />
                             </svg>
-                        </span>{" "}
+                        </span>
                         Your ID or photo will be used only for KYC purpose
                     </p>
-                    <button
-                        type="button"
-                        class="btn btn-warning w-100"
-                        onClick={tenStepHandler}
-                    >
-                        {" "}
-                        SAVE & CONTINUE
-                    </button>
+                    {documentBackImage && (
+                        <div className="text-center">
+                            <Button onClick={tenthStepHandler} size="medium">
+                                Save &amp; Continue
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </Modal.Body>
         </>

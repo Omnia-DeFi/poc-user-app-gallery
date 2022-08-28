@@ -10,17 +10,13 @@ function VerifyDocumentFront({
     nationalID,
     passport,
     driverLicense,
-   
 }) {
     const [idImage, setIdImage] = useState([
-        "/images/KYC/driving-licence-front.png",
-        "/images/KYC/driving-licence-front.png",
+        "/images/kyc/driving-licence-front.png",
+        "/images/kyc/driving-licence-front.png",
     ]);
 
-
-
     const looksGoodHandler = () => {
-
         seventhStepHandler();
         // if (img.length === 0) {
         //     setIdImage(documentImage);
@@ -34,22 +30,17 @@ function VerifyDocumentFront({
     return (
         <>
             <Modal.Header>
-                <div className="d-flex justify-content-center ">
-                    <div>
-                        <img
-                            style={{ width: "50px", height: "50px" }}
-                            className="me-4 mt-3 "
-                            src="/images/KYC/logo.png"
-                            alt=""
-                        />
-                    </div>
-                    <div className="ms-4">
-                        <h6 className="my-2">Verify your identity</h6>
-                        <p className="m-0">
-                            Please upload a selfie and provide personal details
-                            for KYC verification
-                        </p>
-                    </div>
+                <div className="text-center">
+                    <img
+                        style={{ width: "50px", height: "50px" }}
+                        src="/images/kyc/logo.png"
+                        alt=""
+                    />
+                    <h6 className="my-2">Verify your identity</h6>
+                    <p className="m-0">
+                        Please take a picture of front and back of your
+                        government ID for KYC verification
+                    </p>
                 </div>
             </Modal.Header>
             <Modal.Body>
@@ -64,16 +55,16 @@ function VerifyDocumentFront({
                         })}
                     </div>
                     <p className="my-2">
-                        Back of {driverLicense && "Driving Licence"}
+                        Front of your {driverLicense && "Driving Licence"}
                         {passport && "Passport"} {nationalID && "National ID"}
                     </p>
                     <p className="m-0">
-                        Your address should be clearly visible
+                        Make sure your address is clearly visible
                     </p>
                     <img
                         className="Webcam-selfie"
                         src={documentFrontImage}
-                        alt="selfie"
+                        alt="documentFront"
                     />
                     <div className="mt-5 d-flex mx-4 justify-content-around">
                         <div>
@@ -114,13 +105,9 @@ function VerifyDocumentFront({
                                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                                 />
                             </svg>
-                        </span>{" "}
+                        </span>
                         Your ID or photo will be used only for KYC purpose
                     </p>
-                    <button type="button" class="btn btn-secondary w-100">
-                        {" "}
-                        SAVE & CONTINUE
-                    </button>
                 </div>
             </Modal.Body>
         </>
