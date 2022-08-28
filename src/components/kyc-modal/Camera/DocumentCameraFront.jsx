@@ -1,9 +1,10 @@
 import React, { useRef, useCallback } from "react";
 // import "./WebcamCapture.css";
 import Webcam from "react-webcam";
+import Button from "@ui/button";
 
 const videoConstraints = {
-    width: 350,
+    width: 370,
     height: 450,
     facingMode: "user",
 };
@@ -26,7 +27,7 @@ function DocumentCameraFront({
 
     console.log(documentFrontImage);
     return (
-        <div className="webcamCapture">
+        <div className="webcamCapture government-document">
             <Webcam
                 audio={false}
                 height={videoConstraints.height}
@@ -36,28 +37,7 @@ function DocumentCameraFront({
                 videoConstraints={videoConstraints}
             />
 
-            <div className="webcamCapture__button">
-                <p>
-                    {driverLicense && "Driving Licence"}
-                    {passport && "Passport"} {nationalID && "National ID"} front
-                    side
-                </p>
-                <div>
-                    <button
-                        type="button"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Tooltip on bottom"
-                    >
-                        Tips
-                    </button>
-                </div>
-                <p onClick={fourthStepHandler} className="webcam-close">
-                    Close
-                </p>
-            </div>
             <span className="Capture-rectangle"></span>
-            <span className="take-photo" onClick={capture}></span>
             <p className="webcam-rectangle-top">
                 Your Name and Photo should be clearly visible
             </p>
@@ -66,6 +46,22 @@ function DocumentCameraFront({
                 {passport && "Passport"} {nationalID && "National ID"} card
                 inside the box
             </p>
+            <span className="take-photo" onClick={capture}></span>
+            <div className="webcamCapture__button text-center my-3">
+                <p>
+                    {driverLicense && "Driving Licence"}
+                    {passport && "Passport"} {nationalID && "National ID"} front
+                    side
+                </p>
+            </div>
+            <div className="text-center">
+                <Button
+                    onClick={fourthStepHandler}
+                    size="medium"
+                >
+                    Back
+                </Button>
+            </div>
         </div>
     );
 }

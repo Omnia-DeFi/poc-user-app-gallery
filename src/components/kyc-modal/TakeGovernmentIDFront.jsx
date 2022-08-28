@@ -31,50 +31,27 @@ function TakeGovernmentIDFront({
     return (
         <>
             <Modal.Header>
-                <div className="d-flex justify-content-center ">
-                    <div>
-                        <img
-                            style={{ width: "50px", height: "50px" }}
-                            className="me-4 mt-3 "
-                            src="/images/kyc/logo.png"
-                            alt=""
-                        />
-                    </div>
-                    <div className="ms-4">
-                        <h6 className="my-2">Verify your identity</h6>
-                        <p className="m-0">
-                            Please upload a selfie and provide personal details
-                            for KYC verification
-                        </p>
-                    </div>
+                <div className="text-center">
+                    <img
+                        style={{ width: "50px", height: "50px" }}
+                        src="/images/kyc/logo.png"
+                        alt=""
+                    />
+                    <h6 className="my-2">Verify your identity</h6>
+                    <p className="m-0">
+                        Please take a picture of front and back of your government ID for KYC verification
+                    </p>
                 </div>
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5">
                     <h5 className="my-2">Select a Government ID</h5>
                     <div className="select-Government-ID">
-                        <div
-                            className={`${
-                                driverLicense && `bg-warning text-white`
-                            }`}
-                            onClick={driverLicenseHandler}
-                        >
+                        <div className={`${driverLicense && `bg-warning text-white`}`} onClick={driverLicenseHandler}>
                             Driving Licence
                         </div>
-                        <div
-                            className={`${passport && `bg-warning text-white`}`}
-                            onClick={passportHandler}
-                        >
-                            Passport
-                        </div>
-                        <div
-                            className={`${
-                                nationalID && `bg-warning text-white`
-                            }`}
-                            onClick={nationalIDHandler}
-                        >
-                            National ID
-                        </div>
+                        <div className={`${passport && `bg-warning text-white`}`} onClick={passportHandler}>Passport</div>
+                        <div className={`${nationalID && `bg-warning text-white`}`} onClick={nationalIDHandler}>National ID</div>
                     </div>
 
                     <div className="mt-5">
@@ -84,7 +61,9 @@ function TakeGovernmentIDFront({
                                 {passport && "Passport"}{" "}
                                 {nationalID && "National ID"}
                             </h6>
-                            <p>Your name and photo should be clearly visible</p>
+                            <p>
+                                <span>Your name and photo should be clearly visible</span>
+                            </p>
                             {driverLicense && (
                                 <img
                                     src="/images/kyc/driving-licence-front.png"
@@ -104,39 +83,35 @@ function TakeGovernmentIDFront({
                                 />
                             )}
                         </div>
-                        <button
-                            onClick={fifthStepHandler}
-                            className="btn btn-success d-flex justify-content-center mx-auto"
-                        >
-                            CLICK PHOTO
-                        </button>
+                        <div className="text-center">
+                            <Button
+                                onClick={fifthStepHandler}
+                                size="medium"
+                            >
+                                CLICK PHOTO
+                            </Button>
+                        </div>
                     </div>
                 </div>
-                <div className="">
-                    <p className="d-flex mt-3 justify-content-center align-items-center">
-                        <span>
-                            <svg
-                                width="20px"
-                                height="20px"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                />
-                            </svg>
-                        </span>{" "}
-                        Your ID or photo will be used only for KYC purpose
-                    </p>
-                    <button type="button" class="btn btn-secondary w-100">
-                        {" "}
-                        SAVE & CONTINUE
-                    </button>
+                <div className="d-flex mt-3 justify-content-center align-items-center">
+                    <span>
+                        <svg
+                            width="20px"
+                            height="20px"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                            />
+                        </svg>
+                    </span>
+                    Your ID or photo will be used only for KYC purpose
                 </div>
             </Modal.Body>
         </>

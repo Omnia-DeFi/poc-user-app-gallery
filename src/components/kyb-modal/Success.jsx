@@ -6,7 +6,7 @@ const override = {
     margin: "50px auto",
 };
 
-function Success({ fifteenthStepHandler }) {
+function Success({ secondStepHandler }) {
     let [loading, setLoading] = useState(true);
     let [color, setColor] = useState("#02941a");
     const [isAlert, setIsAlert] = useState(true);
@@ -53,7 +53,7 @@ function Success({ fifteenthStepHandler }) {
                         </div>
                     </div>
                     <button
-                        onClick={fifteenthStepHandler}
+                        onClick={secondStepHandler}
                         className="btn btn-success w-100"
                     >
                         Go Home!!
