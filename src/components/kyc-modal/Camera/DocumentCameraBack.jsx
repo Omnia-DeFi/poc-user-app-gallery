@@ -37,7 +37,6 @@ function DocumentCameraBack({
                 videoConstraints={videoConstraints}
             />
 
-           
             <span className="Capture-rectangle"></span>
             <p className="webcam-rectangle-top">
                 Your Name and Photo should be clearly visible
@@ -57,10 +56,7 @@ function DocumentCameraBack({
                 </p>
             </div>
             <div className="text-center">
-                <Button
-                    onClick={seventhStepHandler}
-                    size="medium"
-                >
+                <Button onClick={seventhStepHandler} size="medium">
                     Back
                 </Button>
             </div>

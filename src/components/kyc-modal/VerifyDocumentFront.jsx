@@ -10,17 +10,13 @@ function VerifyDocumentFront({
     nationalID,
     passport,
     driverLicense,
-   
 }) {
     const [idImage, setIdImage] = useState([
         "/images/kyc/driving-licence-front.png",
         "/images/kyc/driving-licence-front.png",
     ]);
 
-
-
     const looksGoodHandler = () => {
-
         seventhStepHandler();
         // if (img.length === 0) {
         //     setIdImage(documentImage);
@@ -42,7 +38,8 @@ function VerifyDocumentFront({
                     />
                     <h6 className="my-2">Verify your identity</h6>
                     <p className="m-0">
-                        Please take a picture of front and back of your government ID for KYC verification
+                        Please take a picture of front and back of your
+                        government ID for KYC verification
                     </p>
                 </div>
             </Modal.Header>

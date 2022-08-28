@@ -9,11 +9,11 @@ import "../assets/css/modal-video.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/scss/style.scss";
 import { ContextProvider } from "src/context/context";
-import { ModeContext } from "src/context/ModeContext";													  
+import { ModeContext } from "src/context/ModeContext";
 
 const MyApp = ({ Component, pageProps }) => {
-	const [kycState, setkycState] = useState("unverified");
-    const [kybState, setkybState] = useState("unverified");													   
+    const [kycState, setkycState] = useState("unverified");
+    const [kybState, setkybState] = useState("unverified");
     const router = useRouter();
     useEffect(() => {
         sal({ threshold: 0.1, once: true });
@@ -27,11 +27,13 @@ const MyApp = ({ Component, pageProps }) => {
     });
     return (
         <ContextProvider>
-			<ModeContext.Provider value={{kycState,setkycState,kybState,setkybState}}>
+            <ModeContext.Provider
+                value={{ kycState, setkycState, kybState, setkybState }}
+            >
                 <ThemeProvider defaultTheme="dark">
                     <Component {...pageProps} />
                 </ThemeProvider>
-            </ModeContext.Provider>			   
+            </ModeContext.Provider>
         </ContextProvider>
     );
 };

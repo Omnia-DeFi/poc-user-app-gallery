@@ -28,7 +28,9 @@ function Success({ fifteenthStepHandler }) {
                 <>
                     <div className="text-center">
                         <h6 className="mb-2">Documents Processing</h6>
-                        <p>Please wait while your documents are being processed</p>
+                        <p>
+                            Please wait while your documents are being processed
+                        </p>
                     </div>
                     <MoonLoader
                         color={color}

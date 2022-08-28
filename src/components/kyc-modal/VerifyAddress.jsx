@@ -1,4 +1,3 @@
-
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import React, { useEffect, useState } from "react";
@@ -8,7 +7,6 @@ function VerifyAddress({
     fourteenthStepHandler,
     tenthStepHandler,
 }) {
-   
     return (
         <>
             <Modal.Header>
@@ -22,7 +20,9 @@ function VerifyAddress({
                     </div>
                     <div className="ms-4">
                         <h6 className="my-2 fs-2">Verify Your Address</h6>
-                        <p className="m-0 ">Proof of address for KYC verification</p>
+                        <p className="m-0 ">
+                            Proof of address for KYC verification
+                        </p>
                     </div>
                 </div>
             </Modal.Header>

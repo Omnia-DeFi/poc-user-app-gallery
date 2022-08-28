@@ -62,9 +62,7 @@ function CustomerDetails({ firstStepHandler }) {
                         src="/images/kyc/logo.png"
                         alt=""
                     />
-                    <h6 className="my-2">
-                        Verify Your Identity
-                    </h6>
+                    <h6 className="my-2">Verify Your Identity</h6>
                     <p className="m-0">
                         We'll verify it with your KYC documents
                     </p>

@@ -12,7 +12,7 @@ function TakeGovernmentIDBack({
     passport,
     driverLicense,
     documentBackImage,
-    setDocumentBackImage
+    setDocumentBackImage,
 }) {
     return (
         <>
@@ -25,7 +25,8 @@ function TakeGovernmentIDBack({
                     />
                     <h6 className="my-2">Verify your identity</h6>
                     <p className="m-0">
-                        Please take a picture of front and back of your government ID for KYC verification
+                        Please take a picture of front and back of your
+                        government ID for KYC verification
                     </p>
                 </div>
             </Modal.Header>
@@ -62,23 +63,19 @@ function TakeGovernmentIDBack({
                         )}
                     </div>
                     <div className="Government-id-img">
-                        <img
-                            src={documentFrontImage}
-                            alt="document-front"
-                        />
+                        <img src={documentFrontImage} alt="document-front" />
                         {documentBackImage && (
-                            <img
-                                src={documentBackImage}
-                                alt="document-back"
-                            />
+                            <img src={documentBackImage} alt="document-back" />
                         )}
                     </div>
 
                     {documentBackImage ? (
                         <>
                             <p className="my-4">
-                                Front of your {driverLicense && "Driving Licence"}
-                                {passport && "Passport"} {nationalID && "National ID"}
+                                Front of your{" "}
+                                {driverLicense && "Driving Licence"}
+                                {passport && "Passport"}{" "}
+                                {nationalID && "National ID"}
                             </p>
                             <p className="my-2">
                                 Make sure your address is clearly visible
@@ -158,12 +155,9 @@ function TakeGovernmentIDBack({
                         </span>
                         Your ID or photo will be used only for KYC purpose
                     </p>
-                    { documentBackImage && (
+                    {documentBackImage && (
                         <div className="text-center">
-                            <Button
-                                onClick={tenthStepHandler}
-                                size="medium"
-                            >
+                            <Button onClick={tenthStepHandler} size="medium">
                                 Save &amp; Continue
                             </Button>
                         </div>

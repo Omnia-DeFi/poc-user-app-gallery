@@ -39,7 +39,8 @@ function TakeGovernmentIDFront({
                     />
                     <h6 className="my-2">Verify your identity</h6>
                     <p className="m-0">
-                        Please take a picture of front and back of your government ID for KYC verification
+                        Please take a picture of front and back of your
+                        government ID for KYC verification
                     </p>
                 </div>
             </Modal.Header>
@@ -47,11 +48,28 @@ function TakeGovernmentIDFront({
                 <div className="border border-2 p-5">
                     <h5 className="my-2">Select a Government ID</h5>
                     <div className="select-Government-ID">
-                        <div className={`${driverLicense && `bg-warning text-white`}`} onClick={driverLicenseHandler}>
+                        <div
+                            className={`${
+                                driverLicense && `bg-warning text-white`
+                            }`}
+                            onClick={driverLicenseHandler}
+                        >
                             Driving Licence
                         </div>
-                        <div className={`${passport && `bg-warning text-white`}`} onClick={passportHandler}>Passport</div>
-                        <div className={`${nationalID && `bg-warning text-white`}`} onClick={nationalIDHandler}>National ID</div>
+                        <div
+                            className={`${passport && `bg-warning text-white`}`}
+                            onClick={passportHandler}
+                        >
+                            Passport
+                        </div>
+                        <div
+                            className={`${
+                                nationalID && `bg-warning text-white`
+                            }`}
+                            onClick={nationalIDHandler}
+                        >
+                            National ID
+                        </div>
                     </div>
 
                     <div className="mt-5">
@@ -62,7 +80,10 @@ function TakeGovernmentIDFront({
                                 {nationalID && "National ID"}
                             </h6>
                             <p>
-                                <span>Your name and photo should be clearly visible</span>
+                                <span>
+                                    Your name and photo should be clearly
+                                    visible
+                                </span>
                             </p>
                             {driverLicense && (
                                 <img
@@ -84,10 +105,7 @@ function TakeGovernmentIDFront({
                             )}
                         </div>
                         <div className="text-center">
-                            <Button
-                                onClick={fifthStepHandler}
-                                size="medium"
-                            >
+                            <Button onClick={fifthStepHandler} size="medium">
                                 CLICK PHOTO
                             </Button>
                         </div>

@@ -3,7 +3,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-function TakeSelfie({ firstStepHandler, secondStepHandler,firstBack }) {
+function TakeSelfie({ firstStepHandler, secondStepHandler, firstBack }) {
     return (
         <>
             <Modal.Header>
@@ -31,21 +31,19 @@ function TakeSelfie({ firstStepHandler, secondStepHandler,firstBack }) {
                         Make sure your whole face is visible without any glare
                         or blur
                     </p>
-                    <img width="200px" src="/images/kyc/selfie.png" alt="selfie" />
+                    <img
+                        width="200px"
+                        src="/images/kyc/selfie.png"
+                        alt="selfie"
+                    />
                     <div className="mt-5">
-                        <Button
-                            onClick={secondStepHandler}
-                            size="medium"
-                        >
+                        <Button onClick={secondStepHandler} size="medium">
                             CLICK PHOTO
                         </Button>
                     </div>
                 </div>
                 <div className="text-center mt-3">
-                    <Button
-                        onClick={firstBack}
-                        size="medium"
-                    >
+                    <Button onClick={firstBack} size="medium">
                         Back
                     </Button>
                 </div>

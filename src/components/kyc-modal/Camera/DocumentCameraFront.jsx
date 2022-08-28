@@ -55,10 +55,7 @@ function DocumentCameraFront({
                 </p>
             </div>
             <div className="text-center">
-                <Button
-                    onClick={fourthStepHandler}
-                    size="medium"
-                >
+                <Button onClick={fourthStepHandler} size="medium">
                     Back
                 </Button>
             </div>
