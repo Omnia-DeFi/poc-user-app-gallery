@@ -22,7 +22,7 @@ export async function getStaticProps() {
 
 const Home = () => {
     const content = normalizedData(homepageData?.content || []);
-    const { state, dispatch } = useUserContext();
+    const { dispatch } = useUserContext();
 
     useEffect(() => {
         magic.user.isLoggedIn().then((magicIsLoggedIn) => {
