@@ -3,10 +3,9 @@ import React, { useState, useRef, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-function CameraComponents() {
-    let from = sessionStorage.getItem("camera_origin");
-    let toggle =
-        from === "takeselfie" || from === "verifyselfie" ? true : false;
+const CameraComponents = () => {
+    const from = sessionStorage.getItem("camera_origin");
+    const toggle = !!(from === "takeselfie" || from === "verifyselfie");
     let to = "";
 
     switch (from) {
@@ -173,6 +172,6 @@ function CameraComponents() {
             </Modal.Body>
         </>
     );
-}
+};
 
 export default CameraComponents;

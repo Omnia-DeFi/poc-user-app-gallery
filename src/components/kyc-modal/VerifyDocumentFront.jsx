@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 // import Button from "react-bootstrap/Button";
+import PropTypes from "prop-types";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-function VerifyDocumentFront({
+const VerifyDocumentFront = ({
     fifthStepHandler,
     documentFrontImage,
     seventhStepHandler,
     nationalID,
     passport,
     driverLicense,
-}) {
+}) => {
     const [idImage, setIdImage] = useState([
         "/images/kyc/driving-licence-front.png",
         "/images/kyc/driving-licence-front.png",
@@ -50,9 +51,9 @@ function VerifyDocumentFront({
                         <div>Edit</div>
                     </div> */}
                     <div className="Government-id-img">
-                        {idImage.map((image, index) => {
-                            <img key={index} src={image} alt="" />;
-                        })}
+                        {idImage.map((image, index) => (
+                            <img key={index} src={image} alt="" />
+                        ))}
                     </div>
                     <p className="my-2">
                         Front of your {driverLicense && "Driving Licence"}
@@ -112,6 +113,15 @@ function VerifyDocumentFront({
             </Modal.Body>
         </>
     );
-}
+};
 
 export default VerifyDocumentFront;
+
+VerifyDocumentFront.propTypes = {
+    fifthStepHandler: PropTypes.func.isRequired,
+    documentFrontImage: PropTypes.string.isRequired,
+    seventhStepHandler: PropTypes.func.isRequired,
+    nationalID: PropTypes.bool.isRequired,
+    passport: PropTypes.bool.isRequired,
+    driverLicense: PropTypes.bool.isRequired,
+};

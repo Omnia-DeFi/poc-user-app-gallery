@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import PropTypes from "prop-types";
 import Button from "@ui/button";
 
-function UploadPhoto({ setAddressImgSrc, twelvethStepHandler }) {
+const UploadPhoto = ({ setAddressImgSrc, twelvethStepHandler }) => {
     const [img, setImg] = useState();
 
     const onImageChange = (e) => {
@@ -50,6 +51,11 @@ function UploadPhoto({ setAddressImgSrc, twelvethStepHandler }) {
             </Modal.Body>
         </>
     );
-}
+};
 
 export default UploadPhoto;
+
+UploadPhoto.propTypes = {
+    setAddressImgSrc: PropTypes.func.isRequired,
+    twelvethStepHandler: PropTypes.func.isRequired,
+};

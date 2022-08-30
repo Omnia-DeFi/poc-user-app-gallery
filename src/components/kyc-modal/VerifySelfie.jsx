@@ -2,8 +2,9 @@ import React from "react";
 // import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
+import PropTypes from "prop-types";
 
-function VerifySelfie({ secondStepHandler, imgSrc, fourthStepHandler }) {
+const VerifySelfie = ({ secondStepHandler, imgSrc, fourthStepHandler }) => {
     console.log(imgSrc);
     return (
         <>
@@ -61,6 +62,12 @@ function VerifySelfie({ secondStepHandler, imgSrc, fourthStepHandler }) {
             </Modal.Body>
         </>
     );
-}
+};
 
 export default VerifySelfie;
+
+VerifySelfie.propTypes = {
+    secondStepHandler: PropTypes.func.isRequired,
+    imgSrc: PropTypes.string.isRequired,
+    fourthStepHandler: PropTypes.func.isRequired,
+};

@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from "react";
 // import "./WebcamCapture.css";
 import Webcam from "react-webcam";
 import Button from "@ui/button";
+import PropTypes from "prop-types";
 
 const videoConstraints = {
     width: 370,
@@ -9,7 +10,7 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-function DocumentCameraFront({
+const DocumentCameraFront = ({
     fourthStepHandler,
     documentFrontImage,
     setDocumentFrontImage,
@@ -17,7 +18,7 @@ function DocumentCameraFront({
     nationalID,
     passport,
     driverLicense,
-}) {
+}) => {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -35,9 +36,10 @@ function DocumentCameraFront({
                 screenshotFormat="image/jpeg"
                 width={videoConstraints.width}
                 videoConstraints={videoConstraints}
+                id="webcam"
             />
 
-            <span className="Capture-rectangle"></span>
+            <span className="Capture-rectangle" />
             <p className="webcam-rectangle-top">
                 Your Name and Photo should be clearly visible
             </p>
@@ -46,7 +48,14 @@ function DocumentCameraFront({
                 {passport && "Passport"} {nationalID && "National ID"} card
                 inside the box
             </p>
-            <span className="take-photo" onClick={capture}></span>
+            <span
+                className="take-photo"
+                onClick={capture}
+                role="button"
+                onKeyUp={(e) => e.preventDefault()}
+                tabIndex="0"
+                aria-labelledby="webcam"
+            />
             <div className="webcamCapture__button text-center my-3">
                 <p>
                     {driverLicense && "Driving Licence"}
@@ -61,6 +70,16 @@ function DocumentCameraFront({
             </div>
         </div>
     );
-}
+};
 
 export default DocumentCameraFront;
+
+DocumentCameraFront.propTypes = {
+    fourthStepHandler: PropTypes.func.isRequired,
+    documentFrontImage: PropTypes.string.isRequired,
+    setDocumentFrontImage: PropTypes.func.isRequired,
+    sixthStepHandler: PropTypes.func.isRequired,
+    nationalID: PropTypes.bool.isRequired,
+    passport: PropTypes.bool.isRequired,
+    driverLicense: PropTypes.bool.isRequired,
+};

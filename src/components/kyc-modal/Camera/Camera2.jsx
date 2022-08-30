@@ -1,6 +1,7 @@
 import React, { useRef, useCallback } from "react";
 // import "./WebcamCapture.css";
 import Webcam from "react-webcam";
+import PropTypes from "prop-types";
 
 const videoConstraints = {
     width: 350,
@@ -8,7 +9,7 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-function Camera2({ imgSrc, setImgSrc, thirdStepHandler }) {
+const Camera2 = ({ imgSrc, setImgSrc, thirdStepHandler }) => {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -32,22 +33,36 @@ function Camera2({ imgSrc, setImgSrc, thirdStepHandler }) {
                 screenshotFormat="image/jpeg"
                 width={videoConstraints.width}
                 videoConstraints={videoConstraints}
+                id="webcam"
             />
 
             <div className="webcamCapture__button">
                 <p>Take a Selfie</p>
                 <div>
-                    <button>Tips</button>
+                    <button type="button">Tips</button>
                 </div>
                 <p className="webcam-close">Close</p>
             </div>
-            <span className="Capture-round"></span>
-            <span className="take-photo" onClick={capture}></span>
+            <span className="Capture-round" />
+            <span
+                className="take-photo"
+                onClick={capture}
+                role="button"
+                onKeyUp={(e) => e.preventDefault()}
+                tabIndex="0"
+                aria-labelledby="webcam"
+            />
             <p className="webcamCapture-face-fits">
                 Make sure your face fits inside the oval and is clearly visible
             </p>
         </div>
     );
-}
+};
 
 export default Camera2;
+
+Camera2.propTypes = {
+    imgSrc: PropTypes.string.isRequired,
+    setImgSrc: PropTypes.func.isRequired,
+    thirdStepHandler: PropTypes.func.isRequired,
+};
