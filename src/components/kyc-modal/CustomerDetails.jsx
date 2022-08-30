@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import toast, { Toaster } from "react-hot-toast";
+import PropTypes from "prop-types";
 
-function CustomerDetails({ firstStepHandler }) {
+const CustomerDetails = ({ firstStepHandler }) => {
     const initialValues = { username: "", dateofbirth: "" };
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
@@ -64,7 +65,7 @@ function CustomerDetails({ firstStepHandler }) {
                     />
                     <h6 className="my-2">Verify Your Identity</h6>
                     <p className="m-0">
-                        We'll verify it with your KYC documents
+                        We&apos;ll verify it with your KYC documents
                     </p>
                 </div>
             </Modal.Header>
@@ -152,6 +153,10 @@ function CustomerDetails({ firstStepHandler }) {
             </Modal.Body>
         </>
     );
-}
+};
 
 export default CustomerDetails;
+
+CustomerDetails.propTypes = {
+    firstStepHandler: PropTypes.func.isRequired,
+};

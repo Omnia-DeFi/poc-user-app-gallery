@@ -28,15 +28,15 @@ const Activity = ({
     };
     const router = useRouter();
 
-    const getPath = (type) => {
-        if (type === "kyc" || type === "kyb") return "/profile";
-        if (type === "assets") return "/assets";
+    const getPath = (activityType) => {
+        if (activityType === "kyc" || activityType === "kyb") return "/profile";
+        if (activityType === "assets") return "/assets";
         return notificationsRefresh();
     };
 
-    const handleClick = async (id, read, type) => {
-        if (!read) await markAsRead(id);
-        router.push(getPath(type));
+    const handleClick = async (activityId, activityRead, activityType) => {
+        if (!activityRead) await markAsRead(activityId);
+        router.push(getPath(activityType));
     };
 
     return (
@@ -62,6 +62,12 @@ const Activity = ({
                         <h6
                             onClick={() => handleClick(id, read, type)}
                             style={read ? {} : unreadActivityText}
+                            tabIndex={0}
+                            // we need onClick handler here
+                            // eslint-disable-next-line max-len
+                            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                            role="button"
+                            onKeyUp={(e) => e.preventDefault()}
                         >
                             {title}
                         </h6>

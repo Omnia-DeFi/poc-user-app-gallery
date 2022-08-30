@@ -1,6 +1,7 @@
 import React, { useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 import Button from "@ui/button";
+import PropTypes from "prop-types";
 
 const videoConstraints = {
     width: 350,
@@ -8,11 +9,11 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-function VerifyYourAddressCamera({
+const VerifyYourAddressCamera = ({
     setAddressImgSrc,
     twelvethStepHandler,
     tenthStepHandler,
-}) {
+}) => {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -30,10 +31,18 @@ function VerifyYourAddressCamera({
                     screenshotFormat="image/jpeg"
                     width={videoConstraints.width}
                     videoConstraints={videoConstraints}
+                    id="webcam"
                 />
 
-                <span className="Capture-a4"></span>
-                <span className="take-photo" onClick={capture}></span>
+                <span className="Capture-a4" />
+                <span
+                    aria-labelledby="webcam"
+                    className="take-photo"
+                    onClick={capture}
+                    tabIndex="0"
+                    role="button"
+                    onKeyUp={(e) => e.preventDefault()}
+                />
             </div>
 
             <div className="webcamCapture__text">
@@ -48,6 +57,12 @@ function VerifyYourAddressCamera({
             </div>
         </>
     );
-}
+};
 
 export default VerifyYourAddressCamera;
+
+VerifyYourAddressCamera.propTypes = {
+    setAddressImgSrc: PropTypes.func.isRequired,
+    twelvethStepHandler: PropTypes.func.isRequired,
+    tenthStepHandler: PropTypes.func.isRequired,
+};

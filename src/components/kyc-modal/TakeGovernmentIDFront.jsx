@@ -2,8 +2,9 @@ import { useState } from "react";
 // import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
+import PropTypes from "prop-types";
 
-function TakeGovernmentIDFront({
+const TakeGovernmentIDFront = ({
     fifthStepHandler,
     setNationalID,
     nationalID,
@@ -11,7 +12,7 @@ function TakeGovernmentIDFront({
     passport,
     setDriverLicense,
     driverLicense,
-}) {
+}) => {
     const driverLicenseHandler = () => {
         setDriverLicense(true);
         setPassport(false);
@@ -53,12 +54,18 @@ function TakeGovernmentIDFront({
                                 driverLicense && `bg-warning text-white`
                             }`}
                             onClick={driverLicenseHandler}
+                            role="button"
+                            tabIndex="0"
+                            onKeyUp={(e) => e.preventDefault()}
                         >
                             Driving Licence
                         </div>
                         <div
                             className={`${passport && `bg-warning text-white`}`}
                             onClick={passportHandler}
+                            role="button"
+                            tabIndex="0"
+                            onKeyUp={(e) => e.preventDefault()}
                         >
                             Passport
                         </div>
@@ -67,6 +74,9 @@ function TakeGovernmentIDFront({
                                 nationalID && `bg-warning text-white`
                             }`}
                             onClick={nationalIDHandler}
+                            role="button"
+                            tabIndex="0"
+                            onKeyUp={(e) => e.preventDefault()}
                         >
                             National ID
                         </div>
@@ -134,6 +144,16 @@ function TakeGovernmentIDFront({
             </Modal.Body>
         </>
     );
-}
+};
 
 export default TakeGovernmentIDFront;
+
+TakeGovernmentIDFront.propTypes = {
+    fifthStepHandler: PropTypes.func.isRequired,
+    setNationalID: PropTypes.func.isRequired,
+    nationalID: PropTypes.bool.isRequired,
+    setPassport: PropTypes.func.isRequired,
+    passport: PropTypes.bool.isRequired,
+    setDriverLicense: PropTypes.func.isRequired,
+    driverLicense: PropTypes.bool.isRequired,
+};

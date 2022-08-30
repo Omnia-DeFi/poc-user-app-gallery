@@ -53,7 +53,7 @@
     "rules": {
         "object-curly-newline": "off",
         "import/prefer-default-export": "off",
-        "prettier/prettier": "error",
+        "prettier/prettier": "off", // this overrides the prettier config, so it is better to disable it
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "quotes": ["error", "double", { "allowTemplateLiterals": true }],
         "camelcase": ["off", { "properties": "never" }],
@@ -106,6 +106,7 @@
         ],
         "no-underscore-dangle": "off",
         "@next/next/no-html-link-for-pages": "error",
-        "no-multi-assign": "off"
+        "no-multi-assign": "off",
+        "react/no-array-index-key": "off" // this rule is better disabled as very rarely a rendered list changes indices
     }
 }

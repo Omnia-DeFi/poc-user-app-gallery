@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import sal from "sal.js";
@@ -25,11 +25,14 @@ const MyApp = ({ Component, pageProps }) => {
     useEffect(() => {
         document.body.className = `${pageProps.className}`;
     });
+    const modeValue = useMemo(
+        () => ({ kycState, setkycState, kybState, setkybState }),
+        [kybState, kycState]
+    );
+
     return (
         <ContextProvider>
-            <ModeContext.Provider
-                value={{ kycState, setkycState, kybState, setkybState }}
-            >
+            <ModeContext.Provider value={modeValue}>
                 <ThemeProvider defaultTheme="dark">
                     <Component {...pageProps} />
                 </ThemeProvider>
