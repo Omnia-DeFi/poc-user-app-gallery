@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from "react";
 // import "./WebcamCapture.css";
 import Webcam from "react-webcam";
 import Button from "@ui/button";
+import PropTypes from "prop-types";
 
 const videoConstraints = {
     width: 350,
@@ -9,7 +10,7 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
+const Camera = ({ setImgSrc, thirdStepHandler, firstStepHandler }) => {
     const webcamRef = useRef(null);
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -29,8 +30,15 @@ function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
                     videoConstraints={videoConstraints}
                 />
 
-                <span className="Capture-round"></span>
-                <span className="take-photo" onClick={capture}></span>
+                <span className="Capture-round" />
+                <span
+                    className="take-photo"
+                    onClick={capture}
+                    role="button"
+                    onKeyUp={(e) => e.preventDefault()}
+                    tabIndex="0"
+                    aria-labelledby="webcam"
+                />
             </div>
 
             <div className="webcamCapture__text">
@@ -45,6 +53,12 @@ function Camera({ setImgSrc, thirdStepHandler, firstStepHandler }) {
             </div>
         </>
     );
-}
+};
 
 export default Camera;
+
+Camera.propTypes = {
+    setImgSrc: PropTypes.func.isRequired,
+    thirdStepHandler: PropTypes.func.isRequired,
+    firstStepHandler: PropTypes.func.isRequired,
+};

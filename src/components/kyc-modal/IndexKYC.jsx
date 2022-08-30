@@ -1,6 +1,8 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import { useContext, useState } from "react";
+import { ModeContext } from "src/context/ModeContext";
+import PropTypes from "prop-types";
 import CustomerDetails from "./CustomerDetails";
 import TakeSelfie from "./TakeSelfie";
 import DocumentCameraFront from "./Camera/DocumentCameraFront";
@@ -15,9 +17,8 @@ import VerifyYourAddress from "./VerifyYourAddress";
 import VerifyYourAddressCamera from "./Camera/VerifyYourAddressCamera";
 import VerifyAddress from "./VerifyAddress";
 import UploadPhoto from "./UploadPhoto";
-import { ModeContext } from "src/context/ModeContext";
 
-function IndexKYC({ show, handleModal }) {
+const IndexKYC = ({ show, handleModal }) => {
     const { kycState, setkycState } = useContext(ModeContext);
     const [firstStep, setFirstStep] = useState(true);
     const [secondStep, setSecondStep] = useState(false);
@@ -525,6 +526,11 @@ function IndexKYC({ show, handleModal }) {
             </Modal>
         </div>
     );
-}
+};
 
 export default IndexKYC;
+
+IndexKYC.propTypes = {
+    show: PropTypes.bool,
+    handleModal: PropTypes.func,
+};

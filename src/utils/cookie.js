@@ -1,8 +1,6 @@
 import cookie from "js-cookie";
 
-const getCookieFromBrowser = (key) => {
-    return cookie.get(key) || "";
-};
+const getCookieFromBrowser = (key) => cookie.get(key) || "";
 
 export const getCookieFromServer = (key, req) => {
     if (!req?.headers.cookie) {
@@ -14,13 +12,12 @@ export const getCookieFromServer = (key, req) => {
     if (!rawCookie) {
         return "";
     }
-    const cookie = rawCookie.split("=")[1];
-    return cookie.replace(/%22/g, '"').replace(/%2C/g, ",");
+    const cookieFromServer = rawCookie.split("=")[1];
+    return cookieFromServer.replace(/%22/g, `"`).replace(/%2C/g, ",");
 };
 
 export const setCookie = (key, value, options) => {
     if (typeof window !== "undefined") return cookie.set(key, value, options);
-    return;
 };
 
 export const removeCookie = (key, options) => {
@@ -28,7 +25,8 @@ export const removeCookie = (key, options) => {
 };
 
 export const getCookie = (key, req) => {
-    return typeof window !== "undefined"
+    const isBrowser = typeof window !== "undefined";
+    return isBrowser
         ? getCookieFromBrowser(key)
         : getCookieFromServer(key, req);
 };

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { ModeContext } from "src/context/ModeContext";
+import PropTypes from "prop-types";
 import Company from "./Company";
 import Success from "./Success";
 
@@ -56,3 +57,8 @@ const IndexKYB = ({ show, handleModal }) => {
 };
 
 export default IndexKYB;
+
+IndexKYB.propTypes = {
+    show: PropTypes.bool.isRequired,
+    handleModal: PropTypes.func.isRequired,
+};

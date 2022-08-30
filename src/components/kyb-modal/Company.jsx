@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import Select from "react-select";
-import jurisdictionData from "../../data/jurisdiction.json";
 import toast, { Toaster } from "react-hot-toast";
+import PropTypes from "prop-types";
+import jurisdictionData from "../../data/jurisdiction.json";
 
-function Company({ firstStepHandler }) {
+const Company = ({ firstStepHandler }) => {
     const initialValues = { username: "", dateofbirth: "" };
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
@@ -156,7 +157,7 @@ function Company({ firstStepHandler }) {
                             onChange={selectHandler}
                             options={options}
                             // styles={customStyles}
-                            isClearable={true}
+                            isClearable
                             id="jurisdiction-code"
                             required
                         />
@@ -170,6 +171,10 @@ function Company({ firstStepHandler }) {
             </Modal.Body>
         </>
     );
-}
+};
 
 export default Company;
+
+Company.propTypes = {
+    firstStepHandler: PropTypes.func.isRequired,
+};
