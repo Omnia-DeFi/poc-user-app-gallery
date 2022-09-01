@@ -5,8 +5,13 @@
         "path": "/"
     },
     {
-        "id": 3,
+        "id": 2,
         "text": "Explore",
         "path": "/product"
+    },
+    {
+        "id": 3,
+        "text": "Portfolio",
+        "path": "/profile"
     }
 ]
