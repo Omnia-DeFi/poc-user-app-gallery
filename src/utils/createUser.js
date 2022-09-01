@@ -6,7 +6,7 @@ export const createUserInBackOffice = (user) => {
         publicAddress: user.publicAddress,
     };
     try {
-        fetch(`http://localhost:3000/api/user/create`, {
+        fetch(`${BACKEND_URL}/api/user/create`, {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
