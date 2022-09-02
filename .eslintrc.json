@@ -54,7 +54,7 @@
         "object-curly-newline": "off",
         "import/prefer-default-export": "off",
         "prettier/prettier": "off", // this overrides the prettier config, so it is better to disable it
-        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "indent": ["off", 4, { "SwitchCase": 1 }],
         "quotes": ["error", "double", { "allowTemplateLiterals": true }],
         "camelcase": ["off", { "properties": "never" }],
         "eslint-plugin/fixer-return:": "off",
@@ -62,7 +62,7 @@
         "implicit-arrow-linebreak": "off",
         "comma-dangle": ["error", "only-multiline"],
         "function-paren-newline": "off",
-        "react/jsx-indent": [2, 4],
+        "react/jsx-indent": [1, 4],
         "react/jsx-indent-props": "off",
         "react/jsx-one-expression-per-line": "off",
         "no-unused-vars": [
