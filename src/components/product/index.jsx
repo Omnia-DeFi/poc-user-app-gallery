@@ -25,23 +25,23 @@ const Product = ({ overlay, title, slug, price, image, placeBid, swipe }) => {
                 <div className="card-thumbnail mb--30">
                     {swipe
                         ? image?.src && (
-                            <Image
-                                src={image.src}
-                                alt={image?.alt || "NFT_portfolio"}
-                                width={533}
-                                height={533}
-                            />
-                        )
+                              <Image
+                                  src={image.src}
+                                  alt={image?.alt || "NFT_portfolio"}
+                                  width={533}
+                                  height={533}
+                              />
+                          )
                         : image?.src && (
-                            <Anchor path={`/product/${slug}`}>
-                                <Image
-                                    src={image.src}
-                                    alt={image?.alt || "NFT_portfolio"}
-                                    width={533}
-                                    height={533}
-                                />
-                            </Anchor>
-                        )}
+                              <Anchor path={`/product/${slug}`}>
+                                  <Image
+                                      src={image.src}
+                                      alt={image?.alt || "NFT_portfolio"}
+                                      width={533}
+                                      height={533}
+                                  />
+                              </Anchor>
+                          )}
                 </div>
                 <Anchor path={`/product/${slug}`}>
                     <span className="product-name">{title}</span>
