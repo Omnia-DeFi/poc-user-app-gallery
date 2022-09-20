@@ -16,21 +16,11 @@ import { createUserInBackOffice } from "../utils/createUser";
 import homepageData from "../data/homepages/home.json";
 import productData from "../data/products.json";
 
-// oneSignal Notification Pusher
-import runOneSignal from "./oneSignal";
-
-function Push() {
-    useEffect(() => {
-        runOneSignal();
-    });
-}
-
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
 }
 
 const Home = () => {
-    Push();
     const content = normalizedData(homepageData?.content || []);
     const { dispatch } = useUserContext();
 
