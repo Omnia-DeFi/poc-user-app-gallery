@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { useUserContext } from "src/context/context";
 import { loginUser } from "src/context/actions";
 import { magic } from "../utils/magic";
-import { createUser } from "@utils/createUser";
+import { createUser } from "../utils/createUser";
 
 // Demo Data
 import homepageData from "../data/homepages/home.json";
