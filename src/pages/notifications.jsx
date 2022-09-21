@@ -2,7 +2,7 @@ import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header";
 import Footer from "@layout/footer";
-import ActivityArea from "@containers/activity";
+import NotificationsArea from "@containers/notifications";
 
 // Demo Data
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ const Home = () => {
             <SEO pageTitle="Acivity" />
             <Header />
             <main id="main-content">
-                <ActivityArea />
+                <NotificationsArea />
             </main>
             <Footer />
         </Wrapper>

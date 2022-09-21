@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import Activity from "@components/activity";
+import Notifications from "@components/notifications";
 import { IDType, ImageType } from "@utils/types";
 import { useUserContext } from "src/context/context";
 import axios from "axios";
 import moment from "moment";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
-const ActivityArea = ({ space, className }) => {
+const NotificationsArea = ({ space, className }) => {
     // const [activities] = useState(data?.activities || []);
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ const ActivityArea = ({ space, className }) => {
     return (
         <div
             className={clsx(
-                "rn-activity-area",
+                "rn-notifications-area",
                 space === 1 && "rn-section-gapTop",
                 className
             )}
@@ -47,11 +47,11 @@ const ActivityArea = ({ space, className }) => {
                 <div className="row mb--30">
                     <h3 className="title">All Notifications</h3>
                 </div>
-                <div className="row g-6 activity-direction">
+                <div className="row g-6 notifications-direction">
                     {loading && <p className="">Loading</p>}
                     {notifications &&
                         notifications?.map((item) => (
-                            <Activity
+                            <Notifications
                                 id={item.id}
                                 key={item.id}
                                 title={item.title}
@@ -74,7 +74,7 @@ const ActivityArea = ({ space, className }) => {
     );
 };
 
-ActivityArea.propTypes = {
+NotificationsArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     className: PropTypes.string,
     data: PropTypes.shape({
@@ -99,8 +99,8 @@ ActivityArea.propTypes = {
     }),
 };
 
-ActivityArea.defaultProps = {
+NotificationsArea.defaultProps = {
     space: 1,
 };
 
-export default ActivityArea;
+export default NotificationsArea;

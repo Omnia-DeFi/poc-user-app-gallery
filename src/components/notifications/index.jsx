@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const Activity = ({
+const Notifications = ({
     className,
     title,
     desc,
@@ -20,29 +20,35 @@ const Activity = ({
     id,
     notificationsRefresh,
 }) => {
-    const unreadActivityBg = {
+    const unreadNotificationsBg = {
         backgroundColor: "#333",
     };
-    const unreadActivityText = {
+    const unreadNotificationsText = {
         color: "#f6f6f6",
     };
     const router = useRouter();
 
-    const getPath = (activityType) => {
-        if (activityType === "kyc" || activityType === "kyb") return "/profile";
-        if (activityType === "assets") return "/assets";
+    const getPath = (notificationsType) => {
+        if (notificationsType === "kyc" || notificationsType === "kyb") {
+            return "/profile";
+        }
+        if (notificationsType === "assets") return "/assets";
         return notificationsRefresh();
     };
 
-    const handleClick = async (activityId, activityRead, activityType) => {
-        if (!activityRead) await markAsRead(activityId);
-        router.push(getPath(activityType));
+    const handleClick = async (
+        notificationsId,
+        notificationsRead,
+        notificationsType
+    ) => {
+        if (!notificationsRead) await markAsRead(notificationsId);
+        router.push(getPath(notificationsType));
     };
 
     return (
         <div
-            className={clsx("single-activity-wrapper", className)}
-            style={read ? {} : unreadActivityBg}
+            className={clsx("single-notifications-wrapper", className)}
+            style={read ? {} : unreadNotificationsBg}
         >
             <div className="inner">
                 <div className="read-content">
@@ -61,7 +67,7 @@ const Activity = ({
                     <div className="content">
                         <h6
                             onClick={() => handleClick(id, read, type)}
-                            style={read ? {} : unreadActivityText}
+                            style={read ? {} : unreadNotificationsText}
                             tabIndex={0}
                             // we need onClick handler here
                             // eslint-disable-next-line max-len
@@ -75,7 +81,9 @@ const Activity = ({
                         <div className="time-maintane">
                             <div className="time data">
                                 <i className="feather-clock" />
-                                <span style={read ? {} : unreadActivityText}>
+                                <span
+                                    style={read ? {} : unreadNotificationsText}
+                                >
                                     {time} on {date}
                                 </span>
                             </div>
@@ -95,7 +103,7 @@ const Activity = ({
     );
 };
 
-Activity.propTypes = {
+Notifications.propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
@@ -115,4 +123,4 @@ Activity.propTypes = {
     status: PropTypes.oneOf(["follow", "sale", "like", "offer"]),
 };
 
-export default Activity;
+export default Notifications;
