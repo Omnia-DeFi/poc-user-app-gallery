@@ -1,24 +1,20 @@
-export const createUserInBackOffice = (user) => {
+export const createUser = (user) => {
     const data = {
         issuer: user.issuer,
         email: user.email,
         phoneNumber: user.phoneNumber,
         publicAddress: user.publicAddress,
     };
+
     try {
-        fetch(`${process.env.BACKEND_URL}/api/user/create`, {
+        fetch(`/api/user/create`, {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
             },
             method: "POST",
-        })
-            .then((res) => res.json())
-            // eslint-disable-next-line no-shadow
-            .then((data) => {
-                console.log(data);
-            });
+        }).then((res) => res.json());
     } catch (error) {
-        console.log(error);
+        console.log("createUser issue: ", error);
     }
 };
