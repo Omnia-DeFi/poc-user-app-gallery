@@ -1,4 +1,4 @@
-.single-activity-wrapper {
+.single-notifications-wrapper {
     margin-bottom: 30px;
     padding: 20px;
     background: var(--background-color-1);
@@ -153,7 +153,7 @@
     margin-bottom: -15px;
 }
 
-.activity-direction {
+.notifications-direction {
     @media #{$md-layout} {
         flex-direction: column-reverse;
     }

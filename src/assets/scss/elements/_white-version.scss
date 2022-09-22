@@ -106,7 +106,7 @@ html[data-theme="light"] body {
     nav.pagination-wrapper .pagination,
     input[type="checkbox"] ~ label,
     input[type="radio"] ~ label,
-    .single-activity-wrapper .inner .content .time-maintane .data a,
+    .single-notifications-wrapper .inner .content .time-maintane .data a,
     .rbt-single-widget.widget_recent_entries .inner span,
     .comment-list .comment .comment-img .time-spent,
     .upcoming-projects tr td span,
@@ -1179,7 +1179,7 @@ html[data-theme="light"] body {
     }
 
     // sctivity wrapper
-    .single-activity-wrapper {
+    .single-notifications-wrapper {
         background: var(--color-white);
     }
 

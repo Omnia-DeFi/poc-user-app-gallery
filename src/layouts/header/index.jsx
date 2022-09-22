@@ -12,17 +12,18 @@ import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useUserContext } from "src/context/context";
 import { logoutUser } from "src/context/actions";
-import headerData from "../../data/general/header.json";
-import menuData from "../../data/general/menu.json";
-import { magic } from "../../utils/magic";
 import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
 import IndexKYC from "@components/kyc-modal/IndexKYC";
 import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
-import DropdownMenu from "./DropdownMenu";
 import { getNotifications } from "@utils/getNotReadNotifications";
 import { ModeContext } from "src/context/ModeContext";
+import DropdownMenu from "./DropdownMenu";
+import { magic } from "../../utils/magic";
+import menuData from "../../data/general/menu.json";
+import headerData from "../../data/general/header.json";
+
 const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
@@ -115,7 +116,9 @@ const Header = ({ className }) => {
                                     <div className="setting-option rn-icon-list notification-badge">
                                         <div className="icon-box">
                                             <Anchor
-                                                path={headerData.activity_link}
+                                                path={
+                                                    headerData.notifications_link
+                                                }
                                             >
                                                 <i className="feather-bell" />
                                                 {notificationsCount > 0 && (
@@ -137,6 +140,7 @@ const Header = ({ className }) => {
 
                             <div
                                 onClick={offcanvasHandler}
+                                aria-hidden="true"
                                 className="setting-option my_switcher mobile-menu-bar hamberger-menu-icon d-flex d-xl-none"
                             >
                                 <svg
@@ -160,6 +164,7 @@ const Header = ({ className }) => {
                                     onClick={() => {
                                         setOpen(!open);
                                     }}
+                                    aria-hidden="true"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
