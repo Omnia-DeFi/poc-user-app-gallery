@@ -13,8 +13,8 @@ class MyDocument extends Document {
             <Html lang="en">
                 <Head>
                     <script
-                        async
                         src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+                        async=""
                     />
                 </Head>
                 <body>

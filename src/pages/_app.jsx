@@ -17,6 +17,17 @@ const MyApp = ({ Component, pageProps }) => {
     const router = useRouter();
 
     useEffect(() => {
+        sal({ threshold: 0.1, once: true });
+    }, [router.asPath]);
+
+    useEffect(() => {
+        sal();
+    }, []);
+    useEffect(() => {
+        document.body.className = `${pageProps.className}`;
+    });
+
+    useEffect(() => {
         // eslint-disable-next-line valid-typeof
         if (typeof window !== undefined) {
             window.OneSignal = window.OneSignal || [];
@@ -35,17 +46,6 @@ const MyApp = ({ Component, pageProps }) => {
             window.OneSignal = undefined;
         };
     }, []);
-
-    useEffect(() => {
-        sal({ threshold: 0.1, once: true });
-    }, [router.asPath]);
-
-    useEffect(() => {
-        sal();
-    }, []);
-    useEffect(() => {
-        document.body.className = `${pageProps.className}`;
-    });
 
     const modeValue = useMemo(
         () => ({ kycState, setkycState, kybState, setkybState }),
