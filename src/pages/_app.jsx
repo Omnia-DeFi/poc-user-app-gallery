@@ -35,7 +35,7 @@ const MyApp = ({ Component, pageProps }) => {
             OneSignal.push(() => {
                 // eslint-disable-next-line no-undef
                 OneSignal.init({
-                    appId: "1e3811b5-c496-45df-a95d-10359c7d9f0f",
+                    appId: process.env.ONESIGNAL_APP_ID,
                     notifyButton: {
                         enable: true,
                     },
