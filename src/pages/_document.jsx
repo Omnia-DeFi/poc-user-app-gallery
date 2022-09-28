@@ -10,8 +10,13 @@ class MyDocument extends Document {
 
     render() {
         return (
-            <Html>
-                <Head />
+            <Html lang="en">
+                <Head>
+                    <script
+                        src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+                        async=""
+                    />
+                </Head>
                 <body>
                     <Main />
                     <NextScript />
