@@ -8,6 +8,7 @@ import BurgerButton from "@ui/burger-button";
 import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useRouter } from "next/router";
+import Pusher from "pusher-js";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useUserContext } from "src/context/context";
@@ -56,6 +57,17 @@ const Header = ({ className }) => {
         setIsAuthenticated(state.login);
         updateNotifications();
     }, [state]);
+
+    useEffect(() => {
+        Pusher.logToConsole = true;
+        const pusher = new Pusher("b2c6e10ed473266b458b", {
+            cluster: "eu",
+        });
+        const channel = pusher.subscribe("omnia");
+        channel.bind("new-notification", (data) => {
+            alert(JSON.stringify(data));
+        });
+    }, []);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
