@@ -66,7 +66,7 @@ const Notifications = ({
                     )}
                     <div className="content">
                         <div className="row">
-                            <p className="col-md-6">{type}</p>
+                            <span className="col-md-6 mb-4">{type}</span>
                             <span
                                 className="col-md-6 text-end primary-color fw-bold"
                                 onClick={() => handleClick(id, read, type)}
@@ -83,15 +83,18 @@ const Notifications = ({
                             </span>
                         </div>
                         <hr className="notification-horizontal-line" />
-                        <h6>
-                            {title}
-                        </h6>
+                        <h6>{title}</h6>
                         <div className="row">
-                            <p className="col-md-6 col-sm-12" dangerouslySetInnerHTML={{ __html: desc }} />
+                            <p
+                                className="col-md-6 col-sm-12"
+                                dangerouslySetInnerHTML={{ __html: desc }}
+                            />
                             <div className="time-maintane col-md-6">
                                 <div className="time data">
                                     <span
-                                        style={read ? {} : unreadNotificationsText}
+                                        style={
+                                            read ? {} : unreadNotificationsText
+                                        }
                                     >
                                         {time} on {date}
                                     </span>
