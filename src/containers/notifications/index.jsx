@@ -35,6 +35,15 @@ const NotificationsArea = ({ space, className }) => {
         retrieveNotifications();
     }, [state]);
 
+    // const handleClick = async (
+    //     notificationsId,
+    //     notificationsRead,
+    //     notificationsType
+    // ) => {
+    //     if (!notificationsRead) await markAsRead(notificationsId);
+    //     router.push(getPath(notificationsType));
+    // };
+
     return (
         <div
             className={clsx(
@@ -45,7 +54,8 @@ const NotificationsArea = ({ space, className }) => {
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title">All Notifications</h3>
+                    <h3 className="title col-md-6">All Notifications</h3>
+                    <p className="col-md-6 text-end color-primary fw-bold">Mark all read</p>
                 </div>
                 <div className="row g-6 notifications-direction">
                     {loading && <p className="">Loading</p>}

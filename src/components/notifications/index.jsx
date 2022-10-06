@@ -3,9 +3,9 @@ import clsx from "clsx";
 import Image from "next/image";
 import Anchor from "@ui/anchor";
 import { markAsRead } from "@utils/markAsRead";
-import { useState } from "react";
+// import { useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
+// import Link from "next/link";
 
 const Notifications = ({
     className,
@@ -65,27 +65,38 @@ const Notifications = ({
                         </div>
                     )}
                     <div className="content">
-                        <h6
-                            onClick={() => handleClick(id, read, type)}
-                            style={read ? {} : unreadNotificationsText}
-                            tabIndex={0}
-                            // we need onClick handler here
-                            // eslint-disable-next-line max-len
-                            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
-                            role="button"
-                            onKeyUp={(e) => e.preventDefault()}
-                        >
+                        <div className="row">
+                            <p className="col-md-6">{type}</p>
+                            <span
+                                className="col-md-6 text-end primary-color fw-bold"
+                                onClick={() => handleClick(id, read, type)}
+                                // style={read ? {} : unreadNotificationsText}
+                                style={read ? { visibility: "hidden" } : null}
+                                tabIndex={0}
+                                // we need onClick handler here
+                                // eslint-disable-next-line max-len
+                                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                                role="button"
+                                onKeyUp={(e) => e.preventDefault()}
+                            >
+                                Mark it as read
+                            </span>
+                        </div>
+                        <hr className="notification-horizontal-line" />
+                        <h6>
                             {title}
                         </h6>
-                        <p dangerouslySetInnerHTML={{ __html: desc }} />
-                        <div className="time-maintane">
-                            <div className="time data">
-                                <i className="feather-clock" />
-                                <span
-                                    style={read ? {} : unreadNotificationsText}
-                                >
-                                    {time} on {date}
-                                </span>
+                        <div className="row">
+                            <p className="col-md-6 col-sm-12" dangerouslySetInnerHTML={{ __html: desc }} />
+                            <div className="time-maintane col-md-6">
+                                <div className="time data">
+                                    <span
+                                        style={read ? {} : unreadNotificationsText}
+                                    >
+                                        {time} on {date}
+                                    </span>
+                                    <i className="feather-clock" />
+                                </div>
                             </div>
                         </div>
                     </div>
