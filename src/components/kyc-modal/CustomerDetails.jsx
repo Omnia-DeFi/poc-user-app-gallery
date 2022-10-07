@@ -3,8 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import toast, { Toaster } from "react-hot-toast";
 import PropTypes from "prop-types";
+import { getCookie } from "@utils/cookie";
+import { setCookie } from "cookies-next";
 
-const CustomerDetails = ({ firstStepHandler }) => {
+const CustomerDetails = ({ fourteenthStepHandler }) => {
     const initialValues = { username: "", dateofbirth: "" };
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
@@ -21,6 +23,41 @@ const CustomerDetails = ({ firstStepHandler }) => {
     const changeGender = (e) => {
         setValidGender(true);
         setGender(e);
+    };
+
+    const saveKYC = () => {
+        const userCookie = getCookie("user");
+        if (userCookie) {
+            const userCookiePayload = JSON.parse(
+                decodeURIComponent(userCookie)
+            );
+            if (userCookiePayload && userCookiePayload.email) {
+                const data = {
+                    gender: gender,
+                    name: formValues.username,
+                    dateOfBirth: formValues.dateofbirth,
+                    email: userCookiePayload.email,
+                    type: "KYC",
+                };
+                fetch(`/api/kyc/create`, {
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        userCookiePayload.kycState = "verified";
+                        setCookie("user", userCookiePayload);
+                        fourteenthStepHandler();
+                    } else {
+                        toast.error("Error saving KYC details");
+                    }
+                });
+            } else {
+                toast.error("Please login to continue");
+            }
+        }
     };
 
     const formHandler = () => {
@@ -51,7 +88,8 @@ const CustomerDetails = ({ firstStepHandler }) => {
         e.preventDefault();
         setFormErrors(validate(formValues));
         setIsSubmit(true);
-        formHandler();
+        saveKYC();
+        // formHandler();
     };
 
     return (
