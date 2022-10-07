@@ -5,22 +5,25 @@ import Select from "react-select";
 import toast, { Toaster } from "react-hot-toast";
 import PropTypes from "prop-types";
 import jurisdictionData from "../../data/jurisdiction.json";
+import { getCookie } from "@utils/cookie";
+import { setCookie } from "cookies-next";
 
 const Company = ({ firstStepHandler }) => {
-    const initialValues = { username: "", dateofbirth: "" };
+    const initialValues = {
+        name: "",
+        registrationNumber: "",
+        incorporationDate: "",
+    };
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
-
-    const [gender, setGender] = useState("");
-
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedJurisdictionId, setSelectedJurisdictionId] = useState(null);
     const [options, setOptions] = useState([]);
 
-    console.log(selectedOption);
-
     const selectHandler = (e) => {
-        setSelectedOption(e);
+        if (e && e.id) {
+            setSelectedJurisdictionId(e.id);
+        }
     };
 
     const handleChange = (e) => {
@@ -28,12 +31,8 @@ const Company = ({ firstStepHandler }) => {
         setFormValues({ ...formValues, [name]: value });
     };
 
-    const changeGender = (e) => {
-        setGender(e);
-    };
-
     const formHandler = () => {
-        if (selectedOption === null) {
+        if (selectedJurisdictionId === null) {
             toast.error("Please select jurisdiction Code!");
         } else {
             toast.success("Successfully Submit!");
@@ -42,9 +41,7 @@ const Company = ({ firstStepHandler }) => {
     };
 
     useEffect(() => {
-        console.log(formErrors);
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            console.log(formValues);
         }
     }, [formErrors]);
 
@@ -80,10 +77,48 @@ const Company = ({ firstStepHandler }) => {
         }),
     };
 
+    const saveKYB = () => {
+        const userCookie = getCookie("user");
+        if (userCookie) {
+            const userCookiePayload = JSON.parse(
+                decodeURIComponent(userCookie)
+            );
+            if (userCookiePayload && userCookiePayload.email) {
+                const data = {
+                    incorporationDate: formValues.incorporationDate,
+                    name: formValues.name,
+                    registrationNumber: formValues.registrationNumber,
+                    jurisdiction: selectedJurisdictionId,
+                    type: "KYB",
+                    email: userCookiePayload.email,
+                };
+
+                fetch(`/api/kyb/create`, {
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        userCookiePayload.kycState = "verified";
+                        setCookie("user", userCookiePayload);
+                        firstStepHandler();
+                    } else {
+                        toast.error("Error saving KYB details");
+                    }
+                });
+            } else {
+                toast.error("Please login to continue");
+            }
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmit(true);
-        formHandler();
+        saveKYB();
+        // formHandler();
     };
 
     return (
@@ -119,8 +154,11 @@ const Company = ({ firstStepHandler }) => {
                         <input
                             className="border p-3 rounded modal-input-box"
                             type="text"
+                            name="registrationNumber"
                             placeholder="Enter your company registration number"
                             id="company-registration-number"
+                            value={formValues.registrationNumber}
+                            onChange={handleChange}
                             required
                         />
                         <label className="mt-4" htmlFor="company-name">
@@ -129,8 +167,11 @@ const Company = ({ firstStepHandler }) => {
                         <input
                             className="border p-3 rounded modal-input-box"
                             type="text"
+                            name="name"
                             placeholder="Enter your company name"
                             id="company-name"
+                            value={formValues.name}
+                            onChange={handleChange}
                             required
                         />
                         <label
@@ -142,7 +183,10 @@ const Company = ({ firstStepHandler }) => {
                         <input
                             className="border p-3 rounded modal-input-box"
                             type="date"
+                            name="incorporationDate"
                             id="business-incorporation-date"
+                            value={formValues.incorporationDate}
+                            onChange={handleChange}
                             required
                         />
 
@@ -153,10 +197,11 @@ const Company = ({ firstStepHandler }) => {
                         <Select
                             className="text-xl jurisdiction-code"
                             classNamePrefix="react-select"
-                            defaultValue={selectedOption}
+                            defaultValue={selectedJurisdictionId}
                             onChange={selectHandler}
                             options={options}
                             // styles={customStyles}
+
                             isClearable
                             id="jurisdiction-code"
                             required
