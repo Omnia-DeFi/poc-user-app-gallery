@@ -8,12 +8,12 @@ import BurgerButton from "@ui/burger-button";
 import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useRouter } from "next/router";
-import Pusher from "pusher-js";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useUserContext } from "src/context/context";
 import { logoutUser } from "src/context/actions";
 import Modal from "react-bootstrap/Modal";
+import Pusher from "pusher-js";
 import Dropdown from "react-bootstrap/Dropdown";
 import IndexKYC from "@components/kyc-modal/IndexKYC";
 import IndexKYB from "@components/kyb-modal/IndexKYB";
@@ -21,9 +21,9 @@ import Form from "react-bootstrap/Form";
 import { getNotifications } from "@utils/getNotReadNotifications";
 import { ModeContext } from "src/context/ModeContext";
 import DropdownMenu from "./DropdownMenu";
-import { magic } from "../../utils/magic";
 import menuData from "../../data/general/menu.json";
 import headerData from "../../data/general/header.json";
+import { magic } from "../../utils/magic";
 
 const Header = ({ className }) => {
     const sticky = useSticky();
@@ -58,16 +58,20 @@ const Header = ({ className }) => {
         updateNotifications();
     }, [state]);
 
-    useEffect(() => {
-        Pusher.logToConsole = true;
-        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
-            cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
-        });
-        const channel = pusher.subscribe("omnia");
-        channel.bind("new-notification", (data) => {
-            alert(JSON.stringify(data));
-        });
-    }, []);
+    // only for test, this has to be removed from production
+    // Pusher.logToConsole = true;
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+        cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
+    });
+    const channel = pusher.subscribe("omnia");
+    channel.bind("new-notification", (data) => {
+        // console.log(data);
+        // console.log(
+        //     "notificationsCount1234",
+        //     notificationsCount && notificationsCount
+        // );
+        if (notificationsCount > 0) setNotificationsCount(notificationsCount + 1);
+    });
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {

@@ -17,7 +17,7 @@
         "@commitlint/config-conventional": "^17.0.3",
         "@magic-ext/near": "^3.1.1",
         "@magic-ext/oauth": "^2.1.1",
-        "@prisma/client": "^4.2.1",
+        "@prisma/client": "^4.4.0",
         "@tippyjs/react": "^4.2.6",
         "axios": "^0.26.0",
         "bootstrap": "5.1.3",

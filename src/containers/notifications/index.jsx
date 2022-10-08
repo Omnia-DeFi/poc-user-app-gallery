@@ -6,6 +6,8 @@ import { IDType, ImageType } from "@utils/types";
 import { useUserContext } from "src/context/context";
 import axios from "axios";
 import moment from "moment";
+import { markAsAllRead } from "@utils/markAsAllRead";
+import { getNotifications } from "@utils/getNotReadNotifications";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const NotificationsArea = ({ space, className }) => {
@@ -13,6 +15,7 @@ const NotificationsArea = ({ space, className }) => {
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
     const { state, dispatch } = useUserContext();
+    const [markAllRead, setMarkAllRead] = useState(true);
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
@@ -23,6 +26,9 @@ const NotificationsArea = ({ space, className }) => {
             const { data } = await axios.get(
                 `/api/notification/getNotifications/${userId}`
             );
+            const notificationsCount = await getNotifications(state.email);
+            if (notificationsCount.length !== 0) setMarkAllRead(false);
+            else setMarkAllRead(true);
             // eslint-disable-next-line react/prop-types
             setNotifications(data.notifications.reverse() || []);
         } catch (error) {
@@ -35,14 +41,13 @@ const NotificationsArea = ({ space, className }) => {
         retrieveNotifications();
     }, [state]);
 
-    // const handleClick = async (
-    //     notificationsId,
-    //     notificationsRead,
-    //     notificationsType
-    // ) => {
-    //     if (!notificationsRead) await markAsRead(notificationsId);
-    //     router.push(getPath(notificationsType));
-    // };
+    const handleMarkAsAllReadClick = async () => {
+        setLoading(true);
+        const userId = await getUserIdByEmail(state.email);
+        await markAsAllRead(userId);
+        retrieveNotifications();
+        setLoading(false);
+    };
 
     return (
         <div
@@ -55,7 +60,19 @@ const NotificationsArea = ({ space, className }) => {
             <div className="container">
                 <div className="row mb--30">
                     <h3 className="title col-md-6">All Notifications</h3>
-                    <p className="col-md-6 text-end color-primary fw-bold">
+                    <p
+                        className="col-md-6 text-end color-primary fw-bold"
+                        onClick={() => handleMarkAsAllReadClick()}
+                        style={
+                            markAllRead ? { visibility: "hidden" } : null
+                        }
+                        tabIndex={0}
+                        // we need onClick handler here
+                        // eslint-disable-next-line max-len
+                        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                        role="button"
+                        onKeyUp={(e) => e.preventDefault()}
+                    >
                         Mark all read
                     </p>
                 </div>
