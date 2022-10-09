@@ -59,7 +59,7 @@ const Header = ({ className }) => {
     }, [state]);
 
     // only for test, this has to be removed from production
-    // Pusher.logToConsole = true;
+    Pusher.logToConsole = true;
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
         cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
     });
