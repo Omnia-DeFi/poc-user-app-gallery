@@ -63,9 +63,7 @@ const NotificationsArea = ({ space, className }) => {
                     <p
                         className="col-md-6 text-end color-primary fw-bold"
                         onClick={() => handleMarkAsAllReadClick()}
-                        style={
-                            markAllRead ? { visibility: "hidden" } : null
-                        }
+                        style={markAllRead ? { visibility: "hidden" } : null}
                         tabIndex={0}
                         // we need onClick handler here
                         // eslint-disable-next-line max-len

@@ -70,7 +70,9 @@ const Header = ({ className }) => {
         //     "notificationsCount1234",
         //     notificationsCount && notificationsCount
         // );
-        if (notificationsCount > 0) setNotificationsCount(notificationsCount + 1);
+        if (notificationsCount > 0) {
+            setNotificationsCount(notificationsCount + 1);
+        }
     });
 
     const logout = useCallback(() => {
