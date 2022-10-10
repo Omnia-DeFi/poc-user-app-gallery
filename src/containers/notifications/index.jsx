@@ -50,8 +50,8 @@ const NotificationsArea = ({ space, className }) => {
         });
         const channel = pusher.subscribe("omnia");
         channel.bind("new-notification", async (data) => {
-            console.log("You should see a NEW NOTIFICATION!", data);
             retrieveNotifications();
+            console.log("You should see a NEW NOTIFICATION!", data);
         });
     }, []);
 
