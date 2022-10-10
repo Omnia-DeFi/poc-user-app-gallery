@@ -67,8 +67,8 @@ const Header = ({ className }) => {
         });
         const channel = pusher.subscribe("omnia");
         channel.bind("new-notification", async (data) => {
-            updateNotifications();
             console.log("You have a NEW NOTIFICATION!", data);
+            updateNotifications();
         });
     }, []);
 
