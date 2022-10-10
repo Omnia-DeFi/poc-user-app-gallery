@@ -7,6 +7,7 @@ import { useUserContext } from "src/context/context";
 import axios from "axios";
 import moment from "moment";
 import { markAsAllRead } from "@utils/markAsAllRead";
+import Pusher from "pusher-js";
 import { getNotifications } from "@utils/getNotReadNotifications";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
@@ -19,7 +20,7 @@ const NotificationsArea = ({ space, className }) => {
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
-        setLoading(true);
+        // setLoading(true);
         // eslint-disable-next-line no-shadow
 
         try {
@@ -34,12 +35,25 @@ const NotificationsArea = ({ space, className }) => {
         } catch (error) {
             setNotifications([]);
         }
-        setLoading(false);
+        // setLoading(false);
     };
 
     useEffect(() => {
         retrieveNotifications();
     }, [state]);
+
+    useEffect(() => {
+        // only for test, this has to be removed from production
+        Pusher.logToConsole = true;
+        const pusher = new Pusher("b2c6e10ed473266b458b", {
+            cluster: "eu",
+        });
+        const channel = pusher.subscribe("omnia");
+        channel.bind("new-notification", async (data) => {
+            console.log("You should see a NEW NOTIFICATION!", data);
+            retrieveNotifications();
+        });
+    }, []);
 
     const handleMarkAsAllReadClick = async () => {
         setLoading(true);

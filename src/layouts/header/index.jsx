@@ -37,6 +37,7 @@ const Header = ({ className }) => {
     const { kycState, setkycState } = useContext(ModeContext);
     const updateNotifications = async () => {
         const notifications = await getNotifications(state.email);
+        console.log("notifications.length is", notifications.length);
         setNotificationsCount(notifications.length);
     };
     // kyc modal state here start
