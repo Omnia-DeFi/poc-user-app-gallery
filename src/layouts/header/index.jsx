@@ -58,22 +58,18 @@ const Header = ({ className }) => {
         updateNotifications();
     }, [state]);
 
-    // only for test, this has to be removed from production
-    Pusher.logToConsole = true;
-    const pusher = new Pusher("b2c6e10ed473266b458b", {
-        cluster: "eu",
-    });
-    const channel = pusher.subscribe("omnia");
-    channel.bind("new-notification", (data) => {
-        // console.log(data);
-        // console.log(
-        //     "notificationsCount1234",
-        //     notificationsCount && notificationsCount
-        // );
-        if (notificationsCount > 0) {
-            setNotificationsCount(notificationsCount + 1);
-        }
-    });
+    useEffect(() => {
+        // only for test, this has to be removed from production
+        Pusher.logToConsole = true;
+        const pusher = new Pusher("b2c6e10ed473266b458b", {
+            cluster: "eu",
+        });
+        const channel = pusher.subscribe("omnia");
+        channel.bind("new-notification", async (data) => {
+            console.log("You have a NEW NOTIFICATION!", data);
+            updateNotifications();
+        });
+    }, []);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
