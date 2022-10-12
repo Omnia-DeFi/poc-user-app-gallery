@@ -8,3 +8,7 @@ export const loginUser = (user) => ({
 export const logoutUser = () => ({
     type: actionTypes.USER_LOGOUT,
 });
+
+export const readNotification = () => ({
+    type: actionTypes.READ_NOTIFICATION,
+});

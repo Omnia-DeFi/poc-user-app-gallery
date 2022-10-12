@@ -3,8 +3,10 @@ import clsx from "clsx";
 import Image from "next/image";
 import Anchor from "@ui/anchor";
 import { markAsRead } from "@utils/markAsRead";
+import { readNotification } from "src/context/actions";
 // import { useState } from "react";
 import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
 // import Link from "next/link";
 
 const Notifications = ({
@@ -27,6 +29,7 @@ const Notifications = ({
         color: "#f6f6f6",
     };
     const router = useRouter();
+    const { state, dispatch } = useUserContext();
 
     const getPath = (notificationsType) => {
         if (notificationsType === "kyc" || notificationsType === "kyb") {
@@ -35,7 +38,6 @@ const Notifications = ({
         if (notificationsType === "assets") return "/assets";
         return notificationsRefresh();
     };
-
     const handleClick = async (
         notificationsId,
         notificationsRead,
@@ -43,6 +45,7 @@ const Notifications = ({
     ) => {
         if (!notificationsRead) await markAsRead(notificationsId);
         router.push(getPath(notificationsType));
+        await dispatch(readNotification());
     };
 
     return (

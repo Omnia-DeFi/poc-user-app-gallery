@@ -9,6 +9,7 @@ import moment from "moment";
 import { markAsAllRead } from "@utils/markAsAllRead";
 import Pusher from "pusher-js";
 import { getNotifications } from "@utils/getNotReadNotifications";
+import { readNotification } from "src/context/actions";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const NotificationsArea = ({ space, className }) => {
@@ -44,15 +45,14 @@ const NotificationsArea = ({ space, className }) => {
 
     useEffect(() => {
         // only for test, this has to be removed from production
-        Pusher.logToConsole = true;
+        // Pusher.logToConsole = true;
         const pusher = new Pusher("b2c6e10ed473266b458b", {
             cluster: "eu",
         });
         const channel = pusher.subscribe("omnia");
         channel.bind("new-notification", async (data) => {
-            console.log("You should see a NEW NEW NOTIFICATION!", data);
-            console.log("Hello");
             retrieveNotifications();
+            console.log("You should see a NEW NEW NOTIFICATION!", data);
         });
     }, []);
 
@@ -62,6 +62,8 @@ const NotificationsArea = ({ space, className }) => {
         await markAsAllRead(userId);
         retrieveNotifications();
         setLoading(false);
+        await dispatch(readNotification());
+        // dispatch()
     };
 
     return (
