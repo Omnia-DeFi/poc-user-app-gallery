@@ -7,6 +7,7 @@ import { readNotification } from "src/context/actions";
 // import { useState } from "react";
 import { useRouter } from "next/router";
 import { useUserContext } from "src/context/context";
+import { useState } from "react";
 // import Link from "next/link";
 
 const Notifications = ({
@@ -30,6 +31,7 @@ const Notifications = ({
     };
     const router = useRouter();
     const { state, dispatch } = useUserContext();
+    const [buttonText, setButtonText] = useState("Mark it as read");
 
     const getPath = (notificationsType) => {
         if (notificationsType === "kyc" || notificationsType === "kyb") {
@@ -43,6 +45,7 @@ const Notifications = ({
         notificationsRead,
         notificationsType
     ) => {
+        setButtonText(<div className="small-notification-loader" />);
         if (!notificationsRead) await markAsRead(notificationsId);
         router.push(getPath(notificationsType));
         await dispatch(readNotification());
@@ -82,7 +85,7 @@ const Notifications = ({
                                 role="button"
                                 onKeyUp={(e) => e.preventDefault()}
                             >
-                                Mark it as read
+                                {buttonText}
                             </span>
                         </div>
                         <hr className="notification-horizontal-line" />

@@ -18,6 +18,7 @@ const NotificationsArea = ({ space, className }) => {
     const [loading, setLoading] = useState(false);
     const { state, dispatch } = useUserContext();
     const [markAllRead, setMarkAllRead] = useState(true);
+    const [buttonText, setButtonText] = useState("Mark it as read");
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
@@ -57,11 +58,10 @@ const NotificationsArea = ({ space, className }) => {
     }, []);
 
     const handleMarkAsAllReadClick = async () => {
-        setLoading(true);
+        setButtonText(<div className="large-notification-loader" />);
         const userId = await getUserIdByEmail(state.email);
         await markAsAllRead(userId);
         retrieveNotifications();
-        setLoading(false);
         await dispatch(readNotification());
         // dispatch()
     };
@@ -88,7 +88,7 @@ const NotificationsArea = ({ space, className }) => {
                         role="button"
                         onKeyUp={(e) => e.preventDefault()}
                     >
-                        Mark all read
+                        {buttonText}
                     </p>
                 </div>
                 <div className="row g-6 notifications-direction">
