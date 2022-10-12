@@ -72,9 +72,9 @@ const Notifications = ({
                     )}
                     <div className="content">
                         <div className="row">
-                            <span className="col-md-6 mb-4">{type}</span>
+                            <span className="col-md-10 mb-4">{type}</span>
                             <span
-                                className="col-md-6 text-end primary-color fw-bold"
+                                className="col-md-2 text-end primary-color fw-bold"
                                 onClick={() => handleClick(id, read, type)}
                                 // style={read ? {} : unreadNotificationsText}
                                 style={read ? { visibility: "hidden" } : null}

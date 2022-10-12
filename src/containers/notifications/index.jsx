@@ -18,7 +18,7 @@ const NotificationsArea = ({ space, className }) => {
     const [loading, setLoading] = useState(false);
     const { state, dispatch } = useUserContext();
     const [markAllRead, setMarkAllRead] = useState(true);
-    const [buttonText, setButtonText] = useState("Mark it as read");
+    const [buttonText, setButtonText] = useState("Mark all read");
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
@@ -76,9 +76,9 @@ const NotificationsArea = ({ space, className }) => {
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title col-md-6">All Notifications</h3>
+                    <h3 className="title col-md-10">All Notifications</h3>
                     <p
-                        className="col-md-6 text-end color-primary fw-bold"
+                        className="col-md-2 text-end color-primary fw-bold"
                         onClick={() => handleMarkAsAllReadClick()}
                         style={markAllRead ? { visibility: "hidden" } : null}
                         tabIndex={0}
