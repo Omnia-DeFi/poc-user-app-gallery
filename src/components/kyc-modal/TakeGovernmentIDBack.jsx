@@ -25,8 +25,8 @@ const TakeGovernmentIDBack = ({
                 />
                 <h6 className="my-2">Verify your identity</h6>
                 <p className="m-0">
-                    Please take a picture of front and back of your government
-                    ID for KYC verification
+                    Please take front and back pictures of one of your
+                    government ID for KYC verification
                 </p>
             </div>
         </Modal.Header>
@@ -74,12 +74,15 @@ const TakeGovernmentIDBack = ({
                 {documentBackImage ? (
                     <>
                         <p className="my-4">
-                            Front of your {driverLicense && "Driving Licence"}
+                            Front side of your{" "}
+                            {driverLicense && "Driving Licence"}
                             {passport && "Passport"}{" "}
                             {nationalID && "National ID"}
                         </p>
                         <p className="my-2">
-                            Make sure your address is clearly visible
+                            {nationalID
+                                ? ""
+                                : "Make sure your address is clearly visible"}
                         </p>
                         <img
                             className="Webcam-selfie"
@@ -91,7 +94,8 @@ const TakeGovernmentIDBack = ({
                     <div className="mt-5">
                         <div className="mb-5 modal-id-show">
                             <p>
-                                Back of {driverLicense && "Driving Licence"}
+                                Back side of{" "}
+                                {driverLicense && "Driving Licence"}
                                 {passport && "Passport"}{" "}
                                 {nationalID && "National ID"}
                             </p>
@@ -126,7 +130,7 @@ const TakeGovernmentIDBack = ({
                         </div>
                         <div className="text-center">
                             <Button onClick={eighthStepHandler} size="medium">
-                                CLICK PHOTO
+                                TAKE PHOTO
                             </Button>
                         </div>
                     </div>
@@ -151,7 +155,8 @@ const TakeGovernmentIDBack = ({
                             />
                         </svg>
                     </span>
-                    Your ID or photo will be used only for KYC purpose
+                    Your ID or photo will be used only for KYC purpose processed
+                    by ShuftiPro
                 </p>
                 {documentBackImage && (
                     <div className="text-center">

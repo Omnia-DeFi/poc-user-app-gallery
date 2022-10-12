@@ -40,14 +40,14 @@ const TakeGovernmentIDFront = ({
                     />
                     <h6 className="my-2">Verify your identity</h6>
                     <p className="m-0">
-                        Please take a picture of front and back of your
-                        government ID for KYC verification
+                        Please take front and back pictures of one of your
+                        identity documents below
                     </p>
                 </div>
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5">
-                    <h5 className="my-2">Select a Government ID</h5>
+                    <h5 className="my-2">Select a</h5>
                     <div className="select-Government-ID">
                         <div
                             className={`${
@@ -85,7 +85,8 @@ const TakeGovernmentIDFront = ({
                     <div className="mt-5">
                         <div className="mb-5 modal-id-show">
                             <h6 className="text-bold mb-3">
-                                Front of {driverLicense && "Driving Licence"}
+                                Front side of{" "}
+                                {driverLicense && "Driving Licence"}
                                 {passport && "Passport"}{" "}
                                 {nationalID && "National ID"}
                             </h6>
@@ -139,7 +140,8 @@ const TakeGovernmentIDFront = ({
                             />
                         </svg>
                     </span>
-                    Your ID or photo will be used only for KYC purpose
+                    Your ID or photo will be used only for KYC purpose and
+                    processed by ShuftiPro
                 </div>
             </Modal.Body>
         </>

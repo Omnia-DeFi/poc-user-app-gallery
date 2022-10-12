@@ -39,7 +39,7 @@ const VerifyDocumentFront = ({
                     />
                     <h6 className="my-2">Verify your identity</h6>
                     <p className="m-0">
-                        Please take a picture of front and back of your
+                        Please take front and back pictures of one of your
                         government ID for KYC verification
                     </p>
                 </div>
@@ -56,7 +56,7 @@ const VerifyDocumentFront = ({
                         ))}
                     </div>
                     <p className="my-2">
-                        Front of your {driverLicense && "Driving Licence"}
+                        Front side of your {driverLicense && "Driving Licence"}
                         {passport && "Passport"} {nationalID && "National ID"}
                     </p>
                     <p className="m-0">

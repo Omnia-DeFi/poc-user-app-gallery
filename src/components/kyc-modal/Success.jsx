@@ -51,13 +51,13 @@ const Success = ({ fifteenthStepHandler }) => {
                     <div className="icon-fix" />
                 </div>
             </div>
-            <button
+            {/* <button
                 onClick={fifteenthStepHandler}
                 className="btn btn-success w-100"
                 type="button"
             >
                 Go Home!!
-            </button>
+            </button> */}
         </div>
     );
 };

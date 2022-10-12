@@ -65,7 +65,7 @@ const CustomerDetails = ({ firstStepHandler }) => {
                     />
                     <h6 className="my-2">Verify Your Identity</h6>
                     <p className="m-0">
-                        We&apos;ll verify it with your KYC documents
+                        Complete these fields to for AML (Anti Money Laundering)
                     </p>
                 </div>
             </Modal.Header>

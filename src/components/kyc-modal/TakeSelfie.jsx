@@ -18,7 +18,7 @@ const TakeSelfie = ({ firstStepHandler, secondStepHandler, firstBack }) => (
                 <div className="ms-4">
                     <h6 className="my-2">Verify your identity</h6>
                     <p className="m-0">
-                        Please upload a selfie and provide personal details for
+                        Please take a selfie and provide personal details for
                         KYC verification
                     </p>
                 </div>
@@ -34,7 +34,7 @@ const TakeSelfie = ({ firstStepHandler, secondStepHandler, firstBack }) => (
                 <img width="200px" src="/images/kyc/selfie.png" alt="selfie" />
                 <div className="mt-5">
                     <Button onClick={secondStepHandler} size="medium">
-                        CLICK PHOTO
+                        TAKE PICTURE
                     </Button>
                 </div>
             </div>
