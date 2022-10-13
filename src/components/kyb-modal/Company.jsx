@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import Select from "react-select";
 import toast, { Toaster } from "react-hot-toast";
 import PropTypes from "prop-types";
-import jurisdictionData from "../../data/jurisdiction.json";
 import { getCookie } from "@utils/cookie";
 import { setCookie } from "cookies-next";
+import jurisdictionData from "../../data/jurisdiction.json";
 
 const Company = ({ firstStepHandler }) => {
     const initialValues = {
@@ -40,10 +40,10 @@ const Company = ({ firstStepHandler }) => {
         }
     };
 
-    useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-        }
-    }, [formErrors]);
+    // useEffect(() => {
+    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
+    //     }
+    // }, [formErrors]);
 
     // if local asset use this set of code >>>>>>
     useEffect(() => {
@@ -201,7 +201,6 @@ const Company = ({ firstStepHandler }) => {
                             onChange={selectHandler}
                             options={options}
                             // styles={customStyles}
-
                             isClearable
                             id="jurisdiction-code"
                             required

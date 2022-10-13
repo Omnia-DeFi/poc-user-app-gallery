@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     const { email, name, dateOfBirth, gender, type } = req.body;
 
     try {
-        let userDetails = await prisma.user.findUnique({
+        const userDetails = await prisma.user.findUnique({
             where: {
                 email,
             },
@@ -27,12 +27,12 @@ export default async function handler(req, res) {
                     status: "verified",
                     supportiveData: {
                         dateOfBirth: new Date(dateOfBirth),
-                        name: name,
+                        name,
                         gender,
                     },
                 },
             })
-                .catch(console.error)
+                .catch()
                 .finally(() => prisma.$disconnect());
             res.status(200).json({ message: "Kyc created", createdKyc });
         } else {
