@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import toast, { Toaster } from "react-hot-toast";
@@ -33,7 +33,7 @@ const CustomerDetails = ({ fourteenthStepHandler }) => {
             );
             if (userCookiePayload && userCookiePayload.email) {
                 const data = {
-                    gender: gender,
+                    gender,
                     name: formValues.username,
                     dateOfBirth: formValues.dateofbirth,
                     email: userCookiePayload.email,
@@ -60,14 +60,14 @@ const CustomerDetails = ({ fourteenthStepHandler }) => {
         }
     };
 
-    const formHandler = () => {
-        if (validgender === false) {
-            toast.error("Please select gender!");
-        } else {
-            toast.success("Successfully Submit!");
-            firstStepHandler();
-        }
-    };
+    // const formHandler = () => {
+    //     if (validgender === false) {
+    //         toast.error("Please select gender!");
+    //     } else {
+    //         toast.success("Successfully Submit!");
+    //         firstStepHandler();
+    //     }
+    // };
 
     useEffect(() => {
         console.log(formErrors);
@@ -146,7 +146,7 @@ const CustomerDetails = ({ fourteenthStepHandler }) => {
                                         className={`w-100 btn ${
                                             gender === "Female"
                                                 ? `btn-success`
-                                                : `btn-secondary `
+                                                : `btn-secondary`
                                         }`}
                                         onClick={() => changeGender("Female")}
                                     >
@@ -172,7 +172,7 @@ const CustomerDetails = ({ fourteenthStepHandler }) => {
                                         className={`w-100 btn ${
                                             gender === "Other"
                                                 ? `btn-success`
-                                                : `btn-secondary `
+                                                : `btn-secondary`
                                         }`}
                                         onClick={() => changeGender("Other")}
                                     >
@@ -196,5 +196,5 @@ const CustomerDetails = ({ fourteenthStepHandler }) => {
 export default CustomerDetails;
 
 CustomerDetails.propTypes = {
-    firstStepHandler: PropTypes.func.isRequired,
+    fourteenthStepHandler: PropTypes.func.isRequired,
 };

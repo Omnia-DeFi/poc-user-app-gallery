@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     } = req.body;
 
     try {
-        let userDetails = await prisma.user.findUnique({
+        const userDetails = await prisma.user.findUnique({
             where: {
                 email,
             },

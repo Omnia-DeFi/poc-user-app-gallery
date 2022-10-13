@@ -46,6 +46,8 @@ export default async function handler(req, res) {
                     case "aml":
                         acc.amlState = curr.status;
                         break;
+                    default:
+                        break;
                 }
                 return acc;
             },
