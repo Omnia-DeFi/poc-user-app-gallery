@@ -46,3 +46,20 @@ model Kyc {
   requestedAt      DateTime
   approvedAt       DateTime
 }
+
+
+model Assets {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  images            String[]
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String @db.ObjectId @unique
+  productName       String
+  description       String
+  price             Int
+  size              Int
+  properties        String
+  royalty           Int
+  PutOnSale         Boolean
+  InstantSalePrice  Boolean
+  UnlockPurchased   Boolean
+}
