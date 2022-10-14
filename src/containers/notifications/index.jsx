@@ -77,7 +77,7 @@ const NotificationsArea = ({ space, className }) => {
             <div className="container">
                 <div className="row mb--30">
                     <h3 className="title col-md-10">All Notifications</h3>
-                    <p
+                    <span
                         className="col-md-2 text-end color-primary fw-bold"
                         onClick={() => handleMarkAsAllReadClick()}
                         style={markAllRead ? { visibility: "hidden" } : null}
@@ -89,7 +89,7 @@ const NotificationsArea = ({ space, className }) => {
                         onKeyUp={(e) => e.preventDefault()}
                     >
                         {buttonText}
-                    </p>
+                    </span>
                 </div>
                 <div className="row g-6 notifications-direction">
                     {loading && <p className="">Loading</p>}
