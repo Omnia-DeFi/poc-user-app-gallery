@@ -3,17 +3,23 @@ import { prisma } from "../../../prisma/prisma";
 export default async function handler(req, res) {
     const {
         email,
-        images,
-        productName,
-        description,
-        price,
-        size,
-        properties,
-        royalty,
-        PutOnSale,
-        InstantSalePrice,
-        UnlockPurchased,
+        landRegistry,
+        floorArea,
+        hasOutdoorSpace,
+        bedrooms,
+        bathrooms,
+        otherRooms,
+        floorPrice,
+        saleTimeframe,
+        assetFolderLink,
+        mintAddress,
+        saleStatus,
+        verificationState,
+        outdoorSpaceSize,
+        extraConditionsLabels,
+        extraConditionsDescriptions,
     } = req.body;
+    console.log("assets", req.body);
     try {
         const userDetails = await prisma.user.findUnique({
             where: {
@@ -25,23 +31,31 @@ export default async function handler(req, res) {
         });
         if (userDetails && userDetails.id) {
             // (new Date()).setTime((new Date()).getTime() + (15 * 1000));
-            const createdAssets = await prisma.Assets.create({
+            const createdAssets = await prisma.Asset.create({
                 data: {
                     userId: userDetails.id,
-                    images,
-                    productName,
-                    description,
-                    price,
-                    size,
-                    properties,
-                    royalty,
-                    PutOnSale,
-                    InstantSalePrice,
-                    UnlockPurchased,
+                    landRegistry,
+                    floorArea,
+                    hasOutdoorSpace,
+                    bedrooms,
+                    bathrooms,
+                    otherRooms,
+                    floorPrice,
+                    saleTimeframe,
+                    assetFolderLink,
+                    mintAddress,
+                    saleStatus,
+                    verificationState,
+                    outdoorSpaceSize,
+                    extraConditionsLabels,
+                    extraConditionsDescriptions,
                 },
             })
                 .catch(console.error)
-                .finally(() => prisma.$disconnect());
+                .finally(() => {
+                    prisma.$disconnect();
+                });
+            console.log("Created Assets=======", createdAssets);
             res.status(200).json({ message: "Assets created", createdAssets });
         } else {
             res.status(500).json({ message: "User not registered yet" });

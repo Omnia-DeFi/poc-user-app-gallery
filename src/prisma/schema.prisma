@@ -48,18 +48,23 @@ model Kyc {
 }
 
 
-model Assets {
+model Asset {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  images            String[]
   user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            String @db.ObjectId @unique
-  productName       String
-  description       String
-  price             Int
-  size              Int
-  properties        String
-  royalty           Int
-  PutOnSale         Boolean
-  InstantSalePrice  Boolean
-  UnlockPurchased   Boolean
+  landRegistry      String
+  floorArea         String
+  hasOutdoorSpace   Boolean
+  bedrooms          Int
+  bathrooms         Int
+  otherRooms        Int
+  floorPrice        Int
+  saleTimeframe     Int
+  assetFolderLink   String
+  mintAddress       String
+  saleStatus        String
+  verificationState String
+  outdoorSpaceSize  Int
+  extraConditionsLabels  String[]
+  extraConditionsDescriptions String[]
 }
