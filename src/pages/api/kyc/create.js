@@ -14,7 +14,24 @@ export default async function handler(req, res) {
         });
 
         if (userDetails && userDetails.id) {
-            // (new Date()).setTime((new Date()).getTime() + (15 * 1000));
+            await prisma.Kyc.create({
+                data: {
+                    userId: userDetails.id,
+                    requestedAt: new Date(),
+                    approvedAt: new Date(
+                        new Date().setTime(new Date().getTime() + 15 * 1000)
+                    ),
+                    type: "AML",
+                    status: "verified",
+                    supportiveData: {
+                        dateOfBirth: new Date(dateOfBirth),
+                        name,
+                        gender,
+                    },
+                },
+            }).catch((err) => {
+                console.log("Unable to save AML data", err);
+            });
 
             const createdKyc = await prisma.Kyc.create({
                 data: {
