@@ -4,9 +4,10 @@ const NotVerified = () => {
     const router = useRouter();
     return (
         <div className="d-flex flex-column align-items-center justify-content-center">
-            <h1 className="text-warning">Not Verified</h1>
+            <h1 className="text-warning">Verification required</h1>
             <p className="text-center">
-                Please upadate your KYC, KYB and AML details to continue
+                You need to have successfully passed KYC, AML and KYB to see
+                this page
             </p>
             <div className="warning-checkmark my-5">
                 <div className="check-icon">
