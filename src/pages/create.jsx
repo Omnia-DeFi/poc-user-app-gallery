@@ -17,14 +17,15 @@ const Home = () => {
     const router = useRouter();
     const { state } = useUserContext();
     const { login, kybState, kycState, amlState } = state;
-    const isVerified = (kybState === "verified" && kycState === "verified" && amlState === "verified");
+    const isVerified =
+        kybState === "verified" &&
+        kycState === "verified" &&
+        amlState === "verified";
     const backToHome = () => {
         router.push("/");
     };
     useEffect(() => {
-        if (
-            !login
-        ) {
+        if (!login) {
             router.push("/login");
         }
     }, []);
@@ -35,11 +36,10 @@ const Home = () => {
             <Header />
             <main id="main-content">
                 <Breadcrumb pageTitle="Create New File" />
-                {isVerified ? (<CreateNewArea />) : (
-                    <IndexWarning
-                        show="true"
-                        handleModal={backToHome}
-                    />
+                {isVerified ? (
+                    <CreateNewArea />
+                ) : (
+                    <IndexWarning show="true" handleModal={backToHome} />
                 )}
             </main>
             <Footer />

@@ -1,8 +1,8 @@
 import Modal from "react-bootstrap/Modal";
 import PropTypes from "prop-types";
-import NotVerified from "./NotVerified";
+import SubmissionConfirmation from "./SubmissionConfirmation";
 
-const IndexWarning = ({ show, handleModal }) => {
+const IndexConfirmation = ({ show, handleModal }) => {
     const backToHome = () => {
         handleModal();
     };
@@ -28,15 +28,15 @@ const IndexWarning = ({ show, handleModal }) => {
                     </button>
                 )}
 
-                <NotVerified />
+                <SubmissionConfirmation />
             </Modal>
         </div>
     );
 };
 
-export default IndexWarning;
+export default IndexConfirmation;
 
-IndexWarning.propTypes = {
+IndexConfirmation.propTypes = {
     show: PropTypes.bool.isRequired,
     handleModal: PropTypes.func.isRequired,
 };
