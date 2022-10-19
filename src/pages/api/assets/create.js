@@ -32,6 +32,7 @@ export default async function handler(req, res) {
                 id: true,
             },
         });
+
         if (userDetails && userDetails.id) {
             const createdAssets = await prisma.Asset.create({
                 data: {
