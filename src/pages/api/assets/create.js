@@ -11,15 +11,15 @@ export default async function handler(req, res) {
         otherRooms,
         floorPrice,
         saleTimeframe,
-        assetFolderLink,
-        mintAddress,
-        saleStatus,
-        verificationState,
-        outdoorSpaceSize,
+        // assetFolderLink,
+        // mintAddress,
+        // saleStatus,
+        // verificationState,
+        // outdoorSpaceSize,
         extraConditionsLabels,
         extraConditionsDescriptions,
     } = req.body;
-    console.log("assets", req.body);
+
     try {
         const userDetails = await prisma.user.findUnique({
             where: {
@@ -29,8 +29,8 @@ export default async function handler(req, res) {
                 id: true,
             },
         });
+
         if (userDetails && userDetails.id) {
-            // (new Date()).setTime((new Date()).getTime() + (15 * 1000));
             const createdAssets = await prisma.Asset.create({
                 data: {
                     userId: userDetails.id,
@@ -42,11 +42,11 @@ export default async function handler(req, res) {
                     otherRooms,
                     floorPrice,
                     saleTimeframe,
-                    assetFolderLink,
-                    mintAddress,
-                    saleStatus,
-                    verificationState,
-                    outdoorSpaceSize,
+                    // assetFolderLink: assetFolderLink,
+                    // mintAddress: mintAddress,
+                    // saleStatus: saleStatus,
+                    // verificationState: verificationState,
+                    // outdoorSpaceSize: outdoorSpaceSize,
                     extraConditionsLabels,
                     extraConditionsDescriptions,
                 },

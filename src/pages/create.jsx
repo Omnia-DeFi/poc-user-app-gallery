@@ -18,13 +18,13 @@ const Home = () => {
     const { state } = useUserContext();
 
     useEffect(() => {
-        if (
-            !state.login ||
-            state.kybState !== "verified" ||
-            state.kycState !== "verified"
-        ) {
-            router.push("/login");
-        }
+        // if (
+        //     !state.login ||
+        //     state.kybState !== "verified" ||
+        //     state.kycState !== "verified"
+        // ) {
+        //     router.push("/login");
+        // }
     }, []);
 
     return (
