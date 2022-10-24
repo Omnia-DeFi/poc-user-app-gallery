@@ -3,8 +3,11 @@ import clsx from "clsx";
 import Image from "next/image";
 import Anchor from "@ui/anchor";
 import { markAsRead } from "@utils/markAsRead";
+import { readNotification } from "src/context/actions";
 // import { useState } from "react";
 import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
+import { useState } from "react";
 // import Link from "next/link";
 
 const Notifications = ({
@@ -27,6 +30,8 @@ const Notifications = ({
         color: "#f6f6f6",
     };
     const router = useRouter();
+    const { state, dispatch } = useUserContext();
+    const [buttonText, setButtonText] = useState("Mark it as read");
 
     const getPath = (notificationsType) => {
         if (notificationsType === "kyc" || notificationsType === "kyb") {
@@ -35,14 +40,15 @@ const Notifications = ({
         if (notificationsType === "assets") return "/assets";
         return notificationsRefresh();
     };
-
     const handleClick = async (
         notificationsId,
         notificationsRead,
         notificationsType
     ) => {
+        setButtonText(<div className="small-notification-loader" />);
         if (!notificationsRead) await markAsRead(notificationsId);
         router.push(getPath(notificationsType));
+        await dispatch(readNotification());
     };
 
     return (
@@ -66,9 +72,9 @@ const Notifications = ({
                     )}
                     <div className="content">
                         <div className="row">
-                            <span className="col-md-6 mb-4">{type}</span>
+                            <span className="col-md-10 mb-4">{type}</span>
                             <span
-                                className="col-md-6 text-end primary-color fw-bold"
+                                className="col-md-2 text-end primary-color fw-bold"
                                 onClick={() => handleClick(id, read, type)}
                                 // style={read ? {} : unreadNotificationsText}
                                 style={read ? { visibility: "hidden" } : null}
@@ -79,7 +85,7 @@ const Notifications = ({
                                 role="button"
                                 onKeyUp={(e) => e.preventDefault()}
                             >
-                                Mark it as read
+                                {buttonText}
                             </span>
                         </div>
                         <hr className="notification-horizontal-line" />

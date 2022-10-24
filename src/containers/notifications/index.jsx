@@ -9,6 +9,7 @@ import moment from "moment";
 import { markAsAllRead } from "@utils/markAsAllRead";
 import Pusher from "pusher-js";
 import { getNotifications } from "@utils/getNotReadNotifications";
+import { readNotification } from "src/context/actions";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
 const NotificationsArea = ({ space, className }) => {
@@ -17,6 +18,7 @@ const NotificationsArea = ({ space, className }) => {
     const [loading, setLoading] = useState(false);
     const { state, dispatch } = useUserContext();
     const [markAllRead, setMarkAllRead] = useState(true);
+    const [buttonText, setButtonText] = useState("Mark all read");
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
@@ -44,23 +46,24 @@ const NotificationsArea = ({ space, className }) => {
 
     useEffect(() => {
         // only for test, this has to be removed from production
-        Pusher.logToConsole = true;
+        // Pusher.logToConsole = true;
         const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
             cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
         });
         const channel = pusher.subscribe("omnia");
         channel.bind("new-notification", async (data) => {
             retrieveNotifications();
-            console.log("You should see a NEW NOTIFICATION!", data);
+            console.log("You should see a NEW NEW NOTIFICATION!", data);
         });
     }, []);
 
     const handleMarkAsAllReadClick = async () => {
-        setLoading(true);
+        setButtonText(<div className="large-notification-loader" />);
         const userId = await getUserIdByEmail(state.email);
         await markAsAllRead(userId);
         retrieveNotifications();
-        setLoading(false);
+        await dispatch(readNotification());
+        // dispatch()
     };
 
     return (
@@ -73,9 +76,9 @@ const NotificationsArea = ({ space, className }) => {
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title col-md-6">All Notifications</h3>
-                    <p
-                        className="col-md-6 text-end color-primary fw-bold"
+                    <h3 className="title col-md-10">All Notifications</h3>
+                    <span
+                        className="col-md-2 text-end color-primary fw-bold"
                         onClick={() => handleMarkAsAllReadClick()}
                         style={markAllRead ? { visibility: "hidden" } : null}
                         tabIndex={0}
@@ -85,8 +88,8 @@ const NotificationsArea = ({ space, className }) => {
                         role="button"
                         onKeyUp={(e) => e.preventDefault()}
                     >
-                        Mark all read
-                    </p>
+                        {buttonText}
+                    </span>
                 </div>
                 <div className="row g-6 notifications-direction">
                     {loading && <p className="">Loading</p>}

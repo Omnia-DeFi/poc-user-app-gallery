@@ -37,7 +37,6 @@ const Header = ({ className }) => {
     const { kycState, setkycState } = useContext(ModeContext);
     const updateNotifications = async () => {
         const notifications = await getNotifications(state.email);
-        console.log("notifications.length is", notifications.length);
         setNotificationsCount(notifications.length);
     };
     // kyc modal state here start
@@ -61,9 +60,9 @@ const Header = ({ className }) => {
 
     useEffect(() => {
         // only for test, this has to be removed from production
-        Pusher.logToConsole = true;
-        const pusher = new Pusher("b2c6e10ed473266b458b", {
-            cluster: "eu",
+        // Pusher.logToConsole = true;
+        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+            cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
         });
         const channel = pusher.subscribe("omnia");
         channel.bind("new-notification", async (data) => {
