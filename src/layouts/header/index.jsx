@@ -12,17 +12,19 @@ import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useUserContext } from "src/context/context";
 import { logoutUser } from "src/context/actions";
-import headerData from "../../data/general/header.json";
-import menuData from "../../data/general/menu.json";
-import { magic } from "../../utils/magic";
 import Modal from "react-bootstrap/Modal";
+import Pusher from "pusher-js";
 import Dropdown from "react-bootstrap/Dropdown";
 import IndexKYC from "@components/kyc-modal/IndexKYC";
 import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
-import DropdownMenu from "./DropdownMenu";
 import { getNotifications } from "@utils/getNotReadNotifications";
 import { ModeContext } from "src/context/ModeContext";
+import DropdownMenu from "./DropdownMenu";
+import menuData from "../../data/general/menu.json";
+import headerData from "../../data/general/header.json";
+import { magic } from "../../utils/magic";
+
 const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
@@ -54,7 +56,23 @@ const Header = ({ className }) => {
     useEffect(() => {
         setIsAuthenticated(state.login);
         updateNotifications();
+        return () => {
+            setIsAuthenticated({}); // This worked for me
+        };
     }, [state]);
+
+    useEffect(() => {
+        // only for test, this has to be removed from production
+        // Pusher.logToConsole = true;
+        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+            cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
+        });
+        const channel = pusher.subscribe("omnia");
+        channel.bind("new-notification", async (data) => {
+            updateNotifications();
+            console.log("You have a NEW NOTIFICATION!", data);
+        });
+    }, []);
 
     const logout = useCallback(() => {
         magic.user.logout().then(() => {
@@ -115,7 +133,9 @@ const Header = ({ className }) => {
                                     <div className="setting-option rn-icon-list notification-badge">
                                         <div className="icon-box">
                                             <Anchor
-                                                path={headerData.activity_link}
+                                                path={
+                                                    headerData.notifications_link
+                                                }
                                             >
                                                 <i className="feather-bell" />
                                                 {notificationsCount > 0 && (
@@ -137,6 +157,7 @@ const Header = ({ className }) => {
 
                             <div
                                 onClick={offcanvasHandler}
+                                aria-hidden="true"
                                 className="setting-option my_switcher mobile-menu-bar hamberger-menu-icon d-flex d-xl-none"
                             >
                                 <svg
@@ -160,6 +181,7 @@ const Header = ({ className }) => {
                                     onClick={() => {
                                         setOpen(!open);
                                     }}
+                                    aria-hidden="true"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

@@ -11,7 +11,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-01.jpg"
+            "src": "/images/notifications/notifications-01.jpg"
         },
         "status": "follow",
         "marketFilters": ["purchases", "sales"],
@@ -29,7 +29,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-02.jpg"
+            "src": "/images/notifications/notifications-02.jpg"
         },
         "status": "offer",
         "marketFilters": ["followers", "following"],
@@ -47,7 +47,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-03.jpg"
+            "src": "/images/notifications/notifications-03.jpg"
         },
         "status": "like",
         "marketFilters": ["reserved", "live auction"],
@@ -65,7 +65,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-04.jpg"
+            "src": "/images/notifications/notifications-04.jpg"
         },
         "status": "sale",
         "marketFilters": ["followers", "live auction", "sales"],
@@ -83,7 +83,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-05.jpg"
+            "src": "/images/notifications/notifications-05.jpg"
         },
         "status": "follow",
         "marketFilters": ["following", "reserved", "sales"],
@@ -101,7 +101,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-06.jpg"
+            "src": "/images/notifications/notifications-06.jpg"
         },
         "status": "offer",
         "marketFilters": ["purchases", "followers", "sales"],
@@ -119,7 +119,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-01.jpg"
+            "src": "/images/notifications/notifications-01.jpg"
         },
         "status": "like",
         "marketFilters": ["purchases", "live auction", "sales"],
@@ -137,7 +137,7 @@
             "slug": "/profile"
         },
         "image": {
-            "src": "/images/activity/activity-02.jpg"
+            "src": "/images/notifications/notifications-02.jpg"
         },
         "status": "sale",
         "marketFilters": ["purchases", "live auction", "reserved"],

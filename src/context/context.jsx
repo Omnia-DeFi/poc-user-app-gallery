@@ -11,6 +11,7 @@ let initialState = {
     phoneNumber: "",
     publicAddress: "",
     login: false,
+    readNotification: false,
 };
 
 if (typeof localStorage !== "undefined") {
