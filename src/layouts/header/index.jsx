@@ -56,6 +56,9 @@ const Header = ({ className }) => {
     useEffect(() => {
         setIsAuthenticated(state.login);
         updateNotifications();
+        return () => {
+            setIsAuthenticated({}); // This worked for me
+        };
     }, [state]);
 
     useEffect(() => {
