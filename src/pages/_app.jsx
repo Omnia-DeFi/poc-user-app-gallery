@@ -27,25 +27,25 @@ const MyApp = ({ Component, pageProps }) => {
         document.body.className = `${pageProps.className}`;
     });
 
-    useEffect(() => {
-        // eslint-disable-next-line valid-typeof
-        if (typeof window !== undefined) {
-            window.OneSignal = window.OneSignal || [];
-            // eslint-disable-next-line no-undef
-            OneSignal.push(() => {
-                // eslint-disable-next-line no-undef
-                OneSignal.init({
-                    appId: process.env.ONESIGNAL_APP_ID,
-                    notifyButton: {
-                        enable: true,
-                    },
-                });
-            });
-        }
-        return () => {
-            window.OneSignal = undefined;
-        };
-    }, []);
+    // useEffect(() => {
+    //     // eslint-disable-next-line valid-typeof
+    //     if (typeof window !== undefined) {
+    //         window.OneSignal = window.OneSignal || [];
+    //         // eslint-disable-next-line no-undef
+    //         OneSignal.push(() => {
+    //             // eslint-disable-next-line no-undef
+    //             OneSignal.init({
+    //                 appId: process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID,
+    //                 notifyButton: {
+    //                     enable: true,
+    //                 },
+    //             });
+    //         });
+    //     }
+    //     return () => {
+    //         window.OneSignal = undefined;
+    //     };
+    // }, []);
 
     const modeValue = useMemo(
         () => ({ kycState, setkycState, kybState, setkybState }),

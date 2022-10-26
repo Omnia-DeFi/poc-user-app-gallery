@@ -1,4 +1,5 @@
 export const actionTypes = {
     USER_LOGIN: "USER_LOGIN",
     USER_LOGOUT: "USER_LOGOUT",
+    READ_NOTIFICATION: "READ_NOTIFICATION",
 };

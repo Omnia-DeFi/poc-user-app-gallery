@@ -39,12 +39,7 @@ const Home = () => {
     return (
         <Wrapper>
             <SEO pageTitle="Home" />
-            <Header>
-                <script
-                    src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-                    async=""
-                />
-            </Header>
+            <Header />
             <main id="main-content">
                 <HeroArea data={content["hero-section"]} />
                 <ServiceArea data={content["service-section"]} />

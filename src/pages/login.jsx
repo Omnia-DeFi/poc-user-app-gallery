@@ -12,12 +12,7 @@ export async function getStaticProps() {
 const Login = () => (
     <Wrapper>
         <SEO pageTitle="Log In" />
-        <Header>
-            <script
-                src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-                async=""
-            />
-        </Header>
+        <Header />
         <main id="main-content">
             <Breadcrumb
                 pageTitle="Omnia DeFi Login"

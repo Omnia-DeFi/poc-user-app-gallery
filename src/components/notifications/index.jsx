@@ -3,9 +3,12 @@ import clsx from "clsx";
 import Image from "next/image";
 import Anchor from "@ui/anchor";
 import { markAsRead } from "@utils/markAsRead";
-import { useState } from "react";
+import { readNotification } from "src/context/actions";
+// import { useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import { useUserContext } from "src/context/context";
+import { useState } from "react";
+// import Link from "next/link";
 
 const Notifications = ({
     className,
@@ -27,6 +30,8 @@ const Notifications = ({
         color: "#f6f6f6",
     };
     const router = useRouter();
+    const { state, dispatch } = useUserContext();
+    const [buttonText, setButtonText] = useState("Mark it as read");
 
     const getPath = (notificationsType) => {
         if (notificationsType === "kyc" || notificationsType === "kyb") {
@@ -35,14 +40,15 @@ const Notifications = ({
         if (notificationsType === "assets") return "/assets";
         return notificationsRefresh();
     };
-
     const handleClick = async (
         notificationsId,
         notificationsRead,
         notificationsType
     ) => {
+        setButtonText(<div className="small-notification-loader" />);
         if (!notificationsRead) await markAsRead(notificationsId);
         router.push(getPath(notificationsType));
+        await dispatch(readNotification());
     };
 
     return (
@@ -65,27 +71,41 @@ const Notifications = ({
                         </div>
                     )}
                     <div className="content">
-                        <h6
-                            onClick={() => handleClick(id, read, type)}
-                            style={read ? {} : unreadNotificationsText}
-                            tabIndex={0}
-                            // we need onClick handler here
-                            // eslint-disable-next-line max-len
-                            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
-                            role="button"
-                            onKeyUp={(e) => e.preventDefault()}
-                        >
-                            {title}
-                        </h6>
-                        <p dangerouslySetInnerHTML={{ __html: desc }} />
-                        <div className="time-maintane">
-                            <div className="time data">
-                                <i className="feather-clock" />
-                                <span
-                                    style={read ? {} : unreadNotificationsText}
-                                >
-                                    {time} on {date}
-                                </span>
+                        <div className="row">
+                            <span className="col-md-10 mb-4">{type}</span>
+                            <span
+                                className="col-md-2 text-end primary-color fw-bold"
+                                onClick={() => handleClick(id, read, type)}
+                                // style={read ? {} : unreadNotificationsText}
+                                style={read ? { visibility: "hidden" } : null}
+                                tabIndex={0}
+                                // we need onClick handler here
+                                // eslint-disable-next-line max-len
+                                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                                role="button"
+                                onKeyUp={(e) => e.preventDefault()}
+                            >
+                                {buttonText}
+                            </span>
+                        </div>
+                        <hr className="notification-horizontal-line" />
+                        <h6>{title}</h6>
+                        <div className="row">
+                            <p
+                                className="col-md-6 col-sm-12"
+                                dangerouslySetInnerHTML={{ __html: desc }}
+                            />
+                            <div className="time-maintane col-md-6">
+                                <div className="time data">
+                                    <span
+                                        style={
+                                            read ? {} : unreadNotificationsText
+                                        }
+                                    >
+                                        {time} on {date}
+                                    </span>
+                                    <i className="feather-clock" />
+                                </div>
                             </div>
                         </div>
                     </div>
