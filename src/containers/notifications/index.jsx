@@ -1,57 +1,101 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import Activity from "@components/activity";
+import Notifications from "@components/notifications";
 import { IDType, ImageType } from "@utils/types";
 import { useUserContext } from "src/context/context";
 import axios from "axios";
 import moment from "moment";
+import { markAsAllRead } from "@utils/markAsAllRead";
+import Pusher from "pusher-js";
+import { getNotifications } from "@utils/getNotReadNotifications";
+import { readNotification } from "src/context/actions";
 import { getUserIdByEmail } from "../../utils/getUserIdByEmail";
 
-const ActivityArea = ({ space, className }) => {
+const NotificationsArea = ({ space, className }) => {
     // const [activities] = useState(data?.activities || []);
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
     const { state, dispatch } = useUserContext();
+    const [markAllRead, setMarkAllRead] = useState(true);
+    const [buttonText, setButtonText] = useState("Mark all read");
 
     const retrieveNotifications = async () => {
         const userId = await getUserIdByEmail(state.email);
-        setLoading(true);
+        // setLoading(true);
         // eslint-disable-next-line no-shadow
 
         try {
             const { data } = await axios.get(
                 `/api/notification/getNotifications/${userId}`
             );
+            const notificationsCount = await getNotifications(state.email);
+            if (notificationsCount.length !== 0) setMarkAllRead(false);
+            else setMarkAllRead(true);
             // eslint-disable-next-line react/prop-types
             setNotifications(data.notifications.reverse() || []);
         } catch (error) {
             setNotifications([]);
         }
-        setLoading(false);
+        // setLoading(false);
     };
 
     useEffect(() => {
         retrieveNotifications();
     }, [state]);
 
+    useEffect(() => {
+        // only for test, this has to be removed from production
+        // Pusher.logToConsole = true;
+        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+            cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
+        });
+        const channel = pusher.subscribe("omnia");
+        channel.bind("new-notification", async (data) => {
+            retrieveNotifications();
+            console.log("You should see a NEW NEW NOTIFICATION!", data);
+        });
+    }, []);
+
+    const handleMarkAsAllReadClick = async () => {
+        setButtonText(<div className="large-notification-loader" />);
+        const userId = await getUserIdByEmail(state.email);
+        await markAsAllRead(userId);
+        retrieveNotifications();
+        await dispatch(readNotification());
+        // dispatch()
+    };
+
     return (
         <div
             className={clsx(
-                "rn-activity-area",
+                "rn-notifications-area",
                 space === 1 && "rn-section-gapTop",
                 className
             )}
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title">All Notifications</h3>
+                    <h3 className="title col-md-10">All Notifications</h3>
+                    <span
+                        className="col-md-2 text-end color-primary fw-bold"
+                        onClick={() => handleMarkAsAllReadClick()}
+                        style={markAllRead ? { visibility: "hidden" } : null}
+                        tabIndex={0}
+                        // we need onClick handler here
+                        // eslint-disable-next-line max-len
+                        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                        role="button"
+                        onKeyUp={(e) => e.preventDefault()}
+                    >
+                        {buttonText}
+                    </span>
                 </div>
-                <div className="row g-6 activity-direction">
+                <div className="row g-6 notifications-direction">
                     {loading && <p className="">Loading</p>}
                     {notifications &&
                         notifications?.map((item) => (
-                            <Activity
+                            <Notifications
                                 id={item.id}
                                 key={item.id}
                                 title={item.title}
@@ -74,7 +118,7 @@ const ActivityArea = ({ space, className }) => {
     );
 };
 
-ActivityArea.propTypes = {
+NotificationsArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     className: PropTypes.string,
     data: PropTypes.shape({
@@ -99,8 +143,8 @@ ActivityArea.propTypes = {
     }),
 };
 
-ActivityArea.defaultProps = {
+NotificationsArea.defaultProps = {
     space: 1,
 };
 
-export default ActivityArea;
+export default NotificationsArea;

@@ -12,6 +12,7 @@ let initialState = {
     publicAddress: "",
     login: false,
     isKYCed: false,
+    readNotification: false,
 };
 
 if (typeof localStorage !== "undefined") {

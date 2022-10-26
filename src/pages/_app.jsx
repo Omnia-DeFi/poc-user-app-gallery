@@ -15,6 +15,7 @@ const MyApp = ({ Component, pageProps }) => {
     const [kycState, setkycState] = useState("unverified");
     const [kybState, setkybState] = useState("unverified");
     const router = useRouter();
+
     useEffect(() => {
         sal({ threshold: 0.1, once: true });
     }, [router.asPath]);
@@ -25,6 +26,27 @@ const MyApp = ({ Component, pageProps }) => {
     useEffect(() => {
         document.body.className = `${pageProps.className}`;
     });
+
+    // useEffect(() => {
+    //     // eslint-disable-next-line valid-typeof
+    //     if (typeof window !== undefined) {
+    //         window.OneSignal = window.OneSignal || [];
+    //         // eslint-disable-next-line no-undef
+    //         OneSignal.push(() => {
+    //             // eslint-disable-next-line no-undef
+    //             OneSignal.init({
+    //                 appId: process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID,
+    //                 notifyButton: {
+    //                     enable: true,
+    //                 },
+    //             });
+    //         });
+    //     }
+    //     return () => {
+    //         window.OneSignal = undefined;
+    //     };
+    // }, []);
+
     const modeValue = useMemo(
         () => ({ kycState, setkycState, kybState, setkybState }),
         [kybState, kycState]

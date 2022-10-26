@@ -1,0 +1,146 @@
+import PropTypes, { string } from "prop-types";
+import clsx from "clsx";
+import Image from "next/image";
+import Anchor from "@ui/anchor";
+import { markAsRead } from "@utils/markAsRead";
+import { readNotification } from "src/context/actions";
+// import { useState } from "react";
+import { useRouter } from "next/router";
+import { useUserContext } from "src/context/context";
+import { useState } from "react";
+// import Link from "next/link";
+
+const Notifications = ({
+    className,
+    title,
+    desc,
+    time,
+    date,
+    image,
+    status,
+    read,
+    type,
+    id,
+    notificationsRefresh,
+}) => {
+    const unreadNotificationsBg = {
+        backgroundColor: "#333",
+    };
+    const unreadNotificationsText = {
+        color: "#f6f6f6",
+    };
+    const router = useRouter();
+    const { state, dispatch } = useUserContext();
+    const [buttonText, setButtonText] = useState("Mark it as read");
+
+    const getPath = (notificationsType) => {
+        if (notificationsType === "kyc" || notificationsType === "kyb") {
+            return "/profile";
+        }
+        if (notificationsType === "assets") return "/assets";
+        return notificationsRefresh();
+    };
+    const handleClick = async (
+        notificationsId,
+        notificationsRead,
+        notificationsType
+    ) => {
+        setButtonText(<div className="small-notification-loader" />);
+        if (!notificationsRead) await markAsRead(notificationsId);
+        router.push(getPath(notificationsType));
+        await dispatch(readNotification());
+    };
+
+    return (
+        <div
+            className={clsx("single-notifications-wrapper", className)}
+            style={read ? {} : unreadNotificationsBg}
+        >
+            <div className="inner">
+                <div className="read-content">
+                    {image?.src && (
+                        <div className="thumbnail">
+                            <Anchor path="#">
+                                <Image
+                                    src={image.src}
+                                    alt={image?.alt || "Nft_Profile"}
+                                    width={image?.width || 500}
+                                    height={image?.height || 500}
+                                />
+                            </Anchor>
+                        </div>
+                    )}
+                    <div className="content">
+                        <div className="row">
+                            <span className="col-md-10 mb-4">{type}</span>
+                            <span
+                                className="col-md-2 text-end primary-color fw-bold"
+                                onClick={() => handleClick(id, read, type)}
+                                // style={read ? {} : unreadNotificationsText}
+                                style={read ? { visibility: "hidden" } : null}
+                                tabIndex={0}
+                                // we need onClick handler here
+                                // eslint-disable-next-line max-len
+                                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                                role="button"
+                                onKeyUp={(e) => e.preventDefault()}
+                            >
+                                {buttonText}
+                            </span>
+                        </div>
+                        <hr className="notification-horizontal-line" />
+                        <h6>{title}</h6>
+                        <div className="row">
+                            <p
+                                className="col-md-6 col-sm-12"
+                                dangerouslySetInnerHTML={{ __html: desc }}
+                            />
+                            <div className="time-maintane col-md-6">
+                                <div className="time data">
+                                    <span
+                                        style={
+                                            read ? {} : unreadNotificationsText
+                                        }
+                                    >
+                                        {time} on {date}
+                                    </span>
+                                    <i className="feather-clock" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="icone-area">
+                    {status === "follow" && <i className="feather-thumbs-up" />}
+                    {status === "sale" && (
+                        <i className="feather-shopping-cart" />
+                    )}
+                    {status === "like" && <i className="feather-heart" />}
+                    {status === "offer" && <i className="feather-user-plus" />}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+Notifications.propTypes = {
+    className: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    read: PropTypes.bool.isRequired,
+    type: string,
+    id: string,
+    notificationsRefresh: PropTypes.func,
+    image: PropTypes.shape({
+        src: PropTypes.oneOfType([PropTypes.shape(), PropTypes.string])
+            .isRequired,
+        alt: PropTypes.string,
+        width: PropTypes.number,
+        height: PropTypes.number,
+    }),
+    status: PropTypes.oneOf(["follow", "sale", "like", "offer"]),
+};
+
+export default Notifications;

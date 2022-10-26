@@ -8,32 +8,33 @@ datasource db {
 }
 
 model User {
-  id               String  @id @default(auto()) @map("_id") @db.ObjectId
-  issuer           String 
-  email            String  @unique
-  phone_number     Int? 
-  public_address   String?
-  notifications    NotificationsBearer?
+  id                    String               @id @default(auto()) @map("_id") @db.ObjectId
+  issuer                String
+  email                 String               @unique
+  phone_number          Int?
+  public_address        String?
+  notifications         NotificationsBearer? @relation(fields: [notificationsBearerId], references: [id])
+  notificationsBearerId String?              @db.ObjectId
   kyc              Kyc[]
 }
 
 model NotificationsBearer {
-  id               String @id @default(auto()) @map("_id") @db.ObjectId
-  userId           String @db.ObjectId @unique
-  bearerId         String @unique @db.ObjectId
-  user             User  @relation(fields: [userId], references: [id])
-  notifications    Notifications[]
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String          @unique @db.ObjectId
+  bearerId      String          @unique @db.ObjectId
+  notifications Notifications[]
+  User          User[]
 }
 
 model Notifications {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  bearerId           String @db.ObjectId
-  bearer             NotificationsBearer @relation(fields: [bearerId], references: [bearerId])
-  type               String
-  title              String
-  content            String
-  createdAt          DateTime
-  read               Boolean
+  id        String              @id @default(auto()) @map("_id") @db.ObjectId
+  bearerId  String              @db.ObjectId
+  bearer    NotificationsBearer @relation(fields: [bearerId], references: [bearerId])
+  type      String
+  title     String
+  content   String
+  createdAt DateTime
+  read      Boolean
 }
 
 model Kyc {
