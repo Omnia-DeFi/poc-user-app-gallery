@@ -14,11 +14,9 @@ function DropdownMenu({
     const router = useRouter();
 
     const item_value = sessionStorage.getItem("status");
-    console.log(item_value);
     // the states are unverified , pending , verified , failed
     const { kycState, setkycState, kybState, setkybState } =
         useContext(ModeContext);
-
     return (
         <div className="drop-down-menu">
             {isAuthenticated && (
@@ -47,7 +45,7 @@ function DropdownMenu({
                     </div>
 
                     {/* KYC Start here */}
-                    {kycState === "unverified" ? (
+                    {state.kycState === "unverified" ? (
                         <Tippy
                             content="Not verified. Click here to verify."
                             placement="left"
@@ -70,7 +68,7 @@ function DropdownMenu({
                                 </div>
                             </div>
                         </Tippy>
-                    ) : kycState === "pending" ? (
+                    ) : state.kycState === "pending" ? (
                         <Tippy content="Verification Pending" placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
                                 <div className="side-icon">
@@ -87,7 +85,7 @@ function DropdownMenu({
                                 </div>
                             </div>
                         </Tippy>
-                    ) : kycState === "verified" ? (
+                    ) : state.kycState === "verified" ? (
                         <Tippy
                             content="Verification Successful"
                             placement="left"
@@ -134,7 +132,7 @@ function DropdownMenu({
                     )}
 
                     {/* KYB Start Here */}
-                    {kybState === "unverified" ? (
+                    {state.kybState === "unverified" ? (
                         <Tippy
                             content="Not verified. Click here to verify."
                             placement="left"
@@ -164,7 +162,7 @@ function DropdownMenu({
                                 </div>
                             </div>
                         </Tippy>
-                    ) : kybState === "pending" ? (
+                    ) : state.kybState === "pending" ? (
                         <Tippy content="Verification Pending " placement="left">
                             <div className="drop-down-menu-item drop-down-single-item ">
                                 <div className="side-icon">
@@ -187,7 +185,7 @@ function DropdownMenu({
                                 </div>
                             </div>
                         </Tippy>
-                    ) : kybState === "verified" ? (
+                    ) : state.kybState === "verified" ? (
                         <Tippy
                             content="Verification Successful"
                             placement="left"
