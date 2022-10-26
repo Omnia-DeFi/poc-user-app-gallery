@@ -2,11 +2,15 @@ import Modal from "react-bootstrap/Modal";
 import PropTypes from "prop-types";
 import SubmissionConfirmation from "./SubmissionConfirmation";
 
-const IndexConfirmation = ({ show, handleModal }) => {
+const IndexConfirmation = ({
+    show,
+    handleModal,
+    cancelSubmission,
+    completeSubmission,
+}) => {
     const backToHome = () => {
         handleModal();
     };
-
     return (
         <div>
             <Modal
@@ -28,7 +32,10 @@ const IndexConfirmation = ({ show, handleModal }) => {
                     </button>
                 )}
 
-                <SubmissionConfirmation />
+                <SubmissionConfirmation
+                    cancelSubmission={cancelSubmission}
+                    completeSubmission={completeSubmission}
+                />
             </Modal>
         </div>
     );
@@ -39,4 +46,6 @@ export default IndexConfirmation;
 IndexConfirmation.propTypes = {
     show: PropTypes.bool.isRequired,
     handleModal: PropTypes.func.isRequired,
+    cancelSubmission: PropTypes.func.isRequired,
+    completeSubmission: PropTypes.func.isRequired,
 };

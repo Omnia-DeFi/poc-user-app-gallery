@@ -55,7 +55,12 @@ export default async function handler(req, res) {
                 .finally(() => {
                     prisma.$disconnect();
                 });
-            console.log("Created Assets=======", createdAssets);
+            if (!createdAssets) {
+                res.status(500).json({
+                    message: "Error while creating assets",
+                });
+            }
+
             res.status(200).json({ message: "Assets created", createdAssets });
         } else {
             res.status(500).json({ message: "User not registered yet" });
