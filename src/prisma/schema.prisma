@@ -53,7 +53,11 @@ model Kyc {
 model Asset {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId            String @db.ObjectId 
+  userId            String @db.ObjectId
+  name              String
+  description       String
+  avm               String
+  surveyAnalysis    String
   landRegistry      String
   floorArea         String
   hasOutdoorSpace   Boolean
@@ -68,5 +72,5 @@ model Asset {
   // verificationState String
   // outdoorSpaceSize  Int
   extraConditionsLabels  String[]
-  extraConditionsDescriptions Int[]
+  extraConditionsDescriptions String[]
 }

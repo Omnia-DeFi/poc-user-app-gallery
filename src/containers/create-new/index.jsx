@@ -50,12 +50,13 @@ const CreateNewArea = ({ className, space }) => {
         const userCookiePayload = JSON.parse(decodeURIComponent(userCookie));
         const nftData = {
             email: userCookiePayload.email,
-            images: data.image,
-            productName: data.name,
-            discription: data.discription,
+            name: data.name,
+            description: data.discription,
             avm: data.avm,
             landRegistry: data.land_registry,
-            survey_analysis: data.survey_analysis,
+            surveyAnalysis: data.survey_analysis,
+            images: data.image,
+            productName: data.name,
             floorArea: data.florarea,
             hasOutdoorSpace: data.outdoor_space === "Yes",
             bedrooms: parseInt(data.bedrooms, 10),
@@ -65,8 +66,8 @@ const CreateNewArea = ({ className, space }) => {
             saleTimeframe: parseInt(data.sale_timeframe, 10),
             extraConditionsLabels: [data.Label_1, data.Label_2],
             extraConditionsDescriptions: [
-                parseInt(data.extra_discretion_1, 10),
-                parseInt(data.extra_discretion_2, 10),
+                data.extra_discretion_1,
+                data.extra_discretion_2,
             ],
         };
 

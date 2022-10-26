@@ -39,7 +39,7 @@ const Home = () => {
                 {isVerified ? (
                     <CreateNewArea />
                 ) : (
-                    <IndexWarning show="true" handleModal={backToHome} />
+                    <IndexWarning show handleModal={backToHome} />
                 )}
             </main>
             <Footer />
