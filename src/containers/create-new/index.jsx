@@ -8,11 +8,14 @@ import ProductModal from "@components/modals/product-modal";
 import ErrorText from "@ui/error-text";
 import { toast } from "react-toastify";
 import { getCookie } from "@utils/cookie";
+import IndexConfirmation from "../../components/assets-confirmation-modal/IndexConfirmation";
 
 const CreateNewArea = ({ className, space }) => {
     const [showProductModal, setShowProductModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
     const [hasImageError, setHasImageError] = useState(false);
+    const [confirmSubmission, setConfirmSubmission] = useState(false);
+    const [assetsData, setAssetsData] = useState({});
 
     const [Avm, setAvm] = useState();
     const [Land_registry, setLand_registry] = useState();
@@ -28,11 +31,11 @@ const CreateNewArea = ({ className, space }) => {
     } = useForm({
         mode: "onChange",
     });
-
-    const notify = () => toast("Your product has submitted");
     const handleProductModal = () => {
         setShowProductModal(false);
     };
+
+    const notify = (text) => toast(text);
 
     // This function will be triggered when the file field change
     const imageChange = (e) => {
@@ -41,10 +44,10 @@ const CreateNewArea = ({ className, space }) => {
         }
     };
 
-    const submitassets = (data) => {
+    const submitassets = () => {
+        const data = assetsData;
         const userCookie = getCookie("user");
         const userCookiePayload = JSON.parse(decodeURIComponent(userCookie));
-
         const nftData = {
             email: userCookiePayload.email,
             images: data.image,
@@ -76,11 +79,11 @@ const CreateNewArea = ({ className, space }) => {
                 method: "POST",
             }).then(async (res) => {
                 if (res.status === 200) {
-                    console.log("submitted successfully");
+                    notify("Your assets has submitted");
                 }
             });
         } catch (error) {
-            console.log("createUser issue: ", error);
+            notify("Error while submitting assets");
         }
     };
 
@@ -110,11 +113,29 @@ const CreateNewArea = ({ className, space }) => {
             reset();
             setSelectedImage();
         }
-        submitassets({ ...data, ...formattedData });
+        setConfirmSubmission(true);
+        setAssetsData({ ...data, ...formattedData });
     };
 
+    const cancelSubmission = () => {
+        setConfirmSubmission(false);
+    };
+    const completeSubmission = () => {
+        setConfirmSubmission(false);
+        submitassets();
+    };
     return (
         <>
+            {confirmSubmission && (
+                <IndexConfirmation
+                    show
+                    handleModal={() => {
+                        setConfirmSubmission(false);
+                    }}
+                    cancelSubmission={cancelSubmission}
+                    completeSubmission={completeSubmission}
+                />
+            )}
             <div
                 className={clsx(
                     "create-area",
@@ -680,22 +701,7 @@ const CreateNewArea = ({ className, space }) => {
                                             <span className="h6 me-3">⊕</span>
                                             Add another condition
                                         </div>
-                                        <div className="col-md-12 col-xl-4">
-                                            <div className="input-box">
-                                                <Button
-                                                    color="primary-alta"
-                                                    fullwidth
-                                                    type="submit"
-                                                    data-btn="preview"
-                                                    onClick={handleSubmit(
-                                                        onSubmit
-                                                    )}
-                                                >
-                                                    Preview
-                                                </Button>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12 col-xl-8 mt_lg--15 mt_md--15 mt_sm--15">
+                                        <div className="col-md-12 col-xl-12 mt_lg--15 mt_md--15 mt_sm--15">
                                             <div className="input-box">
                                                 <Button type="submit" fullwidth>
                                                     Submit Item
