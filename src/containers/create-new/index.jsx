@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import ProductModal from "@components/modals/product-modal";
 import ErrorText from "@ui/error-text";
 import { toast } from "react-toastify";
 import { getCookie } from "@utils/cookie";
+import Axios from "axios";
 import IndexConfirmation from "../../components/assets-confirmation-modal/IndexConfirmation";
 
 const CreateNewArea = ({ className, space }) => {
@@ -18,10 +19,16 @@ const CreateNewArea = ({ className, space }) => {
     const [assetsData, setAssetsData] = useState({});
 
     const [Avm, setAvm] = useState();
-    const [Land_registry, setLand_registry] = useState();
-    const [Survey_analysis, setSurvey_analysis] = useState();
+    const [landRegistry, setLandRegistry] = useState();
+    const [surveyAnalysis, setSurveyAnalysis] = useState();
+    const [galleryImage, setGalleryImage] = useState();
 
     const [previewData, setPreviewData] = useState({});
+
+    const [extraSaleCondition, setExtraSaleCondition] = useState([
+        { label: "", description: "" },
+        { label: "", description: "" },
+    ]);
 
     const {
         register,
@@ -40,22 +47,108 @@ const CreateNewArea = ({ className, space }) => {
     // This function will be triggered when the file field change
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
+            setGalleryImage(e.target.files[0]);
             setSelectedImage(e.target.files[0]);
         }
     };
 
-    const submitassets = () => {
+    const getSignature = async () => {
+        const response = await fetch("/api/assets/signaturekey", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await response.json();
+        return data;
+    };
+
+    const sendFileToCloud = async (image, signature, timestamp) => {
+        const promise = new Promise((resolve, reject) => {
+            const data = new FormData();
+            data.append("file", image);
+            data.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+            data.append("signature", signature);
+            data.append("timestamp", timestamp);
+            // setTimeout(resolve("timeout"), 30 * 1000);
+            Axios.defaults.timeout = 30000;
+            Axios.post(
+                "https://api.cloudinary.com/v1_1/omniadefi/image/upload",
+                data
+            )
+                .then((res, err) => {
+                    if (err) {
+                        resolve("");
+                    } else {
+                        resolve(res.data.url);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error while sending file to cloud", err);
+                    resolve("");
+                });
+        });
+        return promise;
+    };
+
+    const uploadFile = async (signature, timestamp) => {
+        const images = [
+            {
+                key: "avm",
+                values: Avm,
+            },
+            {
+                key: "landRegistry",
+                values: landRegistry,
+            },
+            {
+                key: "surveyAnalysis",
+                values: surveyAnalysis,
+            },
+            {
+                key: "images",
+                values: galleryImage,
+            },
+        ];
+
+        const cloudImageUrl = {};
+        for (let i = 0; i < images.length; i++) {
+            if (images[i].values) {
+                cloudImageUrl[images[i].key] = await sendFileToCloud(
+                    images[i].values,
+                    signature,
+                    timestamp
+                );
+            } else {
+                cloudImageUrl[images[i].key] = "";
+            }
+        }
+        return cloudImageUrl;
+    };
+
+    const submitassets = async () => {
+        const signature = await getSignature();
+        const imagesUrls = await uploadFile(
+            signature.data.signature,
+            signature.data.timestamp
+        );
         const data = assetsData;
         const userCookie = getCookie("user");
         const userCookiePayload = JSON.parse(decodeURIComponent(userCookie));
+        const extraConditionsLabels = [];
+        const extraConditionsDescriptions = [];
+        for (let i = 0; i < extraSaleCondition.length; i++) {
+            extraConditionsLabels.push(data[`Label_${i + 1}`]);
+            extraConditionsDescriptions.push(data[`extra_discretion_${i + 1}`]);
+        }
         const nftData = {
             email: userCookiePayload.email,
             name: data.name,
             description: data.discription,
-            avm: data.avm,
-            landRegistry: data.land_registry,
-            surveyAnalysis: data.survey_analysis,
-            images: data.image,
+            avm: imagesUrls.avm,
+            landRegistry: imagesUrls.landRegistry,
+            surveyAnalysis: imagesUrls.surveyAnalysis,
+            images: [imagesUrls.images],
             productName: data.name,
             floorArea: data.florarea,
             hasOutdoorSpace: data.outdoor_space === "Yes",
@@ -64,11 +157,8 @@ const CreateNewArea = ({ className, space }) => {
             otherRooms: parseInt(data.other, 10),
             floorPrice: parseInt(data.floorPrice, 10),
             saleTimeframe: parseInt(data.sale_timeframe, 10),
-            extraConditionsLabels: [data.Label_1, data.Label_2],
-            extraConditionsDescriptions: [
-                data.extra_discretion_1,
-                data.extra_discretion_2,
-            ],
+            extraConditionsLabels,
+            extraConditionsDescriptions,
         };
 
         try {
@@ -93,8 +183,8 @@ const CreateNewArea = ({ className, space }) => {
         const { target } = e;
         const formattedData = {
             avm: Avm,
-            land_registry: Land_registry,
-            survey_analysis: Survey_analysis,
+            land_registry: landRegistry,
+            survey_analysis: surveyAnalysis,
         };
 
         const submitBtn =
@@ -125,6 +215,15 @@ const CreateNewArea = ({ className, space }) => {
         setConfirmSubmission(false);
         submitassets();
     };
+    const addExtraSaleCondition = () => {
+        setExtraSaleCondition([
+            ...extraSaleCondition,
+            { label: "", description: "" },
+        ]);
+    };
+
+    useEffect(() => {}, [extraSaleCondition]);
+
     return (
         <>
             {confirmSubmission && (
@@ -286,9 +385,7 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. `Digital Awesome Game`"
                                                 onChange={(e) => {
-                                                    setAvm(
-                                                        e.target.files[0].name
-                                                    );
+                                                    setAvm(e.target.files[0]);
                                                 }}
                                             />
                                             <div>
@@ -314,8 +411,8 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. ``"
                                                 onChange={(e) => {
-                                                    setLand_registry(
-                                                        e.target.files[0].name
+                                                    setLandRegistry(
+                                                        e.target.files[0]
                                                     );
                                                 }}
                                             />
@@ -345,8 +442,8 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. `Digital Awesome Game`"
                                                 onChange={(e) => {
-                                                    setSurvey_analysis(
-                                                        e.target.files[0].name
+                                                    setSurveyAnalysis(
+                                                        e.target.files[0]
                                                     );
                                                 }}
                                             />
@@ -618,90 +715,83 @@ const CreateNewArea = ({ className, space }) => {
                                         <div className="text-white mb-3">
                                             Extra Sale Conditions
                                         </div>
-                                        <div className="col-md-4">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="Label_1"
-                                                    className="form-label"
-                                                >
-                                                    Label 1*
-                                                </label>
-                                                <input
-                                                    id="Label_1"
-                                                    placeholder="e. g. `enter text`"
-                                                    {...register("Label_1", {
-                                                        required:
-                                                            "1 is required",
-                                                    })}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-8">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="extra_discretion_1"
-                                                    className="form-label"
-                                                >
-                                                    Discretion 1 *
-                                                </label>
-                                                <input
-                                                    id="extra_discretion_1"
-                                                    placeholder="e. g. `xyz $`"
-                                                    Sale
-                                                    consummation
-                                                    {...register(
-                                                        "extra_discretion_1",
-                                                        {
-                                                            required:
-                                                                "1 is required",
-                                                        }
-                                                    )}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="Label_2"
-                                                    className="form-label"
-                                                >
-                                                    Label 2*
-                                                </label>
-                                                <input
-                                                    id="Label_2"
-                                                    placeholder="e. g. `enter text`"
-                                                    {...register("Label_2", {
-                                                        required:
-                                                            "2 is required",
-                                                    })}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-8">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="extra_discretion_2"
-                                                    className="form-label"
-                                                >
-                                                    Discretion 2 *
-                                                </label>
-                                                <input
-                                                    id="extra_discretion_2"
-                                                    placeholder="e. g. `xyz $`"
-                                                    {...register(
-                                                        "extra_discretion_2",
-                                                        {
-                                                            required:
-                                                                "2 is required",
-                                                        }
-                                                    )}
-                                                />
-                                            </div>
-                                        </div>
+
+                                        {extraSaleCondition.map(
+                                            (data, index) => (
+                                                <>
+                                                    <div className="col-md-4">
+                                                        <div className="input-box pb--20">
+                                                            <label
+                                                                htmlFor={`Label_1+${
+                                                                    index + 1
+                                                                }`}
+                                                                className="form-label"
+                                                            >
+                                                                Label{" "}
+                                                                {index + 1} *
+                                                            </label>
+                                                            <input
+                                                                id="Label_1"
+                                                                placeholder="e. g. `enter text`"
+                                                                {...register(
+                                                                    `Label_${
+                                                                        index +
+                                                                        1
+                                                                    }`,
+                                                                    {
+                                                                        required:
+                                                                            "1 is required",
+                                                                    }
+                                                                )}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-8">
+                                                        <div className="input-box pb--20">
+                                                            <label
+                                                                htmlFor={`extra_discretion_${
+                                                                    index + 1
+                                                                }`}
+                                                                className="form-label"
+                                                            >
+                                                                Discretion{" "}
+                                                                {index + 1} *
+                                                            </label>
+                                                            <input
+                                                                id={`extra_discretion_${
+                                                                    index + 1
+                                                                }`}
+                                                                placeholder="e. g. `xyz $`"
+                                                                Sale
+                                                                consummation
+                                                                {...register(
+                                                                    `extra_discretion_${
+                                                                        index +
+                                                                        1
+                                                                    }`,
+                                                                    {
+                                                                        required:
+                                                                            "1 is required",
+                                                                    }
+                                                                )}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )
+                                        )}
+
                                         <div className="text-white mb-3">
-                                            <span className="h6 me-3">⊕</span>
+                                            <span
+                                                className="h6 me-3"
+                                                onClick={addExtraSaleCondition}
+                                            >
+                                                {" "}
+                                                ⊕{" "}
+                                            </span>
                                             Add another condition
                                         </div>
+
                                         <div className="col-md-12 col-xl-12 mt_lg--15 mt_md--15 mt_sm--15">
                                             <div className="input-box">
                                                 <Button type="submit" fullwidth>
