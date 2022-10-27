@@ -26,14 +26,17 @@ const NotificationsArea = ({ space, className }) => {
         // eslint-disable-next-line no-shadow
 
         try {
-            const { data } = await axios.get(
-                `/api/notification/getNotifications/${userId}`
-            );
-            const notificationsCount = await getNotifications(state.email);
-            if (notificationsCount.length !== 0) setMarkAllRead(false);
-            else setMarkAllRead(true);
-            // eslint-disable-next-line react/prop-types
-            setNotifications(data.notifications.reverse() || []);
+            if (state.email !== "") {
+                const { data } = await axios.get(
+                    `/api/notification/getNotifications/${userId}`
+                );
+                console.log("data is -", data);
+                const notificationsCount = await getNotifications(state.email);
+                if (notificationsCount.length !== 0) setMarkAllRead(false);
+                else setMarkAllRead(true);
+                // eslint-disable-next-line react/prop-types
+                setNotifications(data.notifications.reverse() || []);
+            }
         } catch (error) {
             setNotifications([]);
         }
