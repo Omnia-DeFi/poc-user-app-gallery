@@ -27,7 +27,10 @@ const Success = ({ fifteenthStepHandler }) => {
         <>
             <div className="text-center">
                 <h6 className="mb-2">Document Submission</h6>
-                <p>Please wait while your documents are being send to KYC provider, ShuftiPro </p>
+                <p>
+                    Please wait while your documents are being send to KYC
+                    provider, ShuftiPro{" "}
+                </p>
             </div>
             <MoonLoader
                 color={color}

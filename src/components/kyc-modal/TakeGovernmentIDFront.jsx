@@ -50,7 +50,9 @@ const TakeGovernmentIDFront = ({
                     <h5 className="my-2">Select a Document Type</h5>
                     <div className="select-Government-ID">
                         <div
-                            className={`${driverLicense && `bg-warning text-white`}`}
+                            className={`${
+                                driverLicense && `bg-warning text-white`
+                            }`}
                             onClick={driverLicenseHandler}
                             role="button"
                             tabIndex="0"
@@ -68,7 +70,9 @@ const TakeGovernmentIDFront = ({
                             Passport
                         </div>
                         <div
-                            className={`${nationalID && `bg-warning text-white`}`}
+                            className={`${
+                                nationalID && `bg-warning text-white`
+                            }`}
                             onClick={nationalIDHandler}
                             role="button"
                             tabIndex="0"

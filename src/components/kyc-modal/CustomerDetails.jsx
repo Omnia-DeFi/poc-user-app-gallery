@@ -100,9 +100,11 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className={`w-100 btn ${gender === "Female"
-                                            ? `btn-success`
-                                            : `btn-secondary `}`}
+                                        className={`w-100 btn ${
+                                            gender === "Female"
+                                                ? `btn-success`
+                                                : `btn-secondary `
+                                        }`}
                                         onClick={() => changeGender("Female")}
                                     >
                                         Female
@@ -111,9 +113,11 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className={`w-100 btn ${gender === "Male"
-                                            ? `btn-success`
-                                            : `btn-secondary `}`}
+                                        className={`w-100 btn ${
+                                            gender === "Male"
+                                                ? `btn-success`
+                                                : `btn-secondary `
+                                        }`}
                                         onClick={() => changeGender("Male")}
                                     >
                                         Male
@@ -122,9 +126,11 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className={`w-100 btn ${gender === "Other"
-                                            ? `btn-success`
-                                            : `btn-secondary `}`}
+                                        className={`w-100 btn ${
+                                            gender === "Other"
+                                                ? `btn-success`
+                                                : `btn-secondary `
+                                        }`}
                                         onClick={() => changeGender("Other")}
                                     >
                                         Other
