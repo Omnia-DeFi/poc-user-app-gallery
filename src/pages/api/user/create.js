@@ -43,7 +43,7 @@ export default async function handler(req, res) {
                     case "KYB":
                         acc.kybState = curr.status;
                         break;
-                    case "aml":
+                    case "AML":
                         acc.amlState = curr.status;
                         break;
                     default:
