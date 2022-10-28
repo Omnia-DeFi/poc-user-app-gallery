@@ -32,16 +32,7 @@ const VerifyDocumentFront = ({
         <>
             <Modal.Header>
                 <div className="text-center">
-                    <img
-                        style={{ width: "50px", height: "50px" }}
-                        src="/images/kyc/logo.png"
-                        alt=""
-                    />
                     <h6 className="my-2">Verify your identity</h6>
-                    <p className="m-0">
-                        Please take a picture of front and back of your
-                        government ID for KYC verification
-                    </p>
                 </div>
             </Modal.Header>
             <Modal.Body>
@@ -56,12 +47,12 @@ const VerifyDocumentFront = ({
                         ))}
                     </div>
                     <p className="my-2">
-                        Front of your {driverLicense && "Driving Licence"}
+                        Front side of your {driverLicense && "Driving Licence"}
                         {passport && "Passport"} {nationalID && "National ID"}
                     </p>
-                    <p className="m-0">
+                    {/* <p className="m-0">
                         Make sure your address is clearly visible
-                    </p>
+                    </p> */}
                     <img
                         className="Webcam-selfie"
                         src={documentFrontImage}

@@ -1,11 +1,11 @@
-import { setCookie } from "cookies-next";
+// import { setCookie } from "cookies-next";
 import { removeCookie } from "@utils/cookie";
 import { actionTypes } from "./actionTypes";
 
 export const reducer = (state, { type, payload }) => {
     switch (type) {
         case actionTypes.USER_LOGIN:
-            setCookie("user", payload);
+            // setCookie("user", payload);
             return { ...state, ...payload, login: true };
         case actionTypes.USER_LOGOUT:
             removeCookie("user");

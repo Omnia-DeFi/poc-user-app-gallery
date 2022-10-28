@@ -157,11 +157,11 @@
 
 .notifications-direction {
     @media #{$md-layout} {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 
     @media #{$sm-layout} {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 }
 

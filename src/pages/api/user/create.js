@@ -18,7 +18,50 @@ export default async function handler(req, res) {
                 },
             })
             .finally(() => prisma.$disconnect());
-        res.status(200).json(createdUser, { message: "User Created" });
+
+        let kycInfo = await prisma.Kyc.findMany({
+            distinct: ["type"],
+            where: {
+                userId: createdUser.id,
+            },
+            select: {
+                status: true,
+                type: true,
+            },
+            orderBy: [
+                {
+                    requestedAt: "desc",
+                },
+            ],
+        });
+        kycInfo = kycInfo.reduce(
+            (acc, curr) => {
+                switch (curr.type) {
+                    case "KYC":
+                        acc.kycState = curr.status;
+                        break;
+                    case "KYB":
+                        acc.kybState = curr.status;
+                        break;
+                    case "aml":
+                        acc.amlState = curr.status;
+                        break;
+                    default:
+                        break;
+                }
+                return acc;
+            },
+            {
+                kycState: "unverified",
+                kybState: "unverified",
+                amlState: "unverified",
+            }
+        );
+
+        res.status(200).json(
+            { ...createdUser, ...kycInfo },
+            { message: "User Created" }
+        );
     } catch (error) {
         prisma.$disconnect();
         console.log(error);

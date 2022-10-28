@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 export const createUser = (user) => {
     const data = {
         issuer: user.issuer,
@@ -13,7 +14,12 @@ export const createUser = (user) => {
                 "Content-Type": "application/json",
             },
             method: "POST",
-        }).then((res) => res.json());
+        }).then(async (res) => {
+            if (res.status === 200) {
+                const data = await res.json();
+                setCookie("user", data);
+            }
+        });
     } catch (error) {
         console.log("createUser issue: ", error);
     }
