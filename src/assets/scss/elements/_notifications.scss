@@ -1,4 +1,4 @@
-.single-activity-wrapper {
+.single-notifications-wrapper {
     margin-bottom: 30px;
     padding: 20px;
     background: var(--background-color-1);
@@ -31,11 +31,11 @@
     .inner {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
 
         .read-content {
             display: flex;
-            align-items: center;
+            flex-direction: column;
 
             @media #{$large-mobile} {
                 display: block;
@@ -102,6 +102,7 @@
 
             .time-maintane {
                 display: flex;
+                flex-direction: column;
 
                 @media #{$large-mobile} {
                     flex-direction: column;
@@ -114,6 +115,7 @@
                 .data {
                     display: flex;
                     align-items: center;
+                    flex-direction: row-reverse;
 
                     @media #{$large-mobile} {
                         margin-bottom: 7px;
@@ -153,13 +155,13 @@
     margin-bottom: -15px;
 }
 
-.activity-direction {
+.notifications-direction {
     @media #{$md-layout} {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 
     @media #{$sm-layout} {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 }
 
@@ -209,5 +211,57 @@
     h3 {
         font-weight: 500;
         font-size: 18px;
+    }
+}
+
+.notification-horizontal-line {
+    height: 2px;
+    border-width: 0;
+    color: gray;
+    background-color: gray;
+}
+
+.primary-color {
+    color: var(--color-primary) !important;
+}
+
+.small-notification-loader {
+    border: 3px solid dimgray;
+    border-radius: 50%;
+    border-top: 3px solid var(--color-primary);
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+}
+
+.large-notification-loader {
+    border: 5px solid dimgray;
+    border-radius: 50%;
+    border-top: 5px solid var(--color-primary);
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

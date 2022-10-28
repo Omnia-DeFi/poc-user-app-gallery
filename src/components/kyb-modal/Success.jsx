@@ -26,8 +26,11 @@ const Success = ({ secondStepHandler }) => {
     return isAlert ? (
         <>
             <div className="text-center">
-                <h6 className="mb-2">Documents Processing</h6>
-                <p>Please wait while your documents are being processed</p>
+                <h6 className="mb-2">Documents Submission</h6>
+                <p>
+                    Please wait while your documents are being send to KYC
+                    provider, ShuftiPro
+                </p>
             </div>
             <MoonLoader
                 color={color}
@@ -51,13 +54,13 @@ const Success = ({ secondStepHandler }) => {
                     <div className="icon-fix" />
                 </div>
             </div>
-            <button
+            {/* <button
                 onClick={secondStepHandler}
                 className="btn btn-success w-100"
                 type="button"
             >
                 Go Home!!
-            </button>
+            </button> */}
         </div>
     );
 };

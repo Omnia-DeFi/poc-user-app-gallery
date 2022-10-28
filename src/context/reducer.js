@@ -15,7 +15,10 @@ export const reducer = (state, { type, payload }) => {
                 phoneNumber: "",
                 publicAddress: "",
                 login: false,
+                readNotification: false,
             };
+        case actionTypes.READ_NOTIFICATION:
+            return { ...state, readNotification: !state.readNotification };
         default:
             return state;
     }

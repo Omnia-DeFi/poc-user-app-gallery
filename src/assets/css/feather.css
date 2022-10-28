@@ -21,7 +21,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.feather-activity:before {
+.feather-notifications:before {
     content: "\e900";
 }
 .feather-airplay:before {
