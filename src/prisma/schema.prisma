@@ -16,6 +16,7 @@ model User {
   notifications         NotificationsBearer? @relation(fields: [notificationsBearerId], references: [id])
   notificationsBearerId String?              @db.ObjectId
   kyc              Kyc[]
+  assets           Asset[]
 }
 
 model NotificationsBearer {
@@ -46,4 +47,30 @@ model Kyc {
   status           String
   requestedAt      DateTime
   approvedAt       DateTime
+}
+
+
+model Asset {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String @db.ObjectId
+  name              String
+  description       String
+  avm               String
+  surveyAnalysis    String
+  landRegistry      String
+  floorArea         String
+  hasOutdoorSpace   Boolean
+  bedrooms          Int
+  bathrooms         Int
+  otherRooms        Int
+  floorPrice        Int
+  saleTimeframe     Int
+  // assetFolderLink   String
+  // mintAddress       String
+  // saleStatus        String
+  // verificationState String
+  // outdoorSpaceSize  Int
+  extraConditionsLabels  String[]
+  extraConditionsDescriptions String[]
 }
