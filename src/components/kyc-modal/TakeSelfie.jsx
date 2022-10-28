@@ -8,13 +8,6 @@ const TakeSelfie = ({ firstStepHandler, secondStepHandler, firstBack }) => (
     <>
         <Modal.Header>
             <div className=" text-center">
-                <div>
-                    <img
-                        style={{ width: "50px", height: "50px" }}
-                        src="/images/kyc/logo.png"
-                        alt="KYC"
-                    />
-                </div>
                 <div className="ms-4">
                     <h6 className="my-2">Verify your identity</h6>
                     <p className="m-0">

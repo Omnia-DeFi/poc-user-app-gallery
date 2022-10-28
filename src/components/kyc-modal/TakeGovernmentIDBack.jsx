@@ -18,16 +18,7 @@ const TakeGovernmentIDBack = ({
     <>
         <Modal.Header>
             <div className="text-center">
-                <img
-                    style={{ width: "50px", height: "50px" }}
-                    src="/images/kyc/logo.png"
-                    alt=""
-                />
                 <h6 className="my-2">Verify your identity</h6>
-                <p className="m-0">
-                    Please take front and back pictures of one of your
-                    government ID for KYC verification
-                </p>
             </div>
         </Modal.Header>
         <Modal.Body>
@@ -79,11 +70,11 @@ const TakeGovernmentIDBack = ({
                             {passport && "Passport"}{" "}
                             {nationalID && "National ID"}
                         </p>
-                        <p className="my-2">
+                        {/* <p className="my-2">
                             {nationalID
                                 ? ""
                                 : "Make sure your address is clearly visible"}
-                        </p>
+                        </p> */}
                         <img
                             className="Webcam-selfie"
                             src={documentBackImage}
@@ -99,7 +90,7 @@ const TakeGovernmentIDBack = ({
                                 {passport && "Passport"}{" "}
                                 {nationalID && "National ID"}
                             </p>
-                            <p>Your address should be clearly visible</p>
+                            {/* <p>Your address should be clearly visible</p> */}
                             {documentBackImage ? (
                                 <img
                                     src={documentBackImage}

@@ -33,26 +33,24 @@ const TakeGovernmentIDFront = ({
         <>
             <Modal.Header>
                 <div className="text-center">
-                    <img
+                    {/* <img
                         style={{ width: "50px", height: "50px" }}
                         src="/images/kyc/logo.png"
                         alt=""
-                    />
+                    /> */}
                     <h6 className="my-2">Verify your identity</h6>
-                    <p className="m-0">
+                    {/* <p className="m-0">
                         Please take front and back pictures of one of your
                         identity documents below
-                    </p>
+                    </p> */}
                 </div>
             </Modal.Header>
             <Modal.Body>
                 <div className="border border-2 p-5">
-                    <h5 className="my-2">Select a</h5>
+                    <h5 className="my-2">Select a Document Type</h5>
                     <div className="select-Government-ID">
                         <div
-                            className={`${
-                                driverLicense && `bg-warning text-white`
-                            }`}
+                            className={`${driverLicense && `bg-warning text-white`}`}
                             onClick={driverLicenseHandler}
                             role="button"
                             tabIndex="0"
@@ -70,9 +68,7 @@ const TakeGovernmentIDFront = ({
                             Passport
                         </div>
                         <div
-                            className={`${
-                                nationalID && `bg-warning text-white`
-                            }`}
+                            className={`${nationalID && `bg-warning text-white`}`}
                             onClick={nationalIDHandler}
                             role="button"
                             tabIndex="0"
@@ -117,7 +113,7 @@ const TakeGovernmentIDFront = ({
                         </div>
                         <div className="text-center">
                             <Button onClick={fifthStepHandler} size="medium">
-                                CLICK PHOTO
+                                TAKE PICTURE
                             </Button>
                         </div>
                     </div>

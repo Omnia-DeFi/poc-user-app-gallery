@@ -58,11 +58,6 @@ const CustomerDetails = ({ firstStepHandler }) => {
         <>
             <Modal.Header>
                 <div className="text-center">
-                    <img
-                        style={{ width: "60px", height: "60px" }}
-                        src="/images/kyc/logo.png"
-                        alt=""
-                    />
                     <h6 className="my-2">Verify Your Identity</h6>
                     <p className="m-0">
                         Complete these fields to for AML (Anti Money Laundering)
@@ -105,11 +100,9 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className={`w-100 btn ${
-                                            gender === "Female"
-                                                ? `btn-success`
-                                                : `btn-secondary `
-                                        }`}
+                                        className={`w-100 btn ${gender === "Female"
+                                            ? `btn-success`
+                                            : `btn-secondary `}`}
                                         onClick={() => changeGender("Female")}
                                     >
                                         Female
@@ -118,11 +111,9 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className={`w-100 btn ${
-                                            gender === "Male"
-                                                ? `btn-success`
-                                                : `btn-secondary `
-                                        }`}
+                                        className={`w-100 btn ${gender === "Male"
+                                            ? `btn-success`
+                                            : `btn-secondary `}`}
                                         onClick={() => changeGender("Male")}
                                     >
                                         Male
@@ -131,11 +122,9 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                 <div className="col-4">
                                     <button
                                         type="button"
-                                        className={`w-100 btn ${
-                                            gender === "Other"
-                                                ? `btn-success`
-                                                : `btn-secondary `
-                                        }`}
+                                        className={`w-100 btn ${gender === "Other"
+                                            ? `btn-success`
+                                            : `btn-secondary `}`}
                                         onClick={() => changeGender("Other")}
                                     >
                                         Other

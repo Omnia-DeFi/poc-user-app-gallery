@@ -11,11 +11,6 @@ const VerifyYourAddress = ({
     <>
         <Modal.Header>
             <div className="text-center">
-                <img
-                    style={{ width: "50px", height: "50px" }}
-                    src="/images/kyc/logo.png"
-                    alt=""
-                />
                 <h6 className="my-2">Verify your address</h6>
                 <p className="m-0">
                     Please take a picture or upload a document to verify your
