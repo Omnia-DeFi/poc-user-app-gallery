@@ -37,11 +37,11 @@ export default async function handler(req, res) {
             const createdAssets = await prisma.Asset.create({
                 data: {
                     userId: userDetails.id,
-                    name,
+                    title: name,
                     description,
                     images,
-                    avm,
-                    surveyAnalysis,
+                    AVM: avm,
+                    surveyProof: surveyAnalysis,
                     landRegistry,
                     floorArea,
                     hasOutdoorSpace,

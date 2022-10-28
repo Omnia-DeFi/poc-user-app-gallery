@@ -55,10 +55,10 @@ model Asset {
   user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            String @db.ObjectId
   images            String[]
-  name              String
+  title             String
   description       String
-  avm               String
-  surveyAnalysis    String
+  AVM               String
+  surveyProof       String
   landRegistry      String
   floorArea         String
   hasOutdoorSpace   Boolean
