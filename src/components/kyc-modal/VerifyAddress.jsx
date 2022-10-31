@@ -1,6 +1,5 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const VerifyAddress = ({
@@ -11,13 +10,7 @@ const VerifyAddress = ({
     <>
         <Modal.Header>
             <div className="text-center">
-                <div>
-                    <img
-                        style={{ width: "50px", height: "50px" }}
-                        src="/images/kyc/logo.png"
-                        alt=""
-                    />
-                </div>
+                <div />
                 <div className="ms-4">
                     <h6 className="my-2 fs-2">Verify Your Address</h6>
                     <p className="m-0 ">
