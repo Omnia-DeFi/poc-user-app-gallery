@@ -34,3 +34,4 @@ yarn-error.log*
 
 # vercel
 .vercel
+API_TEST.rest

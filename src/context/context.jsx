@@ -12,6 +12,8 @@ let initialState = {
     publicAddress: "",
     // login: false,
     login: getCookie("login"),
+    login: false,
+    isKYCed: false,
     readNotification: false,
 };
 

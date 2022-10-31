@@ -10,14 +10,6 @@ const VerifySelfie = ({ secondStepHandler, imgSrc, fourthStepHandler }) => {
         <>
             <Modal.Header>
                 <div className="text-center">
-                    <div>
-                        <img
-                            style={{ width: "50px", height: "50px" }}
-                            className="mt-3 "
-                            src="/images/kyc/logo.png"
-                            alt=""
-                        />
-                    </div>
                     <div className="ms-4">
                         <h6 className="my-2 fs-2">Verify your identity</h6>
                         <p className="m-0 ">Your Selfie for KYC verification</p>

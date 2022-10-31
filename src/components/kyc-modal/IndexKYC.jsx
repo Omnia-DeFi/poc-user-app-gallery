@@ -400,7 +400,9 @@ const IndexKYC = ({ show, handleModal }) => {
                 )}
 
                 {firstStep && (
-                    <CustomerDetails firstStepHandler={firstStepHandler} />
+                    <CustomerDetails
+                        fourteenthStepHandler={fourteenthStepHandler}
+                    />
                 )}
                 {secondStep && (
                     <TakeSelfie

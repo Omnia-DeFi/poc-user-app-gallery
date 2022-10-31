@@ -6,6 +6,7 @@ import Breadcrumb from "@components/breadcrumb";
 import CreateNewArea from "@containers/create-new";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import IndexWarning from "@components/warning-modal/IndexWarning";
 import { useUserContext } from "src/context/context";
 
 export async function getStaticProps() {
@@ -14,11 +15,17 @@ export async function getStaticProps() {
 
 const Home = () => {
     const router = useRouter();
-
     const { state } = useUserContext();
-
+    const { login, kybState, kycState, amlState } = state;
+    const isVerified =
+        kybState === "verified" &&
+        kycState === "verified" &&
+        amlState === "verified";
+    const backToHome = () => {
+        router.push("/");
+    };
     useEffect(() => {
-        if (!state.login) {
+        if (!login) {
             router.push("/login");
         }
     }, []);
@@ -29,7 +36,11 @@ const Home = () => {
             <Header />
             <main id="main-content">
                 <Breadcrumb pageTitle="Create New File" />
-                <CreateNewArea />
+                {isVerified ? (
+                    <CreateNewArea />
+                ) : (
+                    <IndexWarning show handleModal={backToHome} />
+                )}
             </main>
             <Footer />
         </Wrapper>
