@@ -6,9 +6,11 @@ export const reducer = (state, { type, payload }) => {
     switch (type) {
         case actionTypes.USER_LOGIN:
             setCookie("user", payload);
-            return { ...state, ...payload, login: true };
+            setCookie("login", "true");
+            return { ...state, ...payload };
         case actionTypes.USER_LOGOUT:
             removeCookie("user");
+            setCookie("login", "false");
             return {
                 issuer: "",
                 email: "",
