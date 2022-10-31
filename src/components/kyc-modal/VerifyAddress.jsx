@@ -1,6 +1,5 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const VerifyAddress = ({

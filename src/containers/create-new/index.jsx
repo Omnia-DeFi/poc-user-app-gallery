@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
@@ -10,6 +11,7 @@ import { toast } from "react-toastify";
 import { getCookie } from "@utils/cookie";
 import Axios from "axios";
 import IndexConfirmation from "../../components/assets-confirmation-modal/IndexConfirmation";
+import IndexProgress from "../../components/asset-submission-progress/IndexProgress";
 
 const CreateNewArea = ({ className, space }) => {
     const [showProductModal, setShowProductModal] = useState(false);
@@ -30,6 +32,13 @@ const CreateNewArea = ({ className, space }) => {
         { label: "", description: "" },
     ]);
 
+    const [loaderHeading, setLoaderHeading] = useState("Submitting Asset");
+    const [loaderBody, setLoaderBody] = useState(
+        "Uploading your asset please wait..."
+    );
+    const [submissionLoader, setSubmissionLoader] = useState(false);
+    const [submissionSuccess, setSubmissionSuccess] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -41,15 +50,19 @@ const CreateNewArea = ({ className, space }) => {
     const handleProductModal = () => {
         setShowProductModal(false);
     };
-
     const notify = (text) => toast(text);
-
     // This function will be triggered when the file field change
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             setGalleryImage(e.target.files[0]);
             setSelectedImage(e.target.files[0]);
         }
+    };
+    const router = useRouter();
+    const closeSubmissionModal = () => {
+        setSubmissionLoader(false);
+        setSubmissionSuccess(false);
+        router.push("/");
     };
 
     const getSignature = async () => {
@@ -61,6 +74,31 @@ const CreateNewArea = ({ className, space }) => {
         });
         const data = await response.json();
         return data;
+    };
+
+    const saveAssetsTextInfo = async (data) => {
+        try {
+            return new Promise((resolve, reject) => {
+                fetch(`/api/assets/create`, {
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        const result = await res.json();
+                        resolve(result);
+                    } else {
+                        notify("Error while submitting assets");
+                        reject(res);
+                    }
+                });
+            });
+        } catch (error) {
+            notify("Error while submitting assets");
+            return false;
+        }
     };
 
     const sendFileToCloud = async (image, signature, timestamp) => {
@@ -91,10 +129,66 @@ const CreateNewArea = ({ className, space }) => {
         return promise;
     };
 
-    const uploadFile = async (signature, timestamp) => {
+    const updateAsset = async (data) => {
+        try {
+            return new Promise((resolve, reject) => {
+                fetch(`/api/assets/update`, {
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        const result = await res.json();
+                        resolve(result);
+                        // notify("Your assets successfully updated");
+                    } else {
+                        notify("Error while updating assets");
+                        reject(res);
+                    }
+                });
+            });
+        } catch (error) {
+            notify("Error while updating assets");
+            return false;
+        }
+    };
+
+    const prepareLoaderMsg = (key) => {
+        switch (key) {
+            case "AVM":
+                setLoaderHeading("Uploading AVM");
+                setLoaderBody("Uploading AVM");
+                break;
+            case "landRegistry":
+                setLoaderHeading("Uploading Land Registry");
+                setLoaderBody(
+                    "Uploading Land Registry document, please wait..."
+                );
+                break;
+            case "surveyProof":
+                setLoaderHeading("Uploading Survey Analysis");
+                setLoaderBody(
+                    "Uploading Survey Analysis document, please wait..."
+                );
+                break;
+            case "images":
+                setLoaderHeading("Uploading Assets Image");
+                setLoaderBody(
+                    "Uploading Gallery Image document, please wait..."
+                );
+                break;
+            default:
+                setLoaderHeading("Submitting Asset");
+                setLoaderBody("Uploading your asset document, please wait...");
+                break;
+        }
+    };
+    const uploadFile = async (signature, timestamp, assestId) => {
         const images = [
             {
-                key: "avm",
+                key: "AVM",
                 values: Avm,
             },
             {
@@ -102,7 +196,7 @@ const CreateNewArea = ({ className, space }) => {
                 values: landRegistry,
             },
             {
-                key: "surveyAnalysis",
+                key: "surveyProof",
                 values: surveyAnalysis,
             },
             {
@@ -110,28 +204,30 @@ const CreateNewArea = ({ className, space }) => {
                 values: galleryImage,
             },
         ];
-
         const cloudImageUrl = {};
         for (let i = 0; i < images.length; i++) {
+            prepareLoaderMsg(images[i].key);
+            setLoaderBody(`Uploading ${images[i].key} file, please wait...`);
             if (images[i].values) {
                 cloudImageUrl[images[i].key] = await sendFileToCloud(
                     images[i].values,
                     signature,
                     timestamp
                 );
+                await updateAsset({
+                    id: assestId,
+                    [images[i].key]: cloudImageUrl[images[i].key],
+                });
+                console.log("uploading done ", images[i].key);
             } else {
-                cloudImageUrl[images[i].key] = "";
+                console.log("unbale to upload file: ", images[i].key);
+                notify(`Error while uploading file: ${images[i].key}`);
             }
         }
-        return cloudImageUrl;
     };
 
     const submitassets = async () => {
-        const signature = await getSignature();
-        const imagesUrls = await uploadFile(
-            signature.data.signature,
-            signature.data.timestamp
-        );
+        setSubmissionLoader(true);
         const data = assetsData;
         const userCookie = getCookie("user");
         const userCookiePayload = JSON.parse(decodeURIComponent(userCookie));
@@ -145,10 +241,10 @@ const CreateNewArea = ({ className, space }) => {
             email: userCookiePayload.email,
             name: data.name,
             description: data.discription,
-            avm: imagesUrls.avm,
-            landRegistry: imagesUrls.landRegistry,
-            surveyAnalysis: imagesUrls.surveyAnalysis,
-            images: [imagesUrls.images],
+            avm: "",
+            landRegistry: "",
+            surveyAnalysis: "",
+            images: [],
             productName: data.name,
             floorArea: data.florarea,
             hasOutdoorSpace: data.outdoor_space === "Yes",
@@ -161,19 +257,17 @@ const CreateNewArea = ({ className, space }) => {
             extraConditionsDescriptions,
         };
 
-        try {
-            fetch(`/api/assets/create`, {
-                body: JSON.stringify(nftData),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                method: "POST",
-            }).then(async (res) => {
-                if (res.status === 200) {
-                    notify("Your assets has submitted");
-                }
-            });
-        } catch (error) {
+        const assestId = await saveAssetsTextInfo(nftData);
+        if (assestId && assestId.createdAssets && assestId.createdAssets.id) {
+            const signature = await getSignature();
+            await uploadFile(
+                signature.data.signature,
+                signature.data.timestamp,
+                assestId.createdAssets.id
+            );
+            notify("Your assets has submitted");
+            setSubmissionSuccess(true);
+        } else {
             notify("Error while submitting assets");
         }
     };
@@ -226,6 +320,15 @@ const CreateNewArea = ({ className, space }) => {
 
     return (
         <>
+            {submissionLoader && (
+                <IndexProgress
+                    show
+                    heading={loaderHeading}
+                    body={loaderBody}
+                    uploaded={submissionSuccess}
+                    closeSubmissionModal={closeSubmissionModal}
+                />
+            )}
             {confirmSubmission && (
                 <IndexConfirmation
                     show
@@ -503,10 +606,36 @@ const CreateNewArea = ({ className, space }) => {
                                                 >
                                                     Select
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    value="Select"
-                                                />
+
+                                                <select
+                                                    name=""
+                                                    className="custom-select"
+                                                    onChange={(e) => {
+                                                        document.getElementById(
+                                                            "florarea"
+                                                        ).value =
+                                                            e.target.value;
+                                                    }}
+                                                >
+                                                    <option value="e. g. `area`">
+                                                        Select
+                                                    </option>
+                                                    <option value="100">
+                                                        100
+                                                    </option>
+                                                    <option value="200">
+                                                        200
+                                                    </option>
+                                                    <option value="300">
+                                                        300
+                                                    </option>
+                                                    <option value="400">
+                                                        400
+                                                    </option>
+                                                    <option value="500">
+                                                        500
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
 
