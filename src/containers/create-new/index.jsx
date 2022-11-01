@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
@@ -7,12 +8,36 @@ import Button from "@ui/button";
 import ProductModal from "@components/modals/product-modal";
 import ErrorText from "@ui/error-text";
 import { toast } from "react-toastify";
+import { getCookie } from "@utils/cookie";
+import Axios from "axios";
+import IndexConfirmation from "../../components/assets-confirmation-modal/IndexConfirmation";
+import IndexProgress from "../../components/asset-submission-progress/IndexProgress";
 
 const CreateNewArea = ({ className, space }) => {
     const [showProductModal, setShowProductModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
     const [hasImageError, setHasImageError] = useState(false);
+    const [confirmSubmission, setConfirmSubmission] = useState(false);
+    const [assetsData, setAssetsData] = useState({});
+
+    const [Avm, setAvm] = useState();
+    const [landRegistry, setLandRegistry] = useState();
+    const [surveyAnalysis, setSurveyAnalysis] = useState();
+    const [galleryImage, setGalleryImage] = useState();
+
     const [previewData, setPreviewData] = useState({});
+
+    const [extraSaleCondition, setExtraSaleCondition] = useState([
+        { label: "", description: "" },
+        { label: "", description: "" },
+    ]);
+
+    const [loaderHeading, setLoaderHeading] = useState("Submitting Asset");
+    const [loaderBody, setLoaderBody] = useState(
+        "Uploading your asset please wait..."
+    );
+    const [submissionLoader, setSubmissionLoader] = useState(false);
+    const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
     const {
         register,
@@ -22,27 +47,250 @@ const CreateNewArea = ({ className, space }) => {
     } = useForm({
         mode: "onChange",
     });
-
-    const notify = () => toast("Your product has submitted");
     const handleProductModal = () => {
         setShowProductModal(false);
     };
-
+    const notify = (text) => toast(text);
     // This function will be triggered when the file field change
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
+            setGalleryImage(e.target.files[0]);
             setSelectedImage(e.target.files[0]);
         }
     };
+    const router = useRouter();
+    const closeSubmissionModal = () => {
+        setSubmissionLoader(false);
+        setSubmissionSuccess(false);
+        router.push("/");
+    };
 
-    const onSubmit = (data, e) => {
+    const getSignature = async () => {
+        const response = await fetch("/api/assets/signaturekey", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await response.json();
+        return data;
+    };
+
+    const saveAssetsTextInfo = async (data) => {
+        try {
+            return new Promise((resolve, reject) => {
+                fetch(`/api/assets/create`, {
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        const result = await res.json();
+                        resolve(result);
+                    } else {
+                        notify("Error while submitting assets");
+                        reject(res);
+                    }
+                });
+            });
+        } catch (error) {
+            notify("Error while submitting assets");
+            return false;
+        }
+    };
+
+    const sendFileToCloud = async (image, signature, timestamp) => {
+        const promise = new Promise((resolve, reject) => {
+            const data = new FormData();
+            data.append("file", image);
+            data.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+            data.append("signature", signature);
+            data.append("timestamp", timestamp);
+            // setTimeout(resolve("timeout"), 30 * 1000);
+            Axios.defaults.timeout = 30000;
+            Axios.post(
+                "https://api.cloudinary.com/v1_1/omniadefi/image/upload",
+                data
+            )
+                .then((res, err) => {
+                    if (err) {
+                        resolve("");
+                    } else {
+                        resolve(res.data.url);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error while sending file to cloud", err);
+                    resolve("");
+                });
+        });
+        return promise;
+    };
+
+    const updateAsset = async (data) => {
+        try {
+            return new Promise((resolve, reject) => {
+                fetch(`/api/assets/update`, {
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        const result = await res.json();
+                        resolve(result);
+                        // notify("Your assets successfully updated");
+                    } else {
+                        notify("Error while updating assets");
+                        reject(res);
+                    }
+                });
+            });
+        } catch (error) {
+            notify("Error while updating assets");
+            return false;
+        }
+    };
+
+    const prepareLoaderMsg = (key) => {
+        switch (key) {
+            case "AVM":
+                setLoaderHeading("Uploading AVM");
+                setLoaderBody("Uploading AVM");
+                break;
+            case "landRegistry":
+                setLoaderHeading("Uploading Land Registry");
+                setLoaderBody(
+                    "Uploading Land Registry document, please wait..."
+                );
+                break;
+            case "surveyProof":
+                setLoaderHeading("Uploading Survey Analysis");
+                setLoaderBody(
+                    "Uploading Survey Analysis document, please wait..."
+                );
+                break;
+            case "images":
+                setLoaderHeading("Uploading Assets Image");
+                setLoaderBody(
+                    "Uploading Gallery Image document, please wait..."
+                );
+                break;
+            default:
+                setLoaderHeading("Submitting Asset");
+                setLoaderBody("Uploading your asset document, please wait...");
+                break;
+        }
+    };
+    const uploadFile = async (signature, timestamp, assestId) => {
+        const images = [
+            {
+                key: "AVM",
+                values: Avm,
+            },
+            {
+                key: "landRegistry",
+                values: landRegistry,
+            },
+            {
+                key: "surveyProof",
+                values: surveyAnalysis,
+            },
+            {
+                key: "images",
+                values: galleryImage,
+            },
+        ];
+        const cloudImageUrl = {};
+        for (let i = 0; i < images.length; i++) {
+            prepareLoaderMsg(images[i].key);
+            setLoaderBody(`Uploading ${images[i].key} file, please wait...`);
+            if (images[i].values) {
+                cloudImageUrl[images[i].key] = await sendFileToCloud(
+                    images[i].values,
+                    signature,
+                    timestamp
+                );
+                await updateAsset({
+                    id: assestId,
+                    [images[i].key]: cloudImageUrl[images[i].key],
+                });
+                console.log("uploading done ", images[i].key);
+            } else {
+                console.log("unbale to upload file: ", images[i].key);
+                notify(`Error while uploading file: ${images[i].key}`);
+            }
+        }
+    };
+
+    const submitassets = async () => {
+        setSubmissionLoader(true);
+        const data = assetsData;
+        const userCookie = getCookie("user");
+        const userCookiePayload = JSON.parse(decodeURIComponent(userCookie));
+        const extraConditionsLabels = [];
+        const extraConditionsDescriptions = [];
+        for (let i = 0; i < extraSaleCondition.length; i++) {
+            extraConditionsLabels.push(data[`Label_${i + 1}`]);
+            extraConditionsDescriptions.push(data[`extra_discretion_${i + 1}`]);
+        }
+        const nftData = {
+            email: userCookiePayload.email,
+            name: data.name,
+            description: data.discription,
+            avm: "",
+            landRegistry: "",
+            surveyAnalysis: "",
+            images: [],
+            productName: data.name,
+            floorArea: data.florarea,
+            hasOutdoorSpace: data.outdoor_space === "Yes",
+            bedrooms: parseInt(data.bedrooms, 10),
+            bathrooms: parseInt(data.bathroom, 10),
+            otherRooms: parseInt(data.other, 10),
+            floorPrice: parseInt(data.floorPrice, 10),
+            saleTimeframe: parseInt(data.sale_timeframe, 10),
+            extraConditionsLabels,
+            extraConditionsDescriptions,
+        };
+
+        const assestId = await saveAssetsTextInfo(nftData);
+        if (assestId && assestId.createdAssets && assestId.createdAssets.id) {
+            const signature = await getSignature();
+            await uploadFile(
+                signature.data.signature,
+                signature.data.timestamp,
+                assestId.createdAssets.id
+            );
+            notify("Your assets has submitted");
+            setSubmissionSuccess(true);
+        } else {
+            notify("Error while submitting assets");
+        }
+    };
+
+    const onSubmit = async (data, e) => {
+        e.preventDefault();
         const { target } = e;
+        const formattedData = {
+            avm: Avm,
+            land_registry: landRegistry,
+            survey_analysis: surveyAnalysis,
+        };
+
         const submitBtn =
             target.localName === "span" ? target.parentElement : target;
         const isPreviewBtn = submitBtn.dataset?.btn;
         setHasImageError(!selectedImage);
         if (isPreviewBtn && selectedImage) {
-            setPreviewData({ ...data, image: selectedImage });
+            await setPreviewData({
+                ...data,
+                ...formattedData,
+                image: selectedImage,
+            });
             setShowProductModal(true);
         }
         if (!isPreviewBtn) {
@@ -50,10 +298,47 @@ const CreateNewArea = ({ className, space }) => {
             reset();
             setSelectedImage();
         }
+        setConfirmSubmission(true);
+        setAssetsData({ ...data, ...formattedData });
     };
+
+    const cancelSubmission = () => {
+        setConfirmSubmission(false);
+    };
+    const completeSubmission = () => {
+        setConfirmSubmission(false);
+        submitassets();
+    };
+    const addExtraSaleCondition = () => {
+        setExtraSaleCondition([
+            ...extraSaleCondition,
+            { label: "", description: "" },
+        ]);
+    };
+
+    useEffect(() => {}, [extraSaleCondition]);
 
     return (
         <>
+            {submissionLoader && (
+                <IndexProgress
+                    show
+                    heading={loaderHeading}
+                    body={loaderBody}
+                    uploaded={submissionSuccess}
+                    closeSubmissionModal={closeSubmissionModal}
+                />
+            )}
+            {confirmSubmission && (
+                <IndexConfirmation
+                    show
+                    handleModal={() => {
+                        setConfirmSubmission(false);
+                    }}
+                    cancelSubmission={cancelSubmission}
+                    completeSubmission={completeSubmission}
+                />
+            )}
             <div
                 className={clsx(
                     "create-area",
@@ -185,30 +470,239 @@ const CreateNewArea = ({ className, space }) => {
                                             </div>
                                         </div>
 
+                                        {/* new-changes */}
+                                        <div className="text-white">
+                                            Required Documents
+                                        </div>
+                                        <div className="mt-3">
+                                            <label
+                                                htmlFor="avm"
+                                                className="form-label"
+                                            >
+                                                AVM*
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id="avm"
+                                                name="avm"
+                                                multiple
+                                                placeholder="e. g. `Digital Awesome Game`"
+                                                onChange={(e) => {
+                                                    setAvm(e.target.files[0]);
+                                                }}
+                                            />
+                                            <div>
+                                                {errors.avm && (
+                                                    <ErrorText>
+                                                        {errors.avm?.message}
+                                                    </ErrorText>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-3">
+                                            <label
+                                                htmlFor="land_registry"
+                                                className="form-label"
+                                            >
+                                                Land registry*
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id="land_registry"
+                                                name="land_registry"
+                                                multiple
+                                                placeholder="e. g. ``"
+                                                onChange={(e) => {
+                                                    setLandRegistry(
+                                                        e.target.files[0]
+                                                    );
+                                                }}
+                                            />
+                                            <div>
+                                                {errors.land_registry && (
+                                                    <ErrorText>
+                                                        {
+                                                            errors.land_registry
+                                                                ?.message
+                                                        }
+                                                    </ErrorText>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-3">
+                                            <label
+                                                htmlFor="survey_analysis"
+                                                className="form-label"
+                                            >
+                                                Survey analysis*
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id="survey_analysis"
+                                                name="survey_analysis"
+                                                multiple
+                                                placeholder="e. g. `Digital Awesome Game`"
+                                                onChange={(e) => {
+                                                    setSurveyAnalysis(
+                                                        e.target.files[0]
+                                                    );
+                                                }}
+                                            />
+                                            <div>
+                                                {errors.survey_analysis && (
+                                                    <ErrorText>
+                                                        {
+                                                            errors
+                                                                .survey_analysis
+                                                                ?.message
+                                                        }
+                                                    </ErrorText>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="text-white mb-3 mt-4">
+                                            Space
+                                        </div>
                                         <div className="col-md-4">
                                             <div className="input-box pb--20">
                                                 <label
                                                     htmlFor="price"
                                                     className="form-label"
                                                 >
-                                                    Item Price in $
+                                                    Floor area*
                                                 </label>
                                                 <input
-                                                    id="price"
-                                                    placeholder="e. g. `20$`"
-                                                    {...register("price", {
+                                                    id="florarea"
+                                                    placeholder="e. g. `area`"
+                                                    {...register("florarea", {
                                                         pattern: {
                                                             value: /^[0-9]+$/,
                                                             message:
                                                                 "Please enter a number",
                                                         },
                                                         required:
-                                                            "Price is required",
+                                                            "Floor area is required",
                                                     })}
                                                 />
-                                                {errors.price && (
+                                                {errors.florarea && (
                                                     <ErrorText>
-                                                        {errors.price?.message}
+                                                        {
+                                                            errors.florarea
+                                                                ?.message
+                                                        }
+                                                    </ErrorText>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-3 ">
+                                            <div className="input-box pb--20">
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="select"
+                                                >
+                                                    Select
+                                                </label>
+
+                                                <select
+                                                    name=""
+                                                    className="custom-select"
+                                                    onChange={(e) => {
+                                                        document.getElementById(
+                                                            "florarea"
+                                                        ).value =
+                                                            e.target.value;
+                                                    }}
+                                                >
+                                                    <option value="e. g. `area`">
+                                                        Select
+                                                    </option>
+                                                    <option value="100">
+                                                        100
+                                                    </option>
+                                                    <option value="200">
+                                                        200
+                                                    </option>
+                                                    <option value="300">
+                                                        300
+                                                    </option>
+                                                    <option value="400">
+                                                        400
+                                                    </option>
+                                                    <option value="500">
+                                                        500
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        {/* is there an outdoor space */}
+                                        <div>Is there an outdoor space? *</div>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                id="yes"
+                                                name="outdoor_space"
+                                                value="Yes"
+                                                {...register("outdoor_space", {
+                                                    required:
+                                                        "Is there an outdoor space is required",
+                                                })}
+                                            />
+                                            <label htmlFor="yes">Yes</label>
+                                        </div>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                id="no"
+                                                name="outdoor_space"
+                                                value="No"
+                                                {...register("outdoor_space", {
+                                                    required:
+                                                        "Is there an outdoor space is required",
+                                                })}
+                                            />
+                                            <label htmlFor="no">No</label>
+                                        </div>
+
+                                        {errors.outdoor_space && (
+                                            <ErrorText>
+                                                {errors.outdoor_space?.message}
+                                            </ErrorText>
+                                        )}
+                                        <div className="text-white mb-3 mt-5">
+                                            Amenities
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="input-box pb--20">
+                                                <label
+                                                    htmlFor="price"
+                                                    className="form-label"
+                                                >
+                                                    Bedrooms*
+                                                </label>
+                                                <input
+                                                    id="bedrooms"
+                                                    placeholder="e. g. `2`"
+                                                    {...register("bedrooms", {
+                                                        pattern: {
+                                                            value: /^[0-9]+$/,
+                                                            message:
+                                                                "Please enter a number",
+                                                        },
+                                                        required:
+                                                            "Bedrooms is required",
+                                                    })}
+                                                />
+                                                {errors.bedrooms && (
+                                                    <ErrorText>
+                                                        {
+                                                            errors.bedrooms
+                                                                ?.message
+                                                        }
                                                     </ErrorText>
                                                 )}
                                             </div>
@@ -217,22 +711,25 @@ const CreateNewArea = ({ className, space }) => {
                                         <div className="col-md-4">
                                             <div className="input-box pb--20">
                                                 <label
-                                                    htmlFor="Size"
+                                                    htmlFor="bathroom"
                                                     className="form-label"
                                                 >
-                                                    Size
+                                                    Bathrooms*
                                                 </label>
                                                 <input
-                                                    id="size"
-                                                    placeholder="e. g. `Size`"
-                                                    {...register("size", {
+                                                    id="bathroom"
+                                                    placeholder="e. g. `2`"
+                                                    {...register("bathroom", {
                                                         required:
-                                                            "Size is required",
+                                                            "Bathrooms is required",
                                                     })}
                                                 />
-                                                {errors.size && (
+                                                {errors.bathroom && (
                                                     <ErrorText>
-                                                        {errors.size?.message}
+                                                        {
+                                                            errors.bathroom
+                                                                ?.message
+                                                        }
                                                     </ErrorText>
                                                 )}
                                             </div>
@@ -241,122 +738,190 @@ const CreateNewArea = ({ className, space }) => {
                                         <div className="col-md-4">
                                             <div className="input-box pb--20">
                                                 <label
-                                                    htmlFor="Propertie"
+                                                    htmlFor="other"
                                                     className="form-label"
                                                 >
-                                                    Properties
+                                                    Other Rooms
                                                 </label>
                                                 <input
-                                                    id="propertiy"
-                                                    placeholder="e. g. `Propertie`"
-                                                    {...register("propertiy", {
+                                                    id="other"
+                                                    placeholder="e. g. `2`"
+                                                    {...register("other", {
                                                         required:
-                                                            "Propertiy is required",
+                                                            "Other Rooms is required",
                                                     })}
                                                 />
-                                                {errors.propertiy && (
+                                                {errors.other && (
                                                     <ErrorText>
-                                                        {
-                                                            errors.propertiy
-                                                                ?.message
-                                                        }
+                                                        {errors.other?.message}
                                                     </ErrorText>
                                                 )}
                                             </div>
                                         </div>
 
-                                        <div className="col-md-12">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="Royality"
-                                                    className="form-label"
-                                                >
-                                                    Royality
-                                                </label>
-                                                <input
-                                                    id="royality"
-                                                    placeholder="e. g. `20%`"
-                                                    {...register("royality", {
-                                                        required:
-                                                            "Royality is required",
-                                                    })}
-                                                />
-                                                {errors.royality && (
-                                                    <ErrorText>
-                                                        {
-                                                            errors.royality
-                                                                ?.message
-                                                        }
-                                                    </ErrorText>
-                                                )}
-                                            </div>
+                                        <div className="text-white mb-3">
+                                            Conditions Of Sale
                                         </div>
-
-                                        <div className="col-md-4 col-sm-4">
-                                            <div className="input-box pb--20 rn-check-box">
-                                                <input
-                                                    className="rn-check-box-input"
-                                                    type="checkbox"
-                                                    id="putonsale"
-                                                />
-                                                <label
-                                                    className="rn-check-box-label"
-                                                    htmlFor="putonsale"
-                                                >
-                                                    Put on Sale
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4 col-sm-4">
-                                            <div className="input-box pb--20 rn-check-box">
-                                                <input
-                                                    className="rn-check-box-input"
-                                                    type="checkbox"
-                                                    id="instantsaleprice"
-                                                />
-                                                <label
-                                                    className="rn-check-box-label"
-                                                    htmlFor="instantsaleprice"
-                                                >
-                                                    Instant Sale Price
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4 col-sm-4">
-                                            <div className="input-box pb--20 rn-check-box">
-                                                <input
-                                                    className="rn-check-box-input"
-                                                    type="checkbox"
-                                                    id="unlockpurchased"
-                                                />
-                                                <label
-                                                    className="rn-check-box-label"
-                                                    htmlFor="unlockpurchased"
-                                                >
-                                                    Unlock Purchased
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-12 col-xl-4">
-                                            <div className="input-box">
-                                                <Button
-                                                    color="primary-alta"
-                                                    fullwidth
-                                                    type="submit"
-                                                    data-btn="preview"
-                                                    onClick={handleSubmit(
-                                                        onSubmit
+                                        <div className="row">
+                                            <div className="col-md-4">
+                                                <div className="input-box pb--20">
+                                                    <label
+                                                        htmlFor="floorPrice"
+                                                        className="form-label"
+                                                    >
+                                                        Floor price*
+                                                    </label>
+                                                    <input
+                                                        id="floorPrice"
+                                                        placeholder="e. g. `xyz $`"
+                                                        {...register(
+                                                            "floorPrice",
+                                                            {
+                                                                pattern: {
+                                                                    value: /^[0-9]+$/,
+                                                                    message:
+                                                                        "Please enter a number",
+                                                                },
+                                                                required:
+                                                                    "Floor price is required",
+                                                            }
+                                                        )}
+                                                    />
+                                                    {errors.floorPrice && (
+                                                        <ErrorText>
+                                                            {
+                                                                errors
+                                                                    .floorPrice
+                                                                    ?.message
+                                                            }
+                                                        </ErrorText>
                                                     )}
-                                                >
-                                                    Preview
-                                                </Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="text-white mb-3">
+                                            Terms of Payment
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-8">
+                                                <div className="input-box pb--20">
+                                                    <label
+                                                        htmlFor="sale_timeframe"
+                                                        className="form-label"
+                                                    >
+                                                        Sale consummation
+                                                        timeframe (at least 24h)
+                                                    </label>
+                                                    <input
+                                                        id="sale_timeframe"
+                                                        placeholder="e. g. `xyz $`"
+                                                        {...register(
+                                                            "sale_timeframe",
+                                                            {
+                                                                pattern: {
+                                                                    value: /^[0-9]+$/,
+                                                                    message:
+                                                                        "Please enter a number",
+                                                                },
+                                                                required:
+                                                                    "Sale consummation timeframe is required",
+                                                            }
+                                                        )}
+                                                    />
+                                                    {errors.sale_timeframe && (
+                                                        <ErrorText>
+                                                            {
+                                                                errors
+                                                                    .sale_timeframe
+                                                                    ?.message
+                                                            }
+                                                        </ErrorText>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div className="col-md-12 col-xl-8 mt_lg--15 mt_md--15 mt_sm--15">
+                                        <div className="text-white mb-3">
+                                            Extra Sale Conditions
+                                        </div>
+
+                                        {extraSaleCondition.map(
+                                            (data, index) => (
+                                                <>
+                                                    <div className="col-md-4">
+                                                        <div className="input-box pb--20">
+                                                            <label
+                                                                htmlFor={`Label_1+${
+                                                                    index + 1
+                                                                }`}
+                                                                className="form-label"
+                                                            >
+                                                                Label{" "}
+                                                                {index + 1} *
+                                                            </label>
+                                                            <input
+                                                                id="Label_1"
+                                                                placeholder="e. g. `enter text`"
+                                                                {...register(
+                                                                    `Label_${
+                                                                        index +
+                                                                        1
+                                                                    }`,
+                                                                    {
+                                                                        required:
+                                                                            "1 is required",
+                                                                    }
+                                                                )}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-8">
+                                                        <div className="input-box pb--20">
+                                                            <label
+                                                                htmlFor={`extra_discretion_${
+                                                                    index + 1
+                                                                }`}
+                                                                className="form-label"
+                                                            >
+                                                                Discretion{" "}
+                                                                {index + 1} *
+                                                            </label>
+                                                            <input
+                                                                id={`extra_discretion_${
+                                                                    index + 1
+                                                                }`}
+                                                                placeholder="e. g. `xyz $`"
+                                                                Sale
+                                                                consummation
+                                                                {...register(
+                                                                    `extra_discretion_${
+                                                                        index +
+                                                                        1
+                                                                    }`,
+                                                                    {
+                                                                        required:
+                                                                            "1 is required",
+                                                                    }
+                                                                )}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )
+                                        )}
+
+                                        <div className="text-white mb-3">
+                                            <span
+                                                className="h6 me-3"
+                                                onClick={addExtraSaleCondition}
+                                            >
+                                                {" "}
+                                                ⊕{" "}
+                                            </span>
+                                            Add another condition
+                                        </div>
+
+                                        <div className="col-md-12 col-xl-12 mt_lg--15 mt_md--15 mt_sm--15">
                                             <div className="input-box">
                                                 <Button type="submit" fullwidth>
                                                     Submit Item
@@ -374,7 +939,6 @@ const CreateNewArea = ({ className, space }) => {
                                 </span>{" "}
                                 <br />
                                 <span>
-                                    {" "}
                                     You will receive :{" "}
                                     <strong>25.00 ETH $50,000</strong>
                                 </span>
@@ -393,12 +957,10 @@ const CreateNewArea = ({ className, space }) => {
         </>
     );
 };
-
 CreateNewArea.propTypes = {
     className: PropTypes.string,
     space: PropTypes.oneOf([1]),
 };
-
 CreateNewArea.defaultProps = {
     space: 1,
 };

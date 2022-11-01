@@ -82,7 +82,6 @@ const Header = ({ className }) => {
         });
         router.push("/login");
     }, [state.email]);
-
     return (
         <>
             <header

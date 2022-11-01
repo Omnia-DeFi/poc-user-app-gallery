@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 import toast, { Toaster } from "react-hot-toast";
 import PropTypes from "prop-types";
+import { getCookie } from "@utils/cookie";
+import { setCookie } from "cookies-next";
 
-const CustomerDetails = ({ firstStepHandler }) => {
+const CustomerDetails = ({ fourteenthStepHandler }) => {
     const initialValues = { username: "", dateofbirth: "" };
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
@@ -23,14 +25,49 @@ const CustomerDetails = ({ firstStepHandler }) => {
         setGender(e);
     };
 
-    const formHandler = () => {
-        if (validgender === false) {
-            toast.error("Please select gender!");
-        } else {
-            toast.success("Successfully Submit!");
-            firstStepHandler();
+    const saveKYC = () => {
+        const userCookie = getCookie("user");
+        if (userCookie) {
+            const userCookiePayload = JSON.parse(
+                decodeURIComponent(userCookie)
+            );
+            if (userCookiePayload && userCookiePayload.email) {
+                const data = {
+                    gender,
+                    name: formValues.username,
+                    dateOfBirth: formValues.dateofbirth,
+                    email: userCookiePayload.email,
+                    type: "KYC",
+                };
+                fetch(`/api/kyc/create`, {
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        userCookiePayload.kycState = "verified";
+                        setCookie("user", userCookiePayload);
+                        fourteenthStepHandler();
+                    } else {
+                        toast.error("Error saving KYC details");
+                    }
+                });
+            } else {
+                toast.error("Please login to continue");
+            }
         }
     };
+
+    // const formHandler = () => {
+    //     if (validgender === false) {
+    //         toast.error("Please select gender!");
+    //     } else {
+    //         toast.success("Successfully Submit!");
+    //         firstStepHandler();
+    //     }
+    // };
 
     useEffect(() => {
         console.log(formErrors);
@@ -51,21 +88,17 @@ const CustomerDetails = ({ firstStepHandler }) => {
         e.preventDefault();
         setFormErrors(validate(formValues));
         setIsSubmit(true);
-        formHandler();
+        saveKYC();
+        // formHandler();
     };
 
     return (
         <>
             <Modal.Header>
                 <div className="text-center">
-                    <img
-                        style={{ width: "60px", height: "60px" }}
-                        src="/images/kyc/logo.png"
-                        alt=""
-                    />
                     <h6 className="my-2">Verify Your Identity</h6>
                     <p className="m-0">
-                        We&apos;ll verify it with your KYC documents
+                        Complete these fields to for AML (Anti Money Laundering)
                     </p>
                 </div>
             </Modal.Header>
@@ -108,7 +141,7 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                         className={`w-100 btn ${
                                             gender === "Female"
                                                 ? `btn-success`
-                                                : `btn-secondary `
+                                                : `btn-secondary`
                                         }`}
                                         onClick={() => changeGender("Female")}
                                     >
@@ -134,7 +167,7 @@ const CustomerDetails = ({ firstStepHandler }) => {
                                         className={`w-100 btn ${
                                             gender === "Other"
                                                 ? `btn-success`
-                                                : `btn-secondary `
+                                                : `btn-secondary`
                                         }`}
                                         onClick={() => changeGender("Other")}
                                     >
@@ -158,5 +191,5 @@ const CustomerDetails = ({ firstStepHandler }) => {
 export default CustomerDetails;
 
 CustomerDetails.propTypes = {
-    firstStepHandler: PropTypes.func.isRequired,
+    fourteenthStepHandler: PropTypes.func.isRequired,
 };
