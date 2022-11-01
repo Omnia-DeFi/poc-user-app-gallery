@@ -30,7 +30,6 @@ const NotificationsArea = ({ space, className }) => {
                 const { data } = await axios.get(
                     `/api/notification/getNotifications/${userId}`
                 );
-                console.log("data is -", data);
                 const notificationsCount = await getNotifications(state.email);
                 if (notificationsCount.length !== 0) setMarkAllRead(false);
                 else setMarkAllRead(true);
