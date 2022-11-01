@@ -1,4 +1,5 @@
 import { setCookie } from "cookies-next";
+
 export const createUser = (user) => {
     const data = {
         issuer: user.issuer,
@@ -16,8 +17,8 @@ export const createUser = (user) => {
             method: "POST",
         }).then(async (res) => {
             if (res.status === 200) {
-                const data = await res.json();
-                setCookie("user", data);
+                const userData = await res.json();
+                setCookie("user", userData);
             }
         });
     } catch (error) {
