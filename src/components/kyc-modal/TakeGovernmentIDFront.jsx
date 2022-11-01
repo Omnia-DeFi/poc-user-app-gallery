@@ -122,8 +122,8 @@ const TakeGovernmentIDFront = ({
                         </div>
                     </div>
                 </div>
-                <div className="d-flex mt-3 justify-content-center align-items-center">
-                    <span>
+                <div className="d-flex mt-3 justify-content-center ">
+                    <span className="mr--10">
                         <svg
                             width="20px"
                             height="20px"
