@@ -20,6 +20,7 @@ import IndexKYB from "@components/kyb-modal/IndexKYB";
 import Form from "react-bootstrap/Form";
 import { getNotifications } from "@utils/getNotReadNotifications";
 import { ModeContext } from "src/context/ModeContext";
+import { getCookie } from "cookies-next";
 import DropdownMenu from "./DropdownMenu";
 import menuData from "../../data/general/menu.json";
 import headerData from "../../data/general/header.json";
@@ -54,7 +55,8 @@ const Header = ({ className }) => {
     };
 
     useEffect(() => {
-        setIsAuthenticated(state.login);
+        const loginState = getCookie("login");
+        setIsAuthenticated(loginState);
         updateNotifications();
         return () => {
             setIsAuthenticated({}); // This worked for me

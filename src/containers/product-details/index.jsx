@@ -10,13 +10,15 @@ import { ImageType } from "@utils/types";
 import PlaceBidModal from "@components/modals/placebid-modal";
 import { useRouter } from "next/router";
 import { useUserContext } from "src/context/context";
+import { getCookie } from "cookies-next";
 
 const ProductDetailsArea = ({ space, className, product }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const router = useRouter();
     const { state, dispatch } = useUserContext();
     const handleBidModal = () => {
-        if (state.login) {
+        const loginState = getCookie("login");
+        if (loginState) {
             setShowBidModal((prev) => !prev);
         } else {
             router.push("/login");
