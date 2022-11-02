@@ -54,7 +54,7 @@ const CreateNewArea = ({ className, space }) => {
     // This function will be triggered when the file field change
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            setGalleryImage(e.target.files[0]);
+            setGalleryImage([...e.target.files]);
             setSelectedImage(e.target.files[0]);
         }
     };
@@ -155,7 +155,7 @@ const CreateNewArea = ({ className, space }) => {
         }
     };
 
-    const prepareLoaderMsg = (key) => {
+    const prepareLoaderMsg = (key, index, total) => {
         switch (key) {
             case "AVM":
                 setLoaderHeading("Uploading AVM");
@@ -176,24 +176,28 @@ const CreateNewArea = ({ className, space }) => {
             case "images":
                 setLoaderHeading("Uploading Assets Image");
                 setLoaderBody(
-                    "Uploading Gallery Image document, please wait..."
+                    `Uploading Gallery (image/videos) (${
+                        index + 1
+                    }/${total}), please wait...`
                 );
                 break;
             default:
                 setLoaderHeading("Submitting Asset");
-                setLoaderBody("Uploading your asset document, please wait...");
+                setLoaderBody(
+                    "Uploading your asset document/images/videos, please wait..."
+                );
                 break;
         }
     };
     const uploadFile = async (signature, timestamp, assestId) => {
         const images = [
             {
-                key: "AVM",
-                values: Avm,
-            },
-            {
                 key: "landRegistry",
                 values: landRegistry,
+            },
+            {
+                key: "AVM",
+                values: Avm,
             },
             {
                 key: "surveyProof",
@@ -204,21 +208,24 @@ const CreateNewArea = ({ className, space }) => {
                 values: galleryImage,
             },
         ];
-        const cloudImageUrl = {};
         for (let i = 0; i < images.length; i++) {
-            prepareLoaderMsg(images[i].key);
-            setLoaderBody(`Uploading ${images[i].key} file, please wait...`);
-            if (images[i].values) {
-                cloudImageUrl[images[i].key] = await sendFileToCloud(
-                    images[i].values,
-                    signature,
-                    timestamp
-                );
-                await updateAsset({
-                    id: assestId,
-                    [images[i].key]: cloudImageUrl[images[i].key],
-                });
-                console.log("uploading done ", images[i].key);
+            if (images[i].values && images[i].values.length) {
+                for (let j = 0; j < images[i].values.length; j++) {
+                    await prepareLoaderMsg(
+                        images[i].key,
+                        j,
+                        images[i].values.length
+                    );
+                    const url = await sendFileToCloud(
+                        images[i].values[j],
+                        signature,
+                        timestamp
+                    );
+                    await updateAsset({
+                        id: assestId,
+                        [images[i].key]: url,
+                    });
+                }
             } else {
                 console.log("unbale to upload file: ", images[i].key);
                 notify(`Error while uploading file: ${images[i].key}`);
@@ -227,6 +234,7 @@ const CreateNewArea = ({ className, space }) => {
     };
 
     const submitassets = async () => {
+        const signature = await getSignature();
         setSubmissionLoader(true);
         const data = assetsData;
         const userCookie = getCookie("user");
@@ -259,7 +267,6 @@ const CreateNewArea = ({ className, space }) => {
 
         const assestId = await saveAssetsTextInfo(nftData);
         if (assestId && assestId.createdAssets && assestId.createdAssets.id) {
-            const signature = await getSignature();
             await uploadFile(
                 signature.data.signature,
                 signature.data.timestamp,
@@ -488,7 +495,7 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. `Digital Awesome Game`"
                                                 onChange={(e) => {
-                                                    setAvm(e.target.files[0]);
+                                                    setAvm([...e.target.files]);
                                                 }}
                                             />
                                             <div>
@@ -514,9 +521,9 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. ``"
                                                 onChange={(e) => {
-                                                    setLandRegistry(
-                                                        e.target.files[0]
-                                                    );
+                                                    setLandRegistry([
+                                                        ...e.target.files,
+                                                    ]);
                                                 }}
                                             />
                                             <div>
@@ -545,9 +552,9 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. `Digital Awesome Game`"
                                                 onChange={(e) => {
-                                                    setSurveyAnalysis(
-                                                        e.target.files[0]
-                                                    );
+                                                    setSurveyAnalysis([
+                                                        ...e.target.files,
+                                                    ]);
                                                 }}
                                             />
                                             <div>

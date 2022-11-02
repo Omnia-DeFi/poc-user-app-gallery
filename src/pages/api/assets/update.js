@@ -12,7 +12,17 @@ export default async function handler(req, res) {
                 id: true,
             },
         });
+
         if (asset && asset.id) {
+            if (req.body.images) {
+                if (asset.images && asset.images.length) {
+                    asset.images.push(req.body.images);
+                    req.body.images = asset.images;
+                } else {
+                    req.body.images = [req.body.images];
+                }
+                req.body.images = asset.images;
+            }
             const updatedAssets = await prisma.Asset.update({
                 where: {
                     id: req.body.id,
