@@ -10,6 +10,7 @@ export default async function handler(req, res) {
             },
             select: {
                 id: true,
+                images: true,
             },
         });
 
@@ -21,7 +22,6 @@ export default async function handler(req, res) {
                 } else {
                     req.body.images = [req.body.images];
                 }
-                req.body.images = asset.images;
             }
             const updatedAssets = await prisma.Asset.update({
                 where: {
@@ -34,7 +34,10 @@ export default async function handler(req, res) {
                     "landRegistry",
                 ]),
             });
-            res.status(200).json({ message: "Assets created", updatedAssets });
+            res.status(200).json({
+                message: "Assets created",
+                updatedAssets,
+            });
         } else {
             res.status(500).json({ message: "Invalid assets" });
         }
