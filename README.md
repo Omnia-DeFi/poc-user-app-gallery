@@ -1,4 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Milestones
+
+### [COMPLETED] M1
+
+Reviewing assets: gallery cards & detailed page + status labels/icons. Can see created assets (KYA’ed and not). Assets detailed page. Search (showed in grid). Swipe to buy asset.
+
+### [COMPLETED] M2
+
+Wallet integration linked with user CRUD KYC flow integration with notification.
+
+### [IN REVIEW] M3
+
+KYC flow integration with notification. <br>
+_Note: As KYC has been bypassed notifications won't be sent for KYC. Though, real-time notifications have been added with socket.io_
 
 ## Getting Started
 
