@@ -49,6 +49,12 @@ model Kyc {
   approvedAt       DateTime
 }
 
+enum SaleStatus {
+ VOID
+ PROCESSING
+ SOLD
+ CANCELLED
+}
 
 model Asset {
   id String @id @default(auto()) @map("_id") @db.ObjectId
@@ -67,11 +73,10 @@ model Asset {
   otherRooms        Int
   floorPrice        Int
   saleTimeframe     Int
-  // assetFolderLink   String
-  // mintAddress       String
-  // saleStatus        String
-  // verificationState String
-  // outdoorSpaceSize  Int
+  saleStatus        SaleStatus  @default(VOID)
+  mintAddress       String @default("")
+  verificationState String @default("")
+  outdoorSpaceSize  Int @default(0)
   extraConditionsLabels  String[]
   extraConditionsDescriptions String[]
 }
