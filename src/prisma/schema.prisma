@@ -50,10 +50,26 @@ model Kyc {
 }
 
 enum SaleStatus {
- VOID
- PROCESSING
- SOLD
- CANCELLED
+  NO_OFFER
+  BUY_REQUEST
+  BUYER_DEPOSIT
+  SELLER_DEPOSIT
+  SIGNATURES
+  CONSUMMATED
+  CANCELLED
+}
+
+enum VerificationState {
+  VOID
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ListingStatus {
+  NOT_LISTED
+  LISTED
+  UNLISTED_BY_DEPOSIT
 }
 
 model Asset {
@@ -73,9 +89,10 @@ model Asset {
   otherRooms        Int
   floorPrice        Int
   saleTimeframe     Int
-  saleStatus        SaleStatus  @default(VOID)
+  saleStatus        SaleStatus  @default(NO_OFFER)
   mintAddress       String @default("")
-  verificationState String @default("")
+  verificationState VerificationState @default(VOID)
+  listingStatus     ListingStatus @default(NOT_LISTED)
   outdoorSpaceSize  Int @default(0)
   extraConditionsLabels  String[]
   extraConditionsDescriptions String[]
