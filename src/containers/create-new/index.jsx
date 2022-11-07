@@ -375,7 +375,7 @@ const CreateNewArea = ({ className, space }) => {
                                             multiple
                                             onChange={imageChange}
                                         />
-                                        {selectedImage && (
+                                        {/* {selectedImage && (
                                             <img
                                                 id="createfileImage"
                                                 src={URL.createObjectURL(
@@ -384,7 +384,7 @@ const CreateNewArea = ({ className, space }) => {
                                                 alt=""
                                                 data-black-overlay="6"
                                             />
-                                        )}
+                                        )} */}
 
                                         <label
                                             htmlFor="file"
@@ -404,19 +404,30 @@ const CreateNewArea = ({ className, space }) => {
                                         <ErrorText>Image is required</ErrorText>
                                     )}
                                 </div>
-
-                                <div className="upload-area brows-file-wrapper">
-                                    {galleryImage.map((data, index) => (
-                                        <div className="mt--10 mt_sm--30 mt_md--30 d-none d-lg-block">
-                                            <img
-                                                id="createfileImage"
-                                                src={URL.createObjectURL(data)}
-                                                alt=""
-                                                data-black-overlay="6"
-                                            />
+                                <br />
+                                {galleryImage ? (
+                                    <div className="container d-flex justify-content-center selected-images">
+                                        <div className="row d-flex gap-1 img-row">
+                                            {galleryImage &&
+                                                galleryImage.map(
+                                                    (data, index) => (
+                                                        <div className="col-md-2 img-item">
+                                                            <img
+                                                                id="createfileImage"
+                                                                src={URL.createObjectURL(
+                                                                    data
+                                                                )}
+                                                                alt=""
+                                                                data-black-overlay="6"
+                                                            />
+                                                        </div>
+                                                    )
+                                                )}
                                         </div>
-                                    ))}
-                                </div>
+                                    </div>
+                                ) : (
+                                    <> </>
+                                )}
 
                                 <div className="mt--100 mt_sm--30 mt_md--30 d-none d-lg-block">
                                     <h5> Note: </h5>
