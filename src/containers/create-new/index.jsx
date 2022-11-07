@@ -405,6 +405,19 @@ const CreateNewArea = ({ className, space }) => {
                                     )}
                                 </div>
 
+                                <div className="upload-area brows-file-wrapper">
+                                    {galleryImage.map((data, index) => (
+                                        <div className="mt--10 mt_sm--30 mt_md--30 d-none d-lg-block">
+                                            <img
+                                                id="createfileImage"
+                                                src={URL.createObjectURL(data)}
+                                                alt=""
+                                                data-black-overlay="6"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
                                 <div className="mt--100 mt_sm--30 mt_md--30 d-none d-lg-block">
                                     <h5> Note: </h5>
                                     <span>
