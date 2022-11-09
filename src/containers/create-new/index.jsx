@@ -23,7 +23,7 @@ const CreateNewArea = ({ className, space }) => {
     const [Avm, setAvm] = useState();
     const [landRegistry, setLandRegistry] = useState();
     const [surveyAnalysis, setSurveyAnalysis] = useState();
-    const [galleryImage, setGalleryImage] = useState();
+    const [galleryImage, setGalleryImage] = useState([]);
 
     const [previewData, setPreviewData] = useState({});
 
@@ -54,7 +54,7 @@ const CreateNewArea = ({ className, space }) => {
     // This function will be triggered when the file field change
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            setGalleryImage([...e.target.files]);
+            setGalleryImage([...galleryImage, ...e.target.files]);
             setSelectedImage(e.target.files[0]);
         }
     };
@@ -87,9 +87,11 @@ const CreateNewArea = ({ className, space }) => {
                     method: "POST",
                 }).then(async (res) => {
                     if (res.status === 200) {
+                        setGalleryImage([]);
                         const result = await res.json();
                         resolve(result);
                     } else {
+                        setGalleryImage([]);
                         notify("Error while submitting assets");
                         reject(res);
                     }
@@ -405,7 +407,7 @@ const CreateNewArea = ({ className, space }) => {
                                     )}
                                 </div>
                                 <br />
-                                {galleryImage ? (
+                                {galleryImage && galleryImage.length ? (
                                     <div className="container d-flex justify-content-center selected-images">
                                         <div className="row d-flex gap-1 img-row">
                                             {galleryImage &&
