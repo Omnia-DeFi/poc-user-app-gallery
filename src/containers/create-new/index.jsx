@@ -636,36 +636,21 @@ const CreateNewArea = ({ className, space }) => {
                                                     className="form-label"
                                                     htmlFor="select"
                                                 >
-                                                    Select
+                                                    Unit
                                                 </label>
 
                                                 <select
                                                     name=""
                                                     className="custom-select"
-                                                    onChange={(e) => {
-                                                        document.getElementById(
-                                                            "florarea"
-                                                        ).value =
-                                                            e.target.value;
-                                                    }}
                                                 >
                                                     <option value="e. g. `area`">
                                                         Select
                                                     </option>
-                                                    <option value="100">
-                                                        100
-                                                    </option>
                                                     <option value="200">
-                                                        200
+                                                        m²
                                                     </option>
-                                                    <option value="300">
-                                                        300
-                                                    </option>
-                                                    <option value="400">
-                                                        400
-                                                    </option>
-                                                    <option value="500">
-                                                        500
+                                                    <option value="100">
+                                                        ft²
                                                     </option>
                                                 </select>
                                             </div>
