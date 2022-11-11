@@ -23,14 +23,11 @@ const CreateNewArea = ({ className, space }) => {
     const [Avm, setAvm] = useState();
     const [landRegistry, setLandRegistry] = useState();
     const [surveyAnalysis, setSurveyAnalysis] = useState();
-    const [galleryImage, setGalleryImage] = useState();
+    const [galleryImage, setGalleryImage] = useState([]);
 
     const [previewData, setPreviewData] = useState({});
 
-    const [extraSaleCondition, setExtraSaleCondition] = useState([
-        { label: "", description: "" },
-        { label: "", description: "" },
-    ]);
+    const [extraSaleCondition, setExtraSaleCondition] = useState([]);
 
     const [loaderHeading, setLoaderHeading] = useState("Submitting Asset");
     const [loaderBody, setLoaderBody] = useState(
@@ -54,7 +51,7 @@ const CreateNewArea = ({ className, space }) => {
     // This function will be triggered when the file field change
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            setGalleryImage(e.target.files[0]);
+            setGalleryImage([...galleryImage, ...e.target.files]);
             setSelectedImage(e.target.files[0]);
         }
     };
@@ -87,9 +84,11 @@ const CreateNewArea = ({ className, space }) => {
                     method: "POST",
                 }).then(async (res) => {
                     if (res.status === 200) {
+                        setGalleryImage([]);
                         const result = await res.json();
                         resolve(result);
                     } else {
+                        setGalleryImage([]);
                         notify("Error while submitting assets");
                         reject(res);
                     }
@@ -155,7 +154,7 @@ const CreateNewArea = ({ className, space }) => {
         }
     };
 
-    const prepareLoaderMsg = (key) => {
+    const prepareLoaderMsg = (key, index, total) => {
         switch (key) {
             case "AVM":
                 setLoaderHeading("Uploading AVM");
@@ -176,24 +175,28 @@ const CreateNewArea = ({ className, space }) => {
             case "images":
                 setLoaderHeading("Uploading Assets Image");
                 setLoaderBody(
-                    "Uploading Gallery Image document, please wait..."
+                    `Uploading Gallery (image/videos) (${
+                        index + 1
+                    }/${total}), please wait...`
                 );
                 break;
             default:
                 setLoaderHeading("Submitting Asset");
-                setLoaderBody("Uploading your asset document, please wait...");
+                setLoaderBody(
+                    "Uploading your asset document/images/videos, please wait..."
+                );
                 break;
         }
     };
     const uploadFile = async (signature, timestamp, assestId) => {
         const images = [
             {
-                key: "AVM",
-                values: Avm,
-            },
-            {
                 key: "landRegistry",
                 values: landRegistry,
+            },
+            {
+                key: "AVM",
+                values: Avm,
             },
             {
                 key: "surveyProof",
@@ -204,21 +207,24 @@ const CreateNewArea = ({ className, space }) => {
                 values: galleryImage,
             },
         ];
-        const cloudImageUrl = {};
         for (let i = 0; i < images.length; i++) {
-            prepareLoaderMsg(images[i].key);
-            setLoaderBody(`Uploading ${images[i].key} file, please wait...`);
-            if (images[i].values) {
-                cloudImageUrl[images[i].key] = await sendFileToCloud(
-                    images[i].values,
-                    signature,
-                    timestamp
-                );
-                await updateAsset({
-                    id: assestId,
-                    [images[i].key]: cloudImageUrl[images[i].key],
-                });
-                console.log("uploading done ", images[i].key);
+            if (images[i].values && images[i].values.length) {
+                for (let j = 0; j < images[i].values.length; j++) {
+                    await prepareLoaderMsg(
+                        images[i].key,
+                        j,
+                        images[i].values.length
+                    );
+                    const url = await sendFileToCloud(
+                        images[i].values[j],
+                        signature,
+                        timestamp
+                    );
+                    await updateAsset({
+                        id: assestId,
+                        [images[i].key]: url,
+                    });
+                }
             } else {
                 console.log("unbale to upload file: ", images[i].key);
                 notify(`Error while uploading file: ${images[i].key}`);
@@ -227,6 +233,7 @@ const CreateNewArea = ({ className, space }) => {
     };
 
     const submitassets = async () => {
+        const signature = await getSignature();
         setSubmissionLoader(true);
         const data = assetsData;
         const userCookie = getCookie("user");
@@ -235,7 +242,9 @@ const CreateNewArea = ({ className, space }) => {
         const extraConditionsDescriptions = [];
         for (let i = 0; i < extraSaleCondition.length; i++) {
             extraConditionsLabels.push(data[`Label_${i + 1}`]);
-            extraConditionsDescriptions.push(data[`extra_discretion_${i + 1}`]);
+            extraConditionsDescriptions.push(
+                data[`extra_description_${i + 1}`]
+            );
         }
         const nftData = {
             email: userCookiePayload.email,
@@ -259,7 +268,6 @@ const CreateNewArea = ({ className, space }) => {
 
         const assestId = await saveAssetsTextInfo(nftData);
         if (assestId && assestId.createdAssets && assestId.createdAssets.id) {
-            const signature = await getSignature();
             await uploadFile(
                 signature.data.signature,
                 signature.data.timestamp,
@@ -368,7 +376,7 @@ const CreateNewArea = ({ className, space }) => {
                                             multiple
                                             onChange={imageChange}
                                         />
-                                        {selectedImage && (
+                                        {/* {selectedImage && (
                                             <img
                                                 id="createfileImage"
                                                 src={URL.createObjectURL(
@@ -377,7 +385,7 @@ const CreateNewArea = ({ className, space }) => {
                                                 alt=""
                                                 data-black-overlay="6"
                                             />
-                                        )}
+                                        )} */}
 
                                         <label
                                             htmlFor="file"
@@ -397,6 +405,30 @@ const CreateNewArea = ({ className, space }) => {
                                         <ErrorText>Image is required</ErrorText>
                                     )}
                                 </div>
+                                <br />
+                                {galleryImage && galleryImage.length ? (
+                                    <div className="container d-flex justify-content-center selected-images">
+                                        <div className="row d-flex gap-1 img-row">
+                                            {galleryImage &&
+                                                galleryImage.map(
+                                                    (data, index) => (
+                                                        <div className="col-md-2 img-item">
+                                                            <img
+                                                                id="createfileImage"
+                                                                src={URL.createObjectURL(
+                                                                    data
+                                                                )}
+                                                                alt=""
+                                                                data-black-overlay="6"
+                                                            />
+                                                        </div>
+                                                    )
+                                                )}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <> </>
+                                )}
 
                                 <div className="mt--100 mt_sm--30 mt_md--30 d-none d-lg-block">
                                     <h5> Note: </h5>
@@ -488,7 +520,7 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. `Digital Awesome Game`"
                                                 onChange={(e) => {
-                                                    setAvm(e.target.files[0]);
+                                                    setAvm([...e.target.files]);
                                                 }}
                                             />
                                             <div>
@@ -514,9 +546,9 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. ``"
                                                 onChange={(e) => {
-                                                    setLandRegistry(
-                                                        e.target.files[0]
-                                                    );
+                                                    setLandRegistry([
+                                                        ...e.target.files,
+                                                    ]);
                                                 }}
                                             />
                                             <div>
@@ -545,9 +577,9 @@ const CreateNewArea = ({ className, space }) => {
                                                 multiple
                                                 placeholder="e. g. `Digital Awesome Game`"
                                                 onChange={(e) => {
-                                                    setSurveyAnalysis(
-                                                        e.target.files[0]
-                                                    );
+                                                    setSurveyAnalysis([
+                                                        ...e.target.files,
+                                                    ]);
                                                 }}
                                             />
                                             <div>
@@ -604,36 +636,21 @@ const CreateNewArea = ({ className, space }) => {
                                                     className="form-label"
                                                     htmlFor="select"
                                                 >
-                                                    Select
+                                                    Unit
                                                 </label>
 
                                                 <select
                                                     name=""
                                                     className="custom-select"
-                                                    onChange={(e) => {
-                                                        document.getElementById(
-                                                            "florarea"
-                                                        ).value =
-                                                            e.target.value;
-                                                    }}
                                                 >
                                                     <option value="e. g. `area`">
                                                         Select
                                                     </option>
-                                                    <option value="100">
-                                                        100
-                                                    </option>
                                                     <option value="200">
-                                                        200
+                                                        m²
                                                     </option>
-                                                    <option value="300">
-                                                        300
-                                                    </option>
-                                                    <option value="400">
-                                                        400
-                                                    </option>
-                                                    <option value="500">
-                                                        500
+                                                    <option value="100">
+                                                        ft²
                                                     </option>
                                                 </select>
                                             </div>
@@ -878,23 +895,23 @@ const CreateNewArea = ({ className, space }) => {
                                                     <div className="col-md-8">
                                                         <div className="input-box pb--20">
                                                             <label
-                                                                htmlFor={`extra_discretion_${
+                                                                htmlFor={`extra_description_${
                                                                     index + 1
                                                                 }`}
                                                                 className="form-label"
                                                             >
-                                                                Discretion{" "}
+                                                                Description{" "}
                                                                 {index + 1} *
                                                             </label>
                                                             <input
-                                                                id={`extra_discretion_${
+                                                                id={`extra_description_${
                                                                     index + 1
                                                                 }`}
                                                                 placeholder="e. g. `xyz $`"
                                                                 Sale
                                                                 consummation
                                                                 {...register(
-                                                                    `extra_discretion_${
+                                                                    `extra_description_${
                                                                         index +
                                                                         1
                                                                     }`,
