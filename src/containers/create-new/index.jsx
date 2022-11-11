@@ -175,7 +175,8 @@ const CreateNewArea = ({ className, space }) => {
             case "images":
                 setLoaderHeading("Uploading Assets Image");
                 setLoaderBody(
-                    `Uploading Gallery (image/videos) (${index + 1
+                    `Uploading Gallery (image/videos) (${
+                        index + 1
                     }/${total}), please wait...`
                 );
                 break;
@@ -321,7 +322,7 @@ const CreateNewArea = ({ className, space }) => {
         ]);
     };
 
-    useEffect(() => { }, [extraSaleCondition]);
+    useEffect(() => {}, [extraSaleCondition]);
 
     return (
         <>
@@ -880,8 +881,9 @@ const CreateNewArea = ({ className, space }) => {
                                                     <div className="col-md-4">
                                                         <div className="input-box pb--20">
                                                             <label
-                                                                htmlFor={`Label_1+${index + 1
-                                                                    }`}
+                                                                htmlFor={`Label_1+${
+                                                                    index + 1
+                                                                }`}
                                                                 className="form-label"
                                                             >
                                                                 Label{" "}
@@ -891,8 +893,9 @@ const CreateNewArea = ({ className, space }) => {
                                                                 id="Label_1"
                                                                 placeholder="e. g. `enter text`"
                                                                 {...register(
-                                                                    `Label_${index +
-                                                                    1
+                                                                    `Label_${
+                                                                        index +
+                                                                        1
                                                                     }`,
                                                                     {
                                                                         required:
@@ -905,22 +908,25 @@ const CreateNewArea = ({ className, space }) => {
                                                     <div className="col-md-8">
                                                         <div className="input-box pb--20">
                                                             <label
-                                                                htmlFor={`extra_discretion_${index + 1
-                                                                    }`}
+                                                                htmlFor={`extra_discretion_${
+                                                                    index + 1
+                                                                }`}
                                                                 className="form-label"
                                                             >
                                                                 Discretion{" "}
                                                                 {index + 1} *
                                                             </label>
                                                             <input
-                                                                id={`extra_discretion_${index + 1
-                                                                    }`}
+                                                                id={`extra_discretion_${
+                                                                    index + 1
+                                                                }`}
                                                                 placeholder="e. g. `xyz $`"
                                                                 Sale
                                                                 consummation
                                                                 {...register(
-                                                                    `extra_discretion_${index +
-                                                                    1
+                                                                    `extra_discretion_${
+                                                                        index +
+                                                                        1
                                                                     }`,
                                                                     {
                                                                         required:
