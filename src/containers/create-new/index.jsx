@@ -242,7 +242,9 @@ const CreateNewArea = ({ className, space }) => {
         const extraConditionsDescriptions = [];
         for (let i = 0; i < extraSaleCondition.length; i++) {
             extraConditionsLabels.push(data[`Label_${i + 1}`]);
-            extraConditionsDescriptions.push(data[`extra_discretion_${i + 1}`]);
+            extraConditionsDescriptions.push(
+                data[`extra_description_${i + 1}`]
+            );
         }
         const nftData = {
             email: userCookiePayload.email,
@@ -908,23 +910,23 @@ const CreateNewArea = ({ className, space }) => {
                                                     <div className="col-md-8">
                                                         <div className="input-box pb--20">
                                                             <label
-                                                                htmlFor={`extra_discretion_${
+                                                                htmlFor={`extra_description_${
                                                                     index + 1
                                                                 }`}
                                                                 className="form-label"
                                                             >
-                                                                Discretion{" "}
+                                                                Description{" "}
                                                                 {index + 1} *
                                                             </label>
                                                             <input
-                                                                id={`extra_discretion_${
+                                                                id={`extra_description_${
                                                                     index + 1
                                                                 }`}
                                                                 placeholder="e. g. `xyz $`"
                                                                 Sale
                                                                 consummation
                                                                 {...register(
-                                                                    `extra_discretion_${
+                                                                    `extra_description_${
                                                                         index +
                                                                         1
                                                                     }`,
