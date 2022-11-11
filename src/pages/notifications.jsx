@@ -3,6 +3,7 @@ import Wrapper from "@layout/wrapper";
 import Header from "@layout/header";
 import Footer from "@layout/footer";
 import NotificationsArea from "@containers/notifications";
+import { getCookie } from "cookies-next";
 
 // Demo Data
 import { useEffect } from "react";
@@ -18,7 +19,8 @@ const Home = () => {
     const { state } = useUserContext();
 
     useEffect(() => {
-        if (!state.login) {
+        const loginState = getCookie("login");
+        if (!loginState) {
             router.push("/login");
         }
     }, [state, router]);

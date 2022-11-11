@@ -10,8 +10,8 @@ let initialState = {
     email: "",
     phoneNumber: "",
     publicAddress: "",
-    login: false,
-    isKYCed: false,
+    // login: false,
+    login: getCookie("login"),
     readNotification: false,
 };
 

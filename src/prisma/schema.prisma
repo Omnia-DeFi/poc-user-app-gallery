@@ -16,6 +16,7 @@ model User {
   notifications         NotificationsBearer? @relation(fields: [notificationsBearerId], references: [id])
   notificationsBearerId String?              @db.ObjectId
   kyc              Kyc[]
+  assets           Asset[]
 }
 
 model NotificationsBearer {
@@ -46,4 +47,53 @@ model Kyc {
   status           String
   requestedAt      DateTime
   approvedAt       DateTime
+}
+
+enum SaleStatus {
+  NO_OFFER
+  BUY_REQUEST
+  BUYER_DEPOSIT
+  SELLER_DEPOSIT
+  SIGNATURES
+  CONSUMMATED
+  CANCELLED
+}
+
+enum VerificationState {
+  VOID
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ListingStatus {
+  NOT_LISTED
+  LISTED
+  UNLISTED_BY_DEPOSIT
+}
+
+model Asset {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String @db.ObjectId
+  images            String[]
+  title             String
+  description       String
+  AVM               String
+  surveyProof       String
+  landRegistry      String
+  floorArea         String
+  hasOutdoorSpace   Boolean
+  bedrooms          Int
+  bathrooms         Int
+  otherRooms        Int
+  floorPrice        Int
+  saleTimeframe     Int
+  saleStatus        SaleStatus  @default(NO_OFFER)
+  mintAddress       String @default("")
+  verificationState VerificationState @default(VOID)
+  listingStatus     ListingStatus @default(NOT_LISTED)
+  outdoorSpaceSize  Int @default(0)
+  extraConditionsLabels  String[]
+  extraConditionsDescriptions String[]
 }

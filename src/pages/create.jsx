@@ -7,6 +7,7 @@ import CreateNewArea from "@containers/create-new";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUserContext } from "src/context/context";
+import { getCookie } from "cookies-next";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
@@ -18,11 +19,8 @@ const Home = () => {
     const { state } = useUserContext();
 
     useEffect(() => {
-        if (
-            !state.login ||
-            state.kybState !== "verified" ||
-            state.kycState !== "verified"
-        ) {
+        const loginState = getCookie("login");
+        if (!loginState) {
             router.push("/login");
         }
     }, []);

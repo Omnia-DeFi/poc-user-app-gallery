@@ -517,3 +517,39 @@ nav {
 .theme-color {
     color: var(--color-primary);
 }
+
+.custom-select {
+    background: var(--background-color-4);
+    height: 50px;
+    border-radius: 5px;
+    color: var(--color-white);
+    font-size: 14px;
+    padding: 10px 20px;
+    border: 2px solid var(--color-border);
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.selected-images {
+    border: 2px dashed #575767;
+    padding: 16px !important;
+    .img-row {
+        gap: 14px !important;
+        .img-item {
+            display: flex !important;
+            justify-content: center !important;
+            height: 50px !important;
+            width: 50px !important;
+            padding: 0 !important;
+            border-radius: 5px !important;
+            overflow: hidden;
+
+            img {
+                height: 100% !important;
+                width: 100% !important;
+                object-fit: cover;
+            }
+        }
+    }
+}
