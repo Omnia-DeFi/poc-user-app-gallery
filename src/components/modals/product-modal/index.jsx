@@ -26,10 +26,7 @@ const ProductModal = ({ show, handleModal, data }) => (
                 title={data.name}
                 slug="/product"
                 latestBid="6/30"
-                price={{
-                    amount: +data.price,
-                    currency: "wETH",
-                }}
+                floorPrice={data.floorPrice ? data.floorPrice : 0}
                 likeCount={300}
                 image={{ src: URL.createObjectURL(data.image) }}
                 authors={[
@@ -67,7 +64,7 @@ ProductModal.propTypes = {
     data: PropTypes.shape({
         image: PropTypes.shape({}),
         name: PropTypes.string,
-        price: PropTypes.string,
+        floorPrice: PropTypes.string,
     }),
 };
 export default ProductModal;

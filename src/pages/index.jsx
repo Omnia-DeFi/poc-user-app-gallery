@@ -6,7 +6,7 @@ import HeroArea from "@containers/hero";
 import ServiceArea from "@containers/services";
 import ExploreProductArea from "@containers/explore-product";
 import { normalizedData } from "@utils/methods";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUserContext } from "src/context/context";
 import { loginUser } from "src/context/actions";
 import { magic } from "../utils/magic";
@@ -14,7 +14,7 @@ import { createUser } from "../utils/createUser";
 
 // Demo Data
 import homepageData from "../data/homepages/home.json";
-import productData from "../data/products.json";
+// import productData from "../data/products.json";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
@@ -23,6 +23,7 @@ export async function getStaticProps() {
 const Home = () => {
     const content = normalizedData(homepageData?.content || []);
     const { dispatch } = useUserContext();
+    const [productData, setProductData] = useState();
 
     useEffect(() => {
         magic.user.isLoggedIn().then((magicIsLoggedIn) => {

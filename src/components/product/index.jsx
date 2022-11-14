@@ -7,7 +7,7 @@ import ProductBid from "@components/product-bid";
 import { ImageType } from "@utils/types";
 import PlaceBidModal from "@components/modals/placebid-modal";
 
-const Product = ({ overlay, title, slug, price, image, placeBid }) => {
+const Product = ({ overlay, title, slug, floorPrice, image, placeBid }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
         setShowBidModal((prev) => !prev);
@@ -36,7 +36,7 @@ const Product = ({ overlay, title, slug, price, image, placeBid }) => {
                 <Anchor path={`/product/${slug}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                <ProductBid price={price} />
+                <ProductBid floorPrice={floorPrice} />
             </div>
             <PlaceBidModal show={showBidModal} handleModal={handleBidModal} />
         </>
@@ -44,13 +44,10 @@ const Product = ({ overlay, title, slug, price, image, placeBid }) => {
 };
 
 Product.propTypes = {
+    floorPrice: PropTypes.string.isRequired,
     overlay: PropTypes.bool,
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    price: PropTypes.shape({
-        amount: PropTypes.string.isRequired,
-        currency: PropTypes.string.isRequired,
-    }).isRequired,
     image: ImageType.isRequired,
     placeBid: PropTypes.bool,
 };

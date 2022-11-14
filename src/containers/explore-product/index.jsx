@@ -22,12 +22,41 @@ function reducer(state, action) {
 }
 
 const ExploreProductArea = ({ className, space, data }) => {
-    const itemsToFilter = [...data.products];
     const [state, dispatch] = useReducer(reducer, {
         filterToggle: false,
         products: data.products || [],
         inputs: { price: [0, 100] },
     });
+    const getProductData = async () => {
+        const response = await fetch("http://localhost:3000/api/assets/get");
+        let exploreData = await response.json();
+        if (exploreData && Array.isArray(exploreData)) {
+            exploreData = exploreData.map((item) => {
+                const tamp = {
+                    images: [
+                        {
+                            src:
+                                item.images &&
+                                item.images.length &&
+                                item.images[0].includes(
+                                    "http://res.cloudinary.com"
+                                )
+                                    ? item.images[0]
+                                    : "",
+                        },
+                    ],
+                };
+                return { ...item, ...tamp };
+            });
+        }
+        dispatch({ type: "SET_PRODUCTS", payload: exploreData });
+    };
+
+    useEffect(() => {
+        getProductData();
+    }, []);
+
+    const itemsToFilter = []; // [...data.products];
     const filterRef = useRef(null);
     const filterHandler = () => {
         dispatch({ type: "FILTER_TOGGLE" });
@@ -125,9 +154,9 @@ const ExploreProductArea = ({ className, space, data }) => {
                     inputs={state.inputs}
                 />
                 <div className="row g-5">
-                    {state.products.length > 0 ? (
+                    {state.products && state.products.length > 0 ? (
                         <>
-                            {state.products.slice(0, 10).map((prod) => (
+                            {state.products.slice(0, 100).map((prod) => (
                                 <div
                                     key={prod.id}
                                     className="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
